@@ -1,1 +1,13 @@
+#content{
+  margin-top: 40px;
+  align-content: center;
+}
 
+#title, #titlesub{
+  margin: 0 auto;
+  text-align: center;
+}
+
+#titlesub{
+  margin-top: 10px;
+}

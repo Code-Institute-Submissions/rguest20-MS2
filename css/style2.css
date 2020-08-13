@@ -1,0 +1,47 @@
+html{
+  min-width: 600px;
+}
+
+#content{
+  margin-top: 40px;
+  align-content: center;
+}
+
+#title, #titlesub{
+  margin: 0 auto;
+  text-align: center;
+}
+
+#titlesub{
+  margin-top: 10px;
+}
+
+#negotiationwindow{
+  padding-right: 0;
+  margin-left: 0 !important;
+  height:40rem;
+}
+
+@media only screen and (orientation:portrait){
+  html{
+    min-width: 150px;
+  }
+  #portrait {
+    height:100vh;
+    text-align: center;
+    display:block;
+    padding-top: 50%;
+  }
+  #landscape{
+    display: none;
+  }
+}
+
+@media only screen and (orientation:landscape){
+  #portrait {
+    display:none;
+  }
+  #landscape{
+    display: block;
+  }
+}
