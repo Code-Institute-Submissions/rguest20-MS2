@@ -1,5 +1,11 @@
 html{
   min-width: 600px;
+  width: 100vw;
+  min-height: 600px;
+}
+
+.row{
+  margin-right: 0 !important;
 }
 
 #content{
@@ -19,7 +25,32 @@ html{
 #negotiationwindow{
   padding-right: 0;
   margin-left: 0 !important;
-  height:40rem;
+  height:100vh;
+}
+
+#leftside, #rightside{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.table{
+  height:100vh;
+}
+
+#hostagetakerwindow, #demands{
+  height:50vh;
+}
+
+#diceroller{
+  height: 30vh;
+}
+
+#cards{
+  height: 60vh;
+}
+
+#interfaceinside{
+  height: 100vh;
 }
 
 @media only screen and (orientation:portrait){

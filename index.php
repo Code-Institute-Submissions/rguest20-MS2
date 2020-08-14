@@ -22,16 +22,38 @@ if (!isset($_SESSION['UserData']['Username'])) {
     <p><a href="logout.php">Click here</a> to Logout.</p>
   </div>
   <div id="landscape">
-    <div id="negotiationwrapper border" class="row">
-      <div id="negotiationwindow" class="col-12 row border">
-        <div id="negotiationhostagebox" class="col-3 border">
-          <p>something</p>
+    <div id="negotiationwrapper" class="row">
+      <div id="negotiationwindow" class="col-12 row">
+        <div id="leftside" class="col-3">
+          <table class="table border">
+            <thead>
+              <td id="hostagetakerwindow">Hostage Taker</td>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="demands">Demands</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div id="interface" class="col-6 border">
-          <p>something</p>
+        <div id="interface" class="col-6">
+          <table class="table border">
+            <thead>
+              <td id="interfaceinside">Interface</td>
+            </thead>
+          </table>
         </div>
-        <div id="diceroller" class="col-3 border">
-          <p>something</p>
+        <div id="rightside" class="col-3">
+          <table class="table border">
+            <thead>
+              <td id="diceroller">Dice Roller</td>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="cards">Cards</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
