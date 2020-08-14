@@ -46,7 +46,19 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <div id="rightside" class="col-3">
           <table class="table border">
             <thead>
-              <td id="diceroller">Dice Roller</td>
+              <td id="diceroller"><h3 class="subtitle">Dice Roller</h3>
+                <div id="view">
+                  <div id="dice">
+                    <div class="diceFace" id="front">Front</div>
+                    <div class="diceFace" id="right">Right</div>
+                    <div class="diceFace" id="back">Back</div>
+                    <div class="diceFace" id="left">Left</div>
+                    <div class="diceFace" id="top">Top</div>
+                    <div class="diceFace" id="bottom">Bottom</div>
+                  </div>
+                </div>
+                <button onclick="rollme()" id="rollbutton">Roll</button>
+              </td>
             </thead>
             <tbody>
               <tr>
@@ -62,7 +74,39 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script>
+  function rollme(){
+  let randomnumber = Math.ceil (Math.random() * 6)
+  $("#dice").removeClass('spintofront');
+  $("#dice").removeClass('spintoback');
+  $("#dice").removeClass('spintoleft');
+  $("#dice").removeClass('spintoright');
+  $("#dice").removeClass('spintotop');
+  $("#dice").removeClass('spintobottom');
+  $("#dice").addClass('roll')
+  $('#rollbutton').prop('disabled', true);
+  let waittime = setTimeout(removeroll, 2000)
+  //needs tidying up//
+  if (randomnumber === 1){
+    $("#dice").addClass('spintofront');
+  } else if (randomnumber === 2) {
+    $("#dice").addClass('spintoleft');
+  } else if (randomnumber === 3) {
+    $("#dice").addClass('spintoback');
+  } else if (randomnumber === 4) {
+    $("#dice").addClass('spintoright');
+  } else if (randomnumber === 5) {
+    $("#dice").addClass('spintotop');
+  } else {
+    $("#dice").addClass('spintobottom');
+  }
+  }
 
+  function removeroll(){
+    $('#rollbutton').prop('disabled', false);
+    $("#dice").removeClass('roll')
+  }
+  </script>
 </body>
 
 </html>

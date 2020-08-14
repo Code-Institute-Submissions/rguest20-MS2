@@ -45,12 +45,102 @@ html{
   height: 30vh;
 }
 
+.subtitle{
+  
+}
+
+#view{
+  display: inline-block;
+  clear: both;
+   height:8rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   }
+
+  .spintofront{
+    transition: transform 1s;
+    transform:rotatey(360deg)
+
+  }
+  .spintoleft{
+    transform:rotatey(-90deg)
+  }
+  .spintoback{
+    transform:rotatey(180deg)
+  }
+  .spintoright{
+    transform:rotatey(90deg)
+  }
+  .spintotop{
+    transform:rotatex(90deg)
+  }
+  .spintobottom{
+    transform:rotatex(-90deg)
+  }
+#dice{
+   width:5rem;
+   height:5rem;
+   position:relative;
+   transform-style:preserve-3d;
+   transition: transform 2s;
+       }
+.diceFace{
+   position:absolute;
+   width:5rem;
+   height:5rem;
+   text-align:center;
+   line-height:5rem;
+   font-size:1rem;
+   border:2px solid #a00;
+   }
+
+#front{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(0deg) translateZ(2.5rem);
+   }
+#right{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(90deg) translateZ(2.5rem);
+   }
+#back{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(180deg) translateZ(2.5rem);
+   }
+#left{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(-90deg) translateZ(2.5rem);
+   }
+#top{
+   background-color:rgba(255,0,0,1);
+   transform:rotateX(90deg) translateZ(2.5rem);
+   }
+#bottom{
+   background-color:rgba(255,0,0,1);
+   transform:rotateX(-90deg) translateZ(2.5rem);
+   }
+
+.roll{
+  animation-name: rotate;
+  animation-iteration-count: 1;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+}
+
 #cards{
   height: 60vh;
 }
 
 #interfaceinside{
   height: 100vh;
+}
+
+@keyframes rotate {
+   0% { transform: rotateX(90deg) rotateY(360deg) rotateZ(0deg) translateX(0); }
+   35% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(0deg) translateX(0); }
+   45% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(0deg) translateX(0); }
+   65% { transform: rotateX(0deg) rotateY(0deg) rotateZ(-360deg) translateX(0); }
+   75% { transform: rotateX(0deg) rotateY(0deg) rotateZ(-360deg) translateX(0); }
+   100% { transform: rotateX(90deg) rotateY(360deg) rotateZ(0deg) translateX(0); }
 }
 
 @media only screen and (orientation:portrait){
