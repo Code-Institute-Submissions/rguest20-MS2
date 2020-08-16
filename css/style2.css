@@ -39,10 +39,14 @@ html{
 
 #hostagetakerwindow, #demands{
   height:50vh;
+  max-height:50vh;
+  overflow: auto;
 }
 
 #diceroller{
+  max-height: 30vh;
   height: 30vh;
+  overflow: auto;
 }
 
 .subtitle{
@@ -52,12 +56,22 @@ html{
 #view{
   display: inline-block;
   clear: both;
-   height:8rem;
+   height:5rem;
    margin-left: 1rem;
    margin-top: 1rem;
    perspective:100rem;
    perspective-origin: -300% -200%;
    }
+
+ #view2{
+ display: inline-block;
+ clear: both;
+  height:5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  perspective:100rem;
+  perspective-origin: -300% -200%;
+    }
 
   .spintofront{
     animation: spintofront 0.75s;
@@ -90,45 +104,52 @@ html{
   }
 
 #dice{
-   width:5rem;
-   height:5rem;
+   width:3rem;
+   height:3rem;
    position:relative;
    transform-style:preserve-3d;
   }
 
+#dice2{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+    }
+
 .diceFace{
    position:absolute;
-   width:5rem;
-   height:5rem;
+   width:3rem;
+   height:3rem;
    text-align:center;
-   line-height:5rem;
-   font-size:1rem;
+   line-height:0.75rem;
+   font-size:0.75rem;
    border:2px solid #a00;
    }
 
-#front{
+.front{
    background-color:rgba(255,0,0,1);
-   transform:rotateY(0deg) translateZ(2.5rem);
+   transform:rotateY(0deg) translateZ(1.5rem);
    }
-#right{
+.right{
    background-color:rgba(255,0,0,1);
-   transform:rotateY(90deg) translateZ(2.5rem);
+   transform:rotateY(90deg) translateZ(1.5rem);
    }
-#back{
+.back{
    background-color:rgba(255,0,0,1);
-   transform:rotateY(180deg) translateZ(2.5rem);
+   transform:rotateY(180deg) translateZ(1.5rem);
    }
-#left{
+.left{
    background-color:rgba(255,0,0,1);
-   transform:rotateY(-90deg) translateZ(2.5rem);
+   transform:rotateY(-90deg) translateZ(1.5rem);
    }
-#top{
+.top{
    background-color:rgba(255,0,0,1);
-   transform:rotateX(90deg) translateZ(2.5rem);
+   transform:rotateX(90deg) translateZ(1.5rem);
    }
-#bottom{
+.bottom{
    background-color:rgba(255,0,0,1);
-   transform:rotateX(-90deg) translateZ(2.5rem);
+   transform:rotateX(-90deg) translateZ(1.5rem);
    }
 
 .roll{
@@ -139,11 +160,15 @@ html{
 }
 
 #cards{
+  max-height: 60vh;
   height: 60vh;
+  overflow: auto;
 }
 
 #interfaceinside{
   height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 @keyframes spintofront {

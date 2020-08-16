@@ -49,15 +49,25 @@ if (!isset($_SESSION['UserData']['Username'])) {
               <td id="diceroller"><h3 class="subtitle">Dice Roller</h3>
                 <div id="view">
                   <div id="dice">
-                    <div class="diceFace" id="front">Front</div>
-                    <div class="diceFace" id="right">Right</div>
-                    <div class="diceFace" id="back">Back</div>
-                    <div class="diceFace" id="left">Left</div>
-                    <div class="diceFace" id="top">Top</div>
-                    <div class="diceFace" id="bottom">Bottom</div>
+                    <div class="diceFace front">1:</div>
+                    <div class="diceFace right">2:</div>
+                    <div class="diceFace back">3:</div>
+                    <div class="diceFace left">4: <p>2 Cards</p></div>
+                    <div class="diceFace top">5: <p>Success</p></div>
+                    <div class="diceFace bottom">6: <p>Success</p></div>
                   </div>
                 </div>
-                <button onclick="rollme()" id="rollbutton">Roll</button>
+                <div id="view2">
+                  <div id="dice2">
+                    <div class="diceFace front">1:</div>
+                    <div class="diceFace right">2:</div>
+                    <div class="diceFace back">3:</div>
+                    <div class="diceFace left">4: <p>2 Cards</p></div>
+                    <div class="diceFace top">5: <p>Success</p></div>
+                    <div class="diceFace bottom">6: <p>Success</p></div>
+                  </div>
+                </div>
+                <button onclick="rolldice()" id="rollbutton">Roll</button>
               </td>
             </thead>
             <tbody>
@@ -80,7 +90,12 @@ if (!isset($_SESSION['UserData']['Username'])) {
     return randomnumber
   }
 
-  async function rollme(){
+  function rolldice(){
+    rolldie1()
+    rolldie2()
+  }
+
+  async function rolldie1(){
   let randomnumberondie = randomised6()
   preparedie()
   await delayanimation()
@@ -100,6 +115,26 @@ if (!isset($_SESSION['UserData']['Username'])) {
   }
   }
 
+  async function rolldie2(){
+  let randomnumberondie = randomised6()
+  $("#dice2").addClass('roll')
+  await delayanimation()
+  //needs tidying up//
+  if (randomnumberondie === 1){
+    $("#dice2").addClass('spintofront')
+  } else if (randomnumberondie === 2) {
+    $("#dice2").addClass('spintoleft')
+  } else if (randomnumberondie === 3) {
+    $("#dice2").addClass('spintoback')
+  } else if (randomnumberondie === 4) {
+    $("#dice2").addClass('spintoright')
+  } else if (randomnumberondie === 5) {
+    $("#dice2").addClass('spintotop')
+  } else {
+    $("#dice2").addClass('spintobottom')
+  }
+  }
+
   function delayanimation(){
     let waittime = new Promise(function(resolve){
       resolve(setTimeout(removeroll, 2000))
@@ -114,12 +149,19 @@ if (!isset($_SESSION['UserData']['Username'])) {
     $("#dice").removeClass('spintotop')
     $("#dice").removeClass('spintobottom')
     $("#dice").addClass('roll')
+    $("#dice2").removeClass('spintofront')
+    $("#dice2").removeClass('spintoback')
+    $("#dice2").removeClass('spintoleft')
+    $("#dice2").removeClass('spintoright')
+    $("#dice2").removeClass('spintotop')
+    $("#dice2").removeClass('spintobottom')
     $('#rollbutton').prop('disabled', true);
   }
 
   function removeroll(){
     $('#rollbutton').prop('disabled', false);
     $("#dice").removeClass('roll')
+    $("#dice2").removeClass('roll')
   }
 
   </script>
