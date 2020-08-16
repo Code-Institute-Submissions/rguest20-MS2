@@ -46,44 +46,56 @@ html{
 }
 
 .subtitle{
-  
+
 }
 
 #view{
   display: inline-block;
   clear: both;
    height:8rem;
+   margin-left: 1rem;
    margin-top: 1rem;
    perspective:100rem;
+   perspective-origin: -300% -200%;
    }
 
   .spintofront{
-    transition: transform 1s;
-    transform:rotatey(360deg)
+    animation: spintofront 0.75s;
+    animation-fill-mode: forwards;
+  }
 
-  }
   .spintoleft{
-    transform:rotatey(-90deg)
+    animation: spintoleft 0.75s;
+    animation-fill-mode: forwards;
   }
+
   .spintoback{
-    transform:rotatey(180deg)
+    animation: spintoback 0.75s;
+    animation-fill-mode: forwards;
   }
+
   .spintoright{
-    transform:rotatey(90deg)
+    animation: spintoright 0.75s;
+    animation-fill-mode: forwards;
   }
+
   .spintotop{
-    transform:rotatex(90deg)
+    animation: spintotop 0.75s;
+    animation-fill-mode: forwards;
   }
+
   .spintobottom{
-    transform:rotatex(-90deg)
+    animation: spintobottom 0.75s;
+    animation-fill-mode: forwards;
   }
+
 #dice{
    width:5rem;
    height:5rem;
    position:relative;
    transform-style:preserve-3d;
-   transition: transform 2s;
-       }
+  }
+
 .diceFace{
    position:absolute;
    width:5rem;
@@ -122,8 +134,8 @@ html{
 .roll{
   animation-name: rotate;
   animation-iteration-count: 1;
-  animation-duration: 1s;
-  animation-timing-function: ease;
+  animation-duration: 2s;
+  animation-timing-function:
 }
 
 #cards{
@@ -134,13 +146,67 @@ html{
   height: 100vh;
 }
 
+@keyframes spintofront {
+  from{
+
+  }
+  to{
+    transform:rotatey(360deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoleft {
+  from{
+
+  }
+  to{
+    transform:rotatey(270deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoback {
+  from{
+
+  }
+  to{
+    transform:rotatey(180deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoright {
+  from{
+
+  }
+  to{
+    transform:rotatey(-270deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintotop {
+  from{
+
+  }
+  to{
+    transform:rotatex(-270deg) rotatey(360deg);
+  }
+}
+
+@keyframes spintobottom{
+  from{
+
+  }
+  to{
+    transform:rotatex(270deg) rotatey(360deg);
+  }
+}
+
 @keyframes rotate {
    0% { transform: rotateX(90deg) rotateY(360deg) rotateZ(0deg) translateX(0); }
-   35% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(0deg) translateX(0); }
-   45% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(0deg) translateX(0); }
-   65% { transform: rotateX(0deg) rotateY(0deg) rotateZ(-360deg) translateX(0); }
-   75% { transform: rotateX(0deg) rotateY(0deg) rotateZ(-360deg) translateX(0); }
-   100% { transform: rotateX(90deg) rotateY(360deg) rotateZ(0deg) translateX(0); }
+   10% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(-270deg) translateX(0); }
+   25% { transform: rotateX(270deg) rotateY(90deg) rotateZ(180deg) translateX(0); }
+   45% { transform: rotateX(-90deg) rotateY(270deg) rotateZ(-270deg) translateX(0); }
+   65% { transform: rotateX(270deg) rotateY(180deg) rotateZ(360deg) translateX(0); }
+   100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0); }
 }
 
 @media only screen and (orientation:portrait){

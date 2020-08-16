@@ -75,37 +75,53 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script>
-  function rollme(){
-  let randomnumber = Math.ceil (Math.random() * 6)
-  $("#dice").removeClass('spintofront');
-  $("#dice").removeClass('spintoback');
-  $("#dice").removeClass('spintoleft');
-  $("#dice").removeClass('spintoright');
-  $("#dice").removeClass('spintotop');
-  $("#dice").removeClass('spintobottom');
-  $("#dice").addClass('roll')
-  $('#rollbutton').prop('disabled', true);
-  let waittime = setTimeout(removeroll, 2000)
-  //needs tidying up//
-  if (randomnumber === 1){
-    $("#dice").addClass('spintofront');
-  } else if (randomnumber === 2) {
-    $("#dice").addClass('spintoleft');
-  } else if (randomnumber === 3) {
-    $("#dice").addClass('spintoback');
-  } else if (randomnumber === 4) {
-    $("#dice").addClass('spintoright');
-  } else if (randomnumber === 5) {
-    $("#dice").addClass('spintotop');
-  } else {
-    $("#dice").addClass('spintobottom');
+  function randomised6(){
+    let randomnumber = Math.ceil (Math.random() * 6)
+    return randomnumber
   }
+
+  async function rollme(){
+  let randomnumberondie = randomised6()
+  preparedie()
+  await delayanimation()
+  //needs tidying up//
+  if (randomnumberondie === 1){
+    $("#dice").addClass('spintofront')
+  } else if (randomnumberondie === 2) {
+    $("#dice").addClass('spintoleft')
+  } else if (randomnumberondie === 3) {
+    $("#dice").addClass('spintoback')
+  } else if (randomnumberondie === 4) {
+    $("#dice").addClass('spintoright')
+  } else if (randomnumberondie === 5) {
+    $("#dice").addClass('spintotop')
+  } else {
+    $("#dice").addClass('spintobottom')
+  }
+  }
+
+  function delayanimation(){
+    let waittime = new Promise(function(resolve){
+      resolve(setTimeout(removeroll, 2000))
+    })
+  }
+
+  function preparedie(){
+    $("#dice").removeClass('spintofront')
+    $("#dice").removeClass('spintoback')
+    $("#dice").removeClass('spintoleft')
+    $("#dice").removeClass('spintoright')
+    $("#dice").removeClass('spintotop')
+    $("#dice").removeClass('spintobottom')
+    $("#dice").addClass('roll')
+    $('#rollbutton').prop('disabled', true);
   }
 
   function removeroll(){
     $('#rollbutton').prop('disabled', false);
     $("#dice").removeClass('roll')
   }
+
   </script>
 </body>
 
