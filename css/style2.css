@@ -37,6 +37,10 @@ html{
   height:100vh;
 }
 
+.innertable{
+  height:60vh;
+}
+
 #hostagetakerwindow, #demands{
   height:50vh;
   max-height:50vh;
@@ -163,6 +167,19 @@ html{
   max-height: 60vh;
   height: 60vh;
   overflow: auto;
+}
+
+#cardtablehead{
+  text-align: center;
+  min-width: 350px;
+}
+
+#prevCard{
+  float:left;
+}
+
+#nextCard{
+  float: right;
 }
 
 #interfaceinside{
