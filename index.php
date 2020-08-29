@@ -23,6 +23,12 @@ if (!isset($_SESSION['UserData']['Username'])) {
     <p><a href="logout.php">Click here</a> to Logout.</p>
   </div>
   <div id="landscape">
+    <div class = "jumbotron" id = 'splash' >
+      <div id="titleofgame">
+        <h2>NEGOTIATION!</h2>
+        <h5>A Game Of Saving Lives</h5>
+      </div>
+    </div>
     <div id="negotiationwrapper" class="row">
       <div id="negotiationwindow" class="col-12 row">
         <div id="leftside" class="col-3">
@@ -61,7 +67,15 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="10"></div>
                   </div>
+                  <p><span style = "float: left;">1</span><span style = "float:right;">10</span></p>
                 </div>
+                <table class = "table border">
+                  <thead>
+                    <tr>
+                      <td class = "border">Phase 1</td><td class = "border">Phase 2</td><td class = "border">Phase 3</td>
+                    </tr>
+                  </thead>
+                </table>
               </td>
             </thead>
           </table>
@@ -70,7 +84,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
           <table class="table border">
             <thead>
               <td id="diceroller">
-                <h3 class="subtitle">Dice Roller</h3>
+                <h3>Dice Roller</h3>
                 <div id="view">
                   <div id="dice">
                     <div class="diceFace front">1:</div>
@@ -156,7 +170,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
     let hand = [1, 2, 3, 4, 5, 6]
     let conversationcards = []
     for (card in data) {
-
       let bigSuccessForCard = {}
       data[card]['bigSuccessDice'] != "0" ? bigSuccessForCard.dice = data[card]['bigSuccessDice'] : true
       data[card]['bigSuccessConversationPoints'] != "0" ? bigSuccessForCard.conversationpoints = data[card]['bigSuccessConversationPoints'] : true
@@ -199,7 +212,11 @@ if (!isset($_SESSION['UserData']['Username'])) {
       let convoCard = new ConversationCard(Number(data[card]['id']), data[card]['title'], data[card]['cost'], bigSuccessForCard, smallSuccessForCard, failureForCard, endTurnIf)
       conversationcards.push(convoCard)
     }
-
+    window.onload = function(){
+      $('#titleofgame').addClass('textappear')
+      $('#splash').addClass('titlecarddisappear')
+    }
+//create chart for interface
     var ctx = $('#hostages_data_display');
     var myChart = new Chart(ctx, {
       type: 'doughnut',
