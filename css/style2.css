@@ -1,5 +1,5 @@
 html{
-  min-width: 600px;
+  min-width: 1000px;
   width: 100vw;
   min-height: 600px;
 }
@@ -45,6 +45,51 @@ html{
   height:50vh;
   max-height:50vh;
   overflow: auto;
+}
+
+#interfaceinside{
+  min-width: 480px;
+  text-align: center;
+}
+
+#interfaceinside h3{
+  margin: 0 auto;
+}
+
+.subtitle{
+  font-weight: lighter;
+  text-align: center;
+}
+
+
+#hostages_div{
+  padding-top: 2%;
+  float: left;
+  display: inline-block;
+  height: 20%;
+  min-height: 190px;
+  width: 33%;
+  min-width: 150px;
+}
+
+#conversation_points_div{
+  padding-top: 5%;
+  display: inline-block;
+  min-width: 150px;
+  width: 33%;
+  height: 20%;
+  min-height: 190px;
+}
+
+#threat_level_div{
+  float:right;
+  display: inline-block;
+  width: 33%;
+  min-width: 150px;
+  height: 20%;
+  min-height: 190px;
+  padding: 0 10px 0 10px;
+  padding-top: 5%;
 }
 
 #diceroller{
@@ -272,5 +317,29 @@ html{
   }
   #landscape{
     display: block;
+  }
+}
+
+@media only screen and (max-width: 1200px){
+  #hostages_div{
+    min-height: 150px;
+  }
+  #threat_level_div{
+    min-height: 150px;
+  }
+  #conversation_points_div{
+    min-height: 150px;
+  }
+}
+
+@media only screen and (max-width: 900px){
+  #hostages_div{
+    min-height: 120px;
+  }
+  #threat_level_div{
+    min-height: 120px;
+  }
+  #conversation_points_div{
+    min-height: 120px;
   }
 }
