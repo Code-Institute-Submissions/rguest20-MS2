@@ -29,6 +29,20 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <h5>A Game Of Saving Lives</h5>
       </div>
     </div>
+    <div class="jumbotron" id='textbox'>
+      <div id="textinbox">
+        <p id="writetexthere"></p>
+        <p id="buttoncontinue"><button id="clicktocontinue">Click To Continue</button></p>
+        <div id="buttonchoice1">
+          <p><button id="choice1">Who are you?? I'm very lost...</button></p>
+          <p><button id="choice2">I'm a hostage negotiator. What happened?</button></p>
+        </div>
+        <div id="buttonchoice2">
+          <p><button id="choice3">No, even with head trauma, I need to save these people!!! (tutorial)</button></p>
+          <p><button id="choice4">You can probably handle this, just appeal to his sense of family...(main game)</button></p>
+        </div>
+      </div>
+    </div>
     <div id="negotiationwrapper" class="row">
       <div id="negotiationwindow" class="col-12 row">
         <div id="leftside" class="col-3">
@@ -152,12 +166,12 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     </div>
                   </div>
                 </div>
-                <p><button onclick="rolldice()" id="rollbutton">Roll</button>
+                <p>
+                  <button onclick="rolldice()" id="rollbutton">Roll</button>
                 <div class="slidecontainer">
-                  <button onclick ="moredice()" id = "onemoredice"> +1 Die</button>
-                  <button onclick ="lessdice()" id = "onelessdice"> -1 Die</button>
+                  <button onclick="moredice()" id="onemoredice"> +1 Die</button>
+                  <button onclick="lessdice()" id="onelessdice"> -1 Die</button>
                 </div>
-                <span id="demo"></span>
                 </p>
               </td>
             </thead>
@@ -197,21 +211,22 @@ if (!isset($_SESSION['UserData']['Username'])) {
   </div>
   <script type="text/javascript" src="conversationcards.js"></script>
   <script src="./scripts/helper/Chart.js"></script>
+  <script src="./scripts/helper/typewriter.js"></script>
   <script src="./scripts/helper/moment.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script>
-  //initialize conversation cards object
-  function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
-    this.id = id
-    this.title = title
-    this.cost = cost
-    this.bigSuccess = bigSuccess
-    this.smallSuccess = smallSuccess
-    this.failure = failure
-    this.endTurnIf = endTurn
-  }
+    //initialize conversation cards object
+    function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
+      this.id = id
+      this.title = title
+      this.cost = cost
+      this.bigSuccess = bigSuccess
+      this.smallSuccess = smallSuccess
+      this.failure = failure
+      this.endTurnIf = endTurn
+    }
 
     //hide splash screen - comment out to show
     $('#splash').hide()
@@ -279,7 +294,120 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
     //set 1st card once created
     setCard()
+    $('#buttoncontinue').hide()
+    $('#buttonchoice1').hide()
+    $('#buttonchoice2').hide()
+    intro1()
+    //typewriter introduction
+    async function intro1() {
+      let introtext = "CAPTAIN!?!? \n\n Captain!? \n\n"
+      var i = 0;
+      var result = introtext[i];
+      setInterval(function() {
+          if (i == introtext.length) {
+            clearInterval(this);
+            return;
+          };
+          i++;
+          result += introtext[i].replace("\n", "<br />");
+          $("#writetexthere").html(result);
+        },
+        50);
+      await delayanimation(showbutton, 2000)
+      document.getElementById("clicktocontinue").addEventListener("click", intro2)
+    }
 
+    async function intro2() {
+      $('#buttoncontinue').hide()
+      let introtext = "The bump to his head must be worse than we thought... \n\n Captain!? \n\n"
+      var i = 0;
+      var result = introtext[i];
+      setInterval(function() {
+          if (i == introtext.length) {
+            clearInterval(this);
+            return;
+          };
+          i++;
+          result += introtext[i].replace("\n", "<br />");
+          $("#writetexthere").html(result);
+        },
+        50);
+      await delayanimation(showbutton, 3500)
+      document.getElementById("clicktocontinue").addEventListener("click", intro3)
+    }
+
+    async function intro3() {
+      $('#buttoncontinue').remove()
+      let introtext = "Hang on, he's coming around... \n\n Do you remember who you are and what you do?"
+      var i = 0;
+      var result = introtext[i];
+      setInterval(function() {
+          if (i == introtext.length) {
+            clearInterval(this);
+            return;
+          };
+          i++;
+          result += introtext[i].replace("\n", "<br />");
+          $("#writetexthere").html(result);
+        },
+        50);
+      await delayanimation(showbutton2, 3000)
+      document.getElementById("choice1").addEventListener("click", intro4)
+      document.getElementById("choice2").addEventListener("click", intro5)
+    }
+
+    async function intro4() {
+      $('#buttonchoice1').remove()
+      let introtext =
+        "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?"
+      var i = 0;
+      var result = introtext[i];
+      setInterval(function() {
+          if (i == introtext.length) {
+            clearInterval(this);
+            return;
+          };
+          i++;
+          result += introtext[i].replace("\n", "<br />");
+          $("#writetexthere").html(result);
+        },
+        50);
+      await delayanimation(showbutton3, 6000)
+      document.getElementById("choice3").addEventListener("click", intro6)
+      document.getElementById("choice4").addEventListener("click", intro7)
+    }
+
+    async function intro5() {
+      $('#buttonchoice1').remove()
+      let introtext = "You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?"
+      var i = 0;
+      var result = introtext[i];
+      setInterval(function() {
+          if (i == introtext.length) {
+            clearInterval(this);
+            return;
+          };
+          i++;
+          result += introtext[i].replace("\n", "<br />");
+          $("#writetexthere").html(result);
+        },
+        50);
+      await delayanimation(showbutton3, 6000)
+      document.getElementById("choice3").addEventListener("click", intro6)
+      document.getElementById("choice4").addEventListener("click", intro7)
+    }
+
+    function showbutton() {
+      $('#buttoncontinue').show()
+    }
+
+    function showbutton2() {
+      $('#buttonchoice1').show()
+    }
+
+    function showbutton3() {
+      $('#buttonchoice2').show()
+    }
 
     //create chart for interface
     var ctx = $('#hostages_data_display');
@@ -417,14 +545,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     //More or less dice
-    function moredice(){
-      if (numberofdice<=4) {
+    function moredice() {
+      if (numberofdice <= 4) {
         $('#dice2').hide()
         $('#dice3').hide()
         $('#dice4').hide()
         $('#dice5').hide()
         numberofdice += 1
-        for(i = 1; i <= numberofdice; i++){
+        for (i = 1; i <= numberofdice; i++) {
           $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).show()
@@ -434,14 +562,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
-    function lessdice(){
-      if (numberofdice>1) {
+    function lessdice() {
+      if (numberofdice > 1) {
         $('#dice2').hide()
         $('#dice3').hide()
         $('#dice4').hide()
         $('#dice5').hide()
         numberofdice -= 1
-        for(i = 1; i <= numberofdice; i++){
+        for (i = 1; i <= numberofdice; i++) {
           $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).show()
@@ -471,7 +599,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     async function rolldie1() {
       let randomnumberondie = Number(randomnumberondice[0])
       preparedie()
-      await delayanimation()
+      await delayanimation(removeroll, 2000)
 
       if (randomnumberondie === 1) {
         $("#dice").addClass('spintofront')
@@ -490,7 +618,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     async function rolldie2() {
       let randomnumberondie = Number(randomnumberondice[1])
-      await delayanimation()
+      await delayanimation(removeroll, 2000)
 
       if (randomnumberondie === 1) {
         $("#dice2").addClass('spintofront')
@@ -509,7 +637,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     async function rolldie3() {
       let randomnumberondie = Number(randomnumberondice[2])
-      await delayanimation()
+      await delayanimation(removeroll, 2000)
 
       if (randomnumberondie === 1) {
         $("#dice3").addClass('spintofront')
@@ -528,7 +656,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     async function rolldie4() {
       let randomnumberondie = Number(randomnumberondice[3])
-      await delayanimation()
+      await delayanimation(removeroll, 2000)
 
       if (randomnumberondie === 1) {
         $("#dice4").addClass('spintofront')
@@ -547,7 +675,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     async function rolldie5() {
       let randomnumberondie = Number(randomnumberondice[4])
-      await delayanimation()
+      await delayanimation(removeroll, 2000)
 
       if (randomnumberondie === 1) {
         $("#dice5").addClass('spintofront')
@@ -564,9 +692,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
-    function delayanimation() {
+    function delayanimation(funct, val) {
       let waittime = new Promise(function(resolve) {
-        resolve(setTimeout(removeroll, 2000))
+        resolve(setTimeout(funct, val))
       })
     }
 
@@ -617,7 +745,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $("#dice4").removeClass('roll')
       $("#dice5").removeClass('roll')
     }
-
   </script>
 </body>
 

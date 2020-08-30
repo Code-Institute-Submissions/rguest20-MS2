@@ -43,6 +43,17 @@ html{
   font-size: 70px;
 }
 
+#textbox{
+  background-color: rgba(137, 196, 244, 1);
+  position:fixed;
+  width:40%;
+  height: 40%;
+  z-index: 3;
+  align-content: center;
+  text-align: center;
+  margin: 20vh 0 0 30vw;
+}
+
 #negotiationwindow{
   padding-right: 0;
   margin-left: 0 !important;
@@ -54,24 +65,25 @@ html{
 }
 
 #interface{
-  height: 800px !important;
+  height: 1000px !important;
 }
 
 #interface > table, #leftside > table, #rightside > table{
-  min-height: 800px;
-  height: 800px !important;
+  min-height: 1000px;
+  height: 1000px !important;
 }
 
 .innertable{
-  height:60vh;
+  height:95%;
 }
 
 #hostagetakerwindow, #demands{
-  height:400px;
+  height:500px;
   overflow: auto;
 }
 
 #interfaceinside{
+  height: 1000px;
   min-width: 480px;
   text-align: center;
 }
@@ -310,11 +322,6 @@ html{
 
 #nextCard{
   float: right;
-}
-
-#interfaceinside{
-  height: 800px;
-  overflow: auto;
 }
 
 @keyframes spintofront {
