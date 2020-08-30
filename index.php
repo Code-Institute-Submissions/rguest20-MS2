@@ -23,7 +23,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     <p><a href="logout.php">Click here</a> to Logout.</p>
   </div>
   <div id="landscape">
-    <div class = "jumbotron" id = 'splash' >
+    <div class="jumbotron" id='splash'>
       <div id="titleofgame">
         <h2>NEGOTIATION!</h2>
         <h5>A Game Of Saving Lives</h5>
@@ -67,12 +67,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="10"></div>
                   </div>
-                  <p><span style = "float: left;">1</span><span style = "float:right;">10</span></p>
+                  <p><span style="float: left;">1</span><span style="float:right;">10</span></p>
                 </div>
-                <table class = "table border">
+                <table class="table border">
                   <thead>
                     <tr>
-                      <td class = "border">Phase 1</td><td class = "border">Phase 2</td><td class = "border">Phase 3</td>
+                      <td class="border">Phase 1</td>
+                      <td class="border">Phase 2</td>
+                      <td class="border">Phase 3</td>
                     </tr>
                   </thead>
                 </table>
@@ -111,7 +113,52 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     </div>
                   </div>
                 </div>
-                <button onclick="rolldice()" id="rollbutton">Roll</button>
+                <div id="view3">
+                  <div id="dice3">
+                    <div class="diceFace front">1:</div>
+                    <div class="diceFace right">2:</div>
+                    <div class="diceFace back">3:</div>
+                    <div class="diceFace left">4: <p>2 Cards</p>
+                    </div>
+                    <div class="diceFace top">5: <p>Success</p>
+                    </div>
+                    <div class="diceFace bottom">6: <p>Success</p>
+                    </div>
+                  </div>
+                </div>
+                <div id="view4">
+                  <div id="dice4">
+                    <div class="diceFace front">1:</div>
+                    <div class="diceFace right">2:</div>
+                    <div class="diceFace back">3:</div>
+                    <div class="diceFace left">4: <p>2 Cards</p>
+                    </div>
+                    <div class="diceFace top">5: <p>Success</p>
+                    </div>
+                    <div class="diceFace bottom">6: <p>Success</p>
+                    </div>
+                  </div>
+                </div>
+                <div id="view5">
+                  <div id="dice5">
+                    <div class="diceFace front">1:</div>
+                    <div class="diceFace right">2:</div>
+                    <div class="diceFace back">3:</div>
+                    <div class="diceFace left">4: <p>2 Cards</p>
+                    </div>
+                    <div class="diceFace top">5: <p>Success</p>
+                    </div>
+                    <div class="diceFace bottom">6: <p>Success</p>
+                    </div>
+                  </div>
+                </div>
+                <p><button onclick="rolldice()" id="rollbutton">Roll</button>
+                <div class="slidecontainer">
+                  <button onclick ="moredice()" id = "onemoredice"> +1 Die</button>
+                  <button onclick ="lessdice()" id = "onelessdice"> -1 Die</button>
+                </div>
+                <span id="demo"></span>
+                </p>
               </td>
             </thead>
             <tbody>
@@ -155,20 +202,38 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script>
-    //initialize conversation cards
-    function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
-      this.id = id
-      this.title = title
-      this.cost = cost
-      this.bigSuccess = bigSuccess
-      this.smallSuccess = smallSuccess
-      this.failure = failure
-      this.endTurnIf = endTurn
+  //initialize conversation cards object
+  function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
+    this.id = id
+    this.title = title
+    this.cost = cost
+    this.bigSuccess = bigSuccess
+    this.smallSuccess = smallSuccess
+    this.failure = failure
+    this.endTurnIf = endTurn
+  }
+
+    //hide splash screen - comment out to show
+    $('#splash').hide()
+    //show splash screen
+    window.onload = function() {
+      $('#titleofgame').addClass('textappear')
+      $('#splash').addClass('titlecarddisappear')
     }
 
-    //initilize
-    let hand = [1, 2, 3, 4, 5, 6]
+    // create variables
     let conversationcards = []
+    let hand = [1, 2, 3, 4, 5, 6]
+    let cardnumber = 0
+
+    //setup dice for play
+    let randomnumberondice = []
+    let numberofdice = 2
+    $('#dice3').hide()
+    $('#dice4').hide()
+    $('#dice5').hide()
+
+    //create conversation cards
     for (card in data) {
       let bigSuccessForCard = {}
       data[card]['bigSuccessDice'] != "0" ? bigSuccessForCard.dice = data[card]['bigSuccessDice'] : true
@@ -212,11 +277,11 @@ if (!isset($_SESSION['UserData']['Username'])) {
       let convoCard = new ConversationCard(Number(data[card]['id']), data[card]['title'], data[card]['cost'], bigSuccessForCard, smallSuccessForCard, failureForCard, endTurnIf)
       conversationcards.push(convoCard)
     }
-    window.onload = function(){
-      $('#titleofgame').addClass('textappear')
-      $('#splash').addClass('titlecarddisappear')
-    }
-//create chart for interface
+    //set 1st card once created
+    setCard()
+
+
+    //create chart for interface
     var ctx = $('#hostages_data_display');
     var myChart = new Chart(ctx, {
       type: 'doughnut',
@@ -227,7 +292,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
           'Dead',
         ],
         datasets: [{
-          data: [1, 0, 0],
+          data: [0, 14, 6],
           backgroundColor: [
             'rgba(0, 255, 0, 0.2)',
             'rgba(0, 0 , 255, 0.2)',
@@ -332,10 +397,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
-    // allow player to scroll through conversation cards
-    let cardnumber = 0
-    setCard()
-
+    //arrows to scroll through cards
     function nextCard() {
       if (cardnumber === 19) {
         return
@@ -354,6 +416,41 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
+    //More or less dice
+    function moredice(){
+      if (numberofdice<=4) {
+        $('#dice2').hide()
+        $('#dice3').hide()
+        $('#dice4').hide()
+        $('#dice5').hide()
+        numberofdice += 1
+        for(i = 1; i <= numberofdice; i++){
+          $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+          $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+          $('#dice' + (i)).show()
+        }
+      } else {
+        return
+      }
+    }
+
+    function lessdice(){
+      if (numberofdice>1) {
+        $('#dice2').hide()
+        $('#dice3').hide()
+        $('#dice4').hide()
+        $('#dice5').hide()
+        numberofdice -= 1
+        for(i = 1; i <= numberofdice; i++){
+          $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+          $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+          $('#dice' + (i)).show()
+        }
+      } else {
+        return
+      }
+    }
+
 
     //functions to roll the dice for the game
     function randomised6() {
@@ -362,15 +459,20 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     function rolldice() {
+      randomnumberondice = [randomised6(), randomised6(), randomised6(), randomised6(), randomised6()]
       rolldie1()
       rolldie2()
+      rolldie3()
+      rolldie4()
+      rolldie5()
+      return randomnumberondice
     }
 
     async function rolldie1() {
-      let randomnumberondie = randomised6()
+      let randomnumberondie = Number(randomnumberondice[0])
       preparedie()
       await delayanimation()
-      //needs tidying up//
+
       if (randomnumberondie === 1) {
         $("#dice").addClass('spintofront')
       } else if (randomnumberondie === 2) {
@@ -380,17 +482,16 @@ if (!isset($_SESSION['UserData']['Username'])) {
       } else if (randomnumberondie === 4) {
         $("#dice").addClass('spintoright')
       } else if (randomnumberondie === 5) {
-        $("#dice").addClass('spintotop')
-      } else {
         $("#dice").addClass('spintobottom')
+      } else {
+        $("#dice").addClass('spintotop')
       }
     }
 
     async function rolldie2() {
-      let randomnumberondie = randomised6()
-      $("#dice2").addClass('roll')
+      let randomnumberondie = Number(randomnumberondice[1])
       await delayanimation()
-      //needs tidying up//
+
       if (randomnumberondie === 1) {
         $("#dice2").addClass('spintofront')
       } else if (randomnumberondie === 2) {
@@ -400,9 +501,66 @@ if (!isset($_SESSION['UserData']['Username'])) {
       } else if (randomnumberondie === 4) {
         $("#dice2").addClass('spintoright')
       } else if (randomnumberondie === 5) {
-        $("#dice2").addClass('spintotop')
-      } else {
         $("#dice2").addClass('spintobottom')
+      } else {
+        $("#dice2").addClass('spintotop')
+      }
+    }
+
+    async function rolldie3() {
+      let randomnumberondie = Number(randomnumberondice[2])
+      await delayanimation()
+
+      if (randomnumberondie === 1) {
+        $("#dice3").addClass('spintofront')
+      } else if (randomnumberondie === 2) {
+        $("#dice3").addClass('spintoleft')
+      } else if (randomnumberondie === 3) {
+        $("#dice3").addClass('spintoback')
+      } else if (randomnumberondie === 4) {
+        $("#dice3").addClass('spintoright')
+      } else if (randomnumberondie === 5) {
+        $("#dice3").addClass('spintobottom')
+      } else {
+        $("#dice3").addClass('spintotop')
+      }
+    }
+
+    async function rolldie4() {
+      let randomnumberondie = Number(randomnumberondice[3])
+      await delayanimation()
+
+      if (randomnumberondie === 1) {
+        $("#dice4").addClass('spintofront')
+      } else if (randomnumberondie === 2) {
+        $("#dice4").addClass('spintoleft')
+      } else if (randomnumberondie === 3) {
+        $("#dice4").addClass('spintoback')
+      } else if (randomnumberondie === 4) {
+        $("#dice4").addClass('spintoright')
+      } else if (randomnumberondie === 5) {
+        $("#dice4").addClass('spintobottom')
+      } else {
+        $("#dice4").addClass('spintotop')
+      }
+    }
+
+    async function rolldie5() {
+      let randomnumberondie = Number(randomnumberondice[4])
+      await delayanimation()
+
+      if (randomnumberondie === 1) {
+        $("#dice5").addClass('spintofront')
+      } else if (randomnumberondie === 2) {
+        $("#dice5").addClass('spintoleft')
+      } else if (randomnumberondie === 3) {
+        $("#dice5").addClass('spintoback')
+      } else if (randomnumberondie === 4) {
+        $("#dice5").addClass('spintoright')
+      } else if (randomnumberondie === 5) {
+        $("#dice5").addClass('spintobottom')
+      } else {
+        $("#dice5").addClass('spintotop')
       }
     }
 
@@ -426,6 +584,28 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $("#dice2").removeClass('spintoright')
       $("#dice2").removeClass('spintotop')
       $("#dice2").removeClass('spintobottom')
+      $("#dice2").addClass('roll')
+      $("#dice3").removeClass('spintofront')
+      $("#dice3").removeClass('spintoback')
+      $("#dice3").removeClass('spintoleft')
+      $("#dice3").removeClass('spintoright')
+      $("#dice3").removeClass('spintotop')
+      $("#dice3").removeClass('spintobottom')
+      $("#dice3").addClass('roll')
+      $("#dice4").removeClass('spintofront')
+      $("#dice4").removeClass('spintoback')
+      $("#dice4").removeClass('spintoleft')
+      $("#dice4").removeClass('spintoright')
+      $("#dice4").removeClass('spintotop')
+      $("#dice4").removeClass('spintobottom')
+      $("#dice4").addClass('roll')
+      $("#dice5").removeClass('spintofront')
+      $("#dice5").removeClass('spintoback')
+      $("#dice5").removeClass('spintoleft')
+      $("#dice5").removeClass('spintoright')
+      $("#dice5").removeClass('spintotop')
+      $("#dice5").removeClass('spintobottom')
+      $("#dice5").addClass('roll')
       $('#rollbutton').prop('disabled', true);
     }
 
@@ -433,7 +613,11 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#rollbutton').prop('disabled', false);
       $("#dice").removeClass('roll')
       $("#dice2").removeClass('roll')
+      $("#dice3").removeClass('roll')
+      $("#dice4").removeClass('roll')
+      $("#dice5").removeClass('roll')
     }
+
   </script>
 </body>
 

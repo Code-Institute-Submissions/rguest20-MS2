@@ -46,7 +46,6 @@ html{
 #negotiationwindow{
   padding-right: 0;
   margin-left: 0 !important;
-  height:100vh;
 }
 
 #leftside, #rightside{
@@ -54,8 +53,13 @@ html{
   padding-right: 0;
 }
 
-.table{
-  height:100vh;
+#interface{
+  height: 800px !important;
+}
+
+#interface > table, #leftside > table, #rightside > table{
+  min-height: 800px;
+  height: 800px !important;
 }
 
 .innertable{
@@ -63,8 +67,7 @@ html{
 }
 
 #hostagetakerwindow, #demands{
-  height:50vh;
-  max-height:50vh;
+  height:400px;
   overflow: auto;
 }
 
@@ -114,13 +117,9 @@ html{
 }
 
 #diceroller{
-  max-height: 30vh;
-  height: 30vh;
+  min-height: 180px;
+  height: 180px;
   overflow: auto;
-}
-
-.subtitle{
-
 }
 
 #view{
@@ -131,61 +130,112 @@ html{
    margin-top: 1rem;
    perspective:100rem;
    perspective-origin: -300% -200%;
-   }
+}
 
- #view2{
- display: inline-block;
- clear: both;
+#view2{
+  display: inline-block;
+  clear: both;
   height:5rem;
   margin-left: 1rem;
   margin-top: 1rem;
   perspective:100rem;
   perspective-origin: -300% -200%;
-    }
+}
 
-  .spintofront{
-    animation: spintofront 0.75s;
-    animation-fill-mode: forwards;
-  }
+#view3{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
 
-  .spintoleft{
-    animation: spintoleft 0.75s;
-    animation-fill-mode: forwards;
-  }
+#view4{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
 
-  .spintoback{
-    animation: spintoback 0.75s;
-    animation-fill-mode: forwards;
-  }
+#view5{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
 
-  .spintoright{
-    animation: spintoright 0.75s;
-    animation-fill-mode: forwards;
-  }
+.spintofront{
+  animation: spintofront 0.75s;
+  animation-fill-mode: forwards;
+}
 
-  .spintotop{
-    animation: spintotop 0.75s;
-    animation-fill-mode: forwards;
-  }
+.spintoleft{
+  animation: spintoleft 0.75s;
+  animation-fill-mode: forwards;
+}
 
-  .spintobottom{
-    animation: spintobottom 0.75s;
-    animation-fill-mode: forwards;
-  }
+.spintoback{
+  animation: spintoback 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintoright{
+  animation: spintoright 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintotop{
+  animation: spintotop 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintobottom{
+  animation: spintobottom 0.75s;
+  animation-fill-mode: forwards;
+}
 
 #dice{
    width:3rem;
    height:3rem;
    position:relative;
    transform-style:preserve-3d;
-  }
+}
 
 #dice2{
    width:3rem;
    height:3rem;
    position:relative;
    transform-style:preserve-3d;
-    }
+}
+
+#dice3{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice4{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice5{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
 
 .diceFace{
    position:absolute;
@@ -244,8 +294,8 @@ html{
 }
 
 #cards{
-  max-height: 60vh;
-  height: 60vh;
+  max-height: 60%;
+  height: 60%;
   overflow: auto;
 }
 
@@ -263,8 +313,7 @@ html{
 }
 
 #interfaceinside{
-  height: 100vh;
-  max-height: 100vh;
+  height: 800px;
   overflow: auto;
 }
 
