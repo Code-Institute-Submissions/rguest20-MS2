@@ -560,3 +560,9 @@ let data = [
     "smallSuccess4to5": "false"
     },
 ]
+
+let hostagetaker = [
+  {'name': 'Ann Greashopper',
+  'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!'
+}
+]

@@ -49,11 +49,17 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <div id="leftside" class="col-3">
           <table class="table border">
             <thead>
-              <td id="hostagetakerwindow">Hostage Taker</td>
+              <td id="hostagetakerwindow">
+                <h3>Hostage Taker</h3>
+                <h5><span id="hostagetakername"></span></h5>
+                <p id="whatweknow"></p>
+              </td>
             </thead>
             <tbody>
               <tr>
-                <td id="demands">Demands</td>
+                <td id="demands">
+                  <h3>Demands</h3>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -410,11 +416,16 @@ if (!isset($_SESSION['UserData']['Username'])) {
     function tutorial() {
       $('#textbox').hide()
       alterData(-1, 2, 0)
+      $('#hostagetakername').html(hostagetaker[0]['name'])
+      $('#whatweknow').html(hostagetaker[0]['description'])
     }
 
     function maingame() {
       $('#textbox').hide()
       alterData(-1, 20, 0)
+      console.log(hostagetaker)
+      $('#hostagetakername').html(hostagetaker[0]['name'])
+      $('#whatweknow').html(hostagetaker[0]['description'])
     }
 
     function showbutton() {
