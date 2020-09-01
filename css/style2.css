@@ -47,11 +47,11 @@ html{
   background-color: rgba(137, 196, 244, 1);
   position:fixed;
   width:40%;
-  height: 40%;
+  height: 50%;
   z-index: 3;
   align-content: center;
   text-align: center;
-  margin: 20vh 0 0 30vw;
+  margin: 20vh 0 0 35vw;
   padding: 0 0 0 0;
 }
 
@@ -98,6 +98,11 @@ html{
   height: 1000px !important;
 }
 
+#maininterface{
+  margin-top: 10px;
+  height: 650px;
+}
+
 .innertable{
   height:95%;
 }
@@ -132,7 +137,6 @@ html{
   float: left;
   display: inline-block;
   height: 20%;
-  min-height: 190px;
   width: 33%;
   min-width: 150px;
 }
@@ -143,7 +147,6 @@ html{
   min-width: 150px;
   width: 33%;
   height: 20%;
-  min-height: 190px;
 }
 
 #threat_level_div{
@@ -152,7 +155,6 @@ html{
   width: 33%;
   min-width: 150px;
   height: 20%;
-  min-height: 190px;
   padding: 0 10px 0 10px;
   padding-top: 5%;
 }
@@ -453,26 +455,38 @@ html{
   }
 }
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width: 500px){
   #hostages_div{
-    min-height: 150px;
+    height: 80px;
   }
   #threat_level_div{
-    min-height: 150px;
+    height: 80px;
   }
   #conversation_points_div{
-    min-height: 150px;
+    height: 80px;
   }
 }
 
 @media only screen and (max-width: 900px){
   #hostages_div{
-    min-height: 120px;
+    height: 120px;
   }
   #threat_level_div{
-    min-height: 120px;
+    height: 120px;
   }
   #conversation_points_div{
-    min-height: 120px;
+    height: 120px;
+  }
+}
+
+@media only screen and (max-width: 1200px){
+  #hostages_div{
+    height: 150px;
+  }
+  #threat_level_div{
+    height: 150px;
+  }
+  #conversation_points_div{
+    height: 150px;
   }
 }

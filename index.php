@@ -10,7 +10,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Negotiation</title>
   <link href="./css/Chart.css" rel="stylesheet">
   <link href="./css/style2.css" rel="stylesheet">
@@ -71,7 +71,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <h3>Interface</h3>
                 <div id="hostages_div" class="border">
                   <div>
-                    <canvas id="hostages_data_display" aria-label="hostages map" role="img" style="position: relative; height: 8%; width:8%%;">
+                    <canvas id="hostages_data_display" aria-label="hostages graph" role="img" style="position: relative; height: 8%; width:8%%;">
                       <p></p>
                     </canvas>
                   </div>
@@ -86,9 +86,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <div id="threat_level_div" class="border">
                   <p>Threat Level</p>
                   <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="10"></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 43%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="7"></div>
                   </div>
-                  <p><span style="float: left;">1</span><span style="float:right;">10</span></p>
+                  <p><span style="float: left;">S</span><span style="float:right;">K</span></p>
                 </div>
                 <table class="table border">
                   <thead>
@@ -96,6 +96,13 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       <td class="border">Phase 1</td>
                       <td class="border">Phase 2</td>
                       <td class="border">Phase 3</td>
+                    </tr>
+                  </thead>
+                </table>
+                <table class="table border">
+                  <thead>
+                    <tr>
+                      <td class='border' id="maininterface"></td>
                     </tr>
                   </thead>
                 </table>
@@ -174,47 +181,43 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <p>
-                  <button onclick="rolldice()" id="rollbutton">Roll</button>
-                <div class="slidecontainer">
-                  <button onclick="moredice()" id="onemoredice"> +1 Die</button>
-                  <button onclick="lessdice()" id="onelessdice"> -1 Die</button>
-                </div>
-                </p>
-              </td>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="cards">
-                  <h3>Actions</h3>
-                  <table class="table table-bordered innertable">
-                    <thead>
-                      <tr>
-                        <th class="border" id="cardtablehead"><button class="button btn-sm btn-secondary" id="prevCard" value="previous" onclick="prevCard()">
-                            << </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">>></button></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th>
-                          <p>Cost: <span id="costOfCard"></span></p>
-                          <p>On 2 successes: <span id="bigSuccessOutcome"></span></p>
-                          <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
-                          <p>Failure: <span id="failureOutcome"></span></p>
-                          <p>In Hand: <span id="isInHand"></span></p>
-                          <p> <button id="playCard">Play Card</button> <button id="sacrificeCard">Sacrifice for 1 CP</button></p>
-                          <p> <button id="buyCard">Buy Card</button>
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <button onclick="rolldice()" id="rollbutton">Roll</button> <button onclick="moredice()" id="onemoredice"> +1 Die</button> <button onclick="lessdice()" id="onelessdice"> -1 Die</button></p>
         </div>
+        </p>
+        </td>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="cards">
+              <h3>Actions</h3>
+              <table class="table table-bordered innertable">
+                <thead>
+                  <tr>
+                    <th class="border" id="cardtablehead"><button class="button btn-sm btn-secondary" id="prevCard" value="previous" onclick="prevCard()">
+                        << </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">>></button></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <p>Cost: <span id="costOfCard"></span></p>
+                      <p>On 2 successes: <span id="bigSuccessOutcome"></span></p>
+                      <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
+                      <p>Failure: <span id="failureOutcome"></span></p>
+                      <p>In Hand: <span id="isInHand"></span></p>
+                      <p> <button id="playCard">Play Card</button> <button id="sacrificeCard">Sacrifice for 1 CP</button> <button id="buyCard">Buy Card</button></p>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+        </table>
       </div>
     </div>
-    <p><a href="logout.php">Click here</a> to Logout.</p>
+  </div>
+  <p><a href="logout.php">Click here</a> to Logout.</p>
   </div>
   <script type="text/javascript" src="conversationcards.js"></script>
   <script src="./scripts/helper/Chart.js"></script>
