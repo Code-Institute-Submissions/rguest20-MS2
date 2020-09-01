@@ -30,7 +30,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       </div>
     </div>
     <div class="jumbotron" id='textbox'>
-      <p id="skipintro">[X]</p>
+      <p id="skipintro" onclick="tutorial()">X</p>
       <div id="textinbox">
         <p id="writetexthere"></p>
         <p id="buttoncontinue"><button id="clicktocontinue">Click To Continue</button></p>
@@ -237,7 +237,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#splash').addClass('titlecarddisappear')
     }
 
-    // create variables
+    // create letiables
     let conversationcards = []
     let hand = [1, 2, 3, 4, 5, 6]
     let cardnumber = 0
@@ -299,63 +299,67 @@ if (!isset($_SESSION['UserData']['Username'])) {
     $('#buttoncontinue').hide()
     $('#buttonchoice1').hide()
     $('#buttonchoice2').hide()
+    let introtext = ""
     intro1()
     //typewriter introduction
     async function intro1() {
       let introtext = "CAPTAIN!?!? \n\n Captain!? \n\n"
-      var i = 0
-      var result = introtext[i]
-      setInterval(function() {
+      let i = 0
+      let result = introtext[i]
+      let typing = setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this);
+            clearInterval(typing);
             return;
           }
           i++
           result += introtext[i].replace("\n", "<br />")
           $("#writetexthere").html(result)
         },
-        50)
-      await delayanimation(showbutton, 2000)
+        30)
+      await delayanimation(showbutton, 1300)
       document.getElementById("clicktocontinue").addEventListener("click", intro2)
     }
 
     async function intro2() {
+      document.getElementById("clicktocontinue").removeEventListener("click", intro2)
       $('#buttoncontinue').hide()
+      let result = ""
       $("#writetexthere").empty()
-      let introtext = "The bump to his head must be worse than we thought... \n\n Captain!? \n\n"
-      var i = 0
-      var result = introtext[i]
-      setInterval(function() {
+      let introtext = "The bump to his head must be worse than we thought! \n\n Captain!?"
+      let i = 0
+      result = introtext[i]
+      let typing = setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this)
+            clearInterval(typing)
             return;
           };
           i++;
           result += introtext[i].replace("\n", "<br />")
           $("#writetexthere").html(result)
         },
-        50)
-      await delayanimation(showbutton, 3500)
+        30)
+      await delayanimation(showbutton, 2000)
       document.getElementById("clicktocontinue").addEventListener("click", intro3)
     }
 
     async function intro3() {
       $('#buttoncontinue').remove()
+      let result = ""
       $("#writetexthere").empty()
-      let introtext = "Hang on, he's coming around... \n\n Do you remember who you are and what you do?"
-      var i = 0
-      var result = introtext[i]
-      setInterval(function() {
+      let introtext = "Hang on, he's coming around. \n\n Do you remember who you are and what you do?"
+      let i = 0
+      result = introtext[i]
+      let typing = setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this);
+            clearInterval(typing);
             return;
           }
           i++
           result += introtext[i].replace("\n", "<br />")
           $("#writetexthere").html(result)
         },
-        50)
-      await delayanimation(showbutton2, 3000)
+        30)
+      await delayanimation(showbutton2, 2500)
       document.getElementById("choice1").addEventListener("click", intro4)
       document.getElementById("choice2").addEventListener("click", intro5)
     }
@@ -365,18 +369,18 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $("#writetexthere").empty()
       let introtext =
         "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?"
-      var i = 0
-      var result = introtext[i]
-      setInterval(function() {
+      let i = 0
+      let result = introtext[i]
+      let typing = setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this)
+            clearInterval(typing)
             return
           }
           i++
           result += introtext[i].replace("\n", "<br />")
           $("#writetexthere").html(result)
         },
-        50)
+        30)
       await delayanimation(showbutton3, 6000)
       document.getElementById("choice3").addEventListener("click", tutorial)
       document.getElementById("choice4").addEventListener("click", maingame)
@@ -386,18 +390,18 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#buttonchoice1').remove()
       $("#writetexthere").empty()
       let introtext = "You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?"
-      var i = 0
-      var result = introtext[i]
-      setInterval(function() {
+      let i = 0
+      let result = introtext[i]
+      let typing = setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this)
+            clearInterval(typing)
             return;
           }
           i++
           result += introtext[i].replace("\n", "<br />")
           $("#writetexthere").html(result)
         },
-        50)
+        30)
       await delayanimation(showbutton3, 6000)
       document.getElementById("choice3").addEventListener("click", tutorial)
       document.getElementById("choice4").addEventListener("click", maingame)
@@ -718,6 +722,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
     function delayanimation(funct, val) {
       let waittime = new Promise(function(resolve) {
         resolve(setTimeout(funct, val))
+      })
+      waittime.then(function() {
+        clearTimeout()
       })
     }
 
