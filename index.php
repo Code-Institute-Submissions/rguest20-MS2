@@ -30,6 +30,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       </div>
     </div>
     <div class="jumbotron" id='textbox'>
+      <p id="skipintro">[X]</p>
       <div id="textinbox">
         <p id="writetexthere"></p>
         <p id="buttoncontinue"><button id="clicktocontinue">Click To Continue</button></p>
@@ -240,6 +241,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     let conversationcards = []
     let hand = [1, 2, 3, 4, 5, 6]
     let cardnumber = 0
+    let hostagedataset = [1, 0, 0]
 
     //setup dice for play
     let randomnumberondice = []
@@ -301,56 +303,58 @@ if (!isset($_SESSION['UserData']['Username'])) {
     //typewriter introduction
     async function intro1() {
       let introtext = "CAPTAIN!?!? \n\n Captain!? \n\n"
-      var i = 0;
-      var result = introtext[i];
+      var i = 0
+      var result = introtext[i]
       setInterval(function() {
           if (i == introtext.length) {
             clearInterval(this);
             return;
-          };
-          i++;
-          result += introtext[i].replace("\n", "<br />");
-          $("#writetexthere").html(result);
+          }
+          i++
+          result += introtext[i].replace("\n", "<br />")
+          $("#writetexthere").html(result)
         },
-        50);
+        50)
       await delayanimation(showbutton, 2000)
       document.getElementById("clicktocontinue").addEventListener("click", intro2)
     }
 
     async function intro2() {
       $('#buttoncontinue').hide()
+      $("#writetexthere").empty()
       let introtext = "The bump to his head must be worse than we thought... \n\n Captain!? \n\n"
-      var i = 0;
-      var result = introtext[i];
+      var i = 0
+      var result = introtext[i]
       setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this);
+            clearInterval(this)
             return;
           };
           i++;
-          result += introtext[i].replace("\n", "<br />");
-          $("#writetexthere").html(result);
+          result += introtext[i].replace("\n", "<br />")
+          $("#writetexthere").html(result)
         },
-        50);
+        50)
       await delayanimation(showbutton, 3500)
       document.getElementById("clicktocontinue").addEventListener("click", intro3)
     }
 
     async function intro3() {
       $('#buttoncontinue').remove()
+      $("#writetexthere").empty()
       let introtext = "Hang on, he's coming around... \n\n Do you remember who you are and what you do?"
-      var i = 0;
-      var result = introtext[i];
+      var i = 0
+      var result = introtext[i]
       setInterval(function() {
           if (i == introtext.length) {
             clearInterval(this);
             return;
-          };
-          i++;
-          result += introtext[i].replace("\n", "<br />");
-          $("#writetexthere").html(result);
+          }
+          i++
+          result += introtext[i].replace("\n", "<br />")
+          $("#writetexthere").html(result)
         },
-        50);
+        50)
       await delayanimation(showbutton2, 3000)
       document.getElementById("choice1").addEventListener("click", intro4)
       document.getElementById("choice2").addEventListener("click", intro5)
@@ -358,43 +362,55 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     async function intro4() {
       $('#buttonchoice1').remove()
+      $("#writetexthere").empty()
       let introtext =
         "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?"
-      var i = 0;
-      var result = introtext[i];
+      var i = 0
+      var result = introtext[i]
       setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this);
-            return;
-          };
-          i++;
-          result += introtext[i].replace("\n", "<br />");
-          $("#writetexthere").html(result);
+            clearInterval(this)
+            return
+          }
+          i++
+          result += introtext[i].replace("\n", "<br />")
+          $("#writetexthere").html(result)
         },
-        50);
+        50)
       await delayanimation(showbutton3, 6000)
-      document.getElementById("choice3").addEventListener("click", intro6)
-      document.getElementById("choice4").addEventListener("click", intro7)
+      document.getElementById("choice3").addEventListener("click", tutorial)
+      document.getElementById("choice4").addEventListener("click", maingame)
     }
 
     async function intro5() {
       $('#buttonchoice1').remove()
+      $("#writetexthere").empty()
       let introtext = "You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?"
-      var i = 0;
-      var result = introtext[i];
+      var i = 0
+      var result = introtext[i]
       setInterval(function() {
           if (i == introtext.length) {
-            clearInterval(this);
+            clearInterval(this)
             return;
-          };
-          i++;
-          result += introtext[i].replace("\n", "<br />");
-          $("#writetexthere").html(result);
+          }
+          i++
+          result += introtext[i].replace("\n", "<br />")
+          $("#writetexthere").html(result)
         },
-        50);
+        50)
       await delayanimation(showbutton3, 6000)
-      document.getElementById("choice3").addEventListener("click", intro6)
-      document.getElementById("choice4").addEventListener("click", intro7)
+      document.getElementById("choice3").addEventListener("click", tutorial)
+      document.getElementById("choice4").addEventListener("click", maingame)
+    }
+
+    function tutorial() {
+      $('#textbox').hide()
+      alterData(-1, 2, 0)
+    }
+
+    function maingame() {
+      $('#textbox').hide()
+      alterData(-1, 20, 0)
     }
 
     function showbutton() {
@@ -410,17 +426,17 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     //create chart for interface
-    var ctx = $('#hostages_data_display');
-    var myChart = new Chart(ctx, {
+    let ctx = $('#hostages_data_display');
+    let hostagechart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: [
-          'Unknown',
+          'Saved',
           'Alive',
           'Dead',
         ],
         datasets: [{
-          data: [0, 14, 6],
+          data: hostagedataset,
           backgroundColor: [
             'rgba(0, 255, 0, 0.2)',
             'rgba(0, 0 , 255, 0.2)',
@@ -433,6 +449,13 @@ if (!isset($_SESSION['UserData']['Username'])) {
         legend: false
       }
     })
+
+    function alterData(saved, alive, dead) {
+      hostagedataset[0] += saved
+      hostagedataset[1] += alive
+      hostagedataset[2] += dead
+      hostagechart.update()
+    }
 
     // Creates the view for the conversation cards (bottom right)
     function setCard() {

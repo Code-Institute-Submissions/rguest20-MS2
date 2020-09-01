@@ -52,6 +52,16 @@ html{
   align-content: center;
   text-align: center;
   margin: 20vh 0 0 30vw;
+  padding: 0 0 0 0;
+}
+
+#textinbox{
+  margin: 80px 20px 50px 20px;
+}
+
+#skipintro{
+  float: right;
+  margin-top: -15px auto;
 }
 
 #negotiationwindow{
