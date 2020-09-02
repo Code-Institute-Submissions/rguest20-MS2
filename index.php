@@ -86,7 +86,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <div id="threat_level_div" class="border">
                   <p>Threat Level</p>
                   <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 43%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="7"></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 57%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="7"></div>
                   </div>
                   <p><span style="float: left;">S</span><span style="float:right;">K</span></p>
                 </div>
@@ -425,10 +425,10 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     function maingame() {
       $('#textbox').hide()
-      alterData(-1, 20, 0)
+      alterData(-1, 7, 0)
       console.log(hostagetaker)
-      $('#hostagetakername').html(hostagetaker[0]['name'])
-      $('#whatweknow').html(hostagetaker[0]['description'])
+      $('#hostagetakername').html(hostagetaker[1]['name'])
+      $('#whatweknow').html(hostagetaker[1]['description'])
     }
 
     function showbutton() {
