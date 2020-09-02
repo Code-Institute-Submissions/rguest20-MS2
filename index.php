@@ -81,7 +81,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 </div>
                 <div id="conversation_points_div" class="border">
                   <p>Conversation Points:</p>
-                  <p id="conversationPointsP">0</p>
+                  <p id="conversationPointsP"></p>
                 </div>
                 <div id="threat_level_div" class="border">
                   <p>Threat Level</p>
@@ -181,39 +181,39 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <p>
-                  <button onclick="rolldice()" id="rollbutton">Roll</button> <button onclick="moredice()" id="onemoredice"> +1 Die</button> <button onclick="lessdice()" id="onelessdice"> -1 Die</button></p>
+                  <button onclick="rolldice()" id="rollbutton">Roll</button> <button onclick="moredice()" id="onemoredice"> +1 Die</button> <button onclick="lessdice()" id="onelessdice"> -1 Die</button>
+                </p>
+              </td>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="cards">
+                  <h3>Actions</h3>
+                  <table class="table table-bordered innertable">
+                    <thead>
+                      <tr>
+                        <th class="border" id="cardtablehead"><button class="button btn-sm btn-secondary" id="prevCard" value="previous" onclick="prevCard()">
+                            << </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">>></button></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <p>Cost: <span id="costOfCard"></span></p>
+                          <p>On 2 successes: <span id="bigSuccessOutcome"></span></p>
+                          <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
+                          <p>Failure: <span id="failureOutcome"></span></p>
+                          <p>In Hand: <span id="isInHand"></span></p>
+                          <p> <button id="playCard" onclick="playthiscard()">Play Card</button> <button id="sacrificeCard" onclick="sacrifice()">Sacrifice for 1 CP</button> <button id="buyCard">Buy Card</button></p>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        </p>
-        </td>
-        </thead>
-        <tbody>
-          <tr>
-            <td id="cards">
-              <h3>Actions</h3>
-              <table class="table table-bordered innertable">
-                <thead>
-                  <tr>
-                    <th class="border" id="cardtablehead"><button class="button btn-sm btn-secondary" id="prevCard" value="previous" onclick="prevCard()">
-                        << </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">>></button></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>
-                      <p>Cost: <span id="costOfCard"></span></p>
-                      <p>On 2 successes: <span id="bigSuccessOutcome"></span></p>
-                      <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
-                      <p>Failure: <span id="failureOutcome"></span></p>
-                      <p>In Hand: <span id="isInHand"></span></p>
-                      <p> <button id="playCard">Play Card</button> <button id="sacrificeCard">Sacrifice for 1 CP</button> <button id="buyCard">Buy Card</button></p>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-        </table>
       </div>
     </div>
   </div>
@@ -246,11 +246,16 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#splash').addClass('titlecarddisappear')
     }
 
-    // create letiables
+    // create variables
     let conversationcards = []
-    let hand = [1, 2, 3, 4, 5, 6]
+    let hand = [1, 2, 3, 4, 5, 6, 18]
+    let discards = []
+    let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20]
     let cardnumber = 0
     let hostagedataset = [1, 0, 0]
+    let threat = 4
+    let conversationpoints = 0
+    $('#conversationPointsP').html(conversationpoints)
 
     //setup dice for play
     let randomnumberondice = []
@@ -274,9 +279,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
       data[card]['smallSuccessDice'] != "0" ? smallSuccessForCard.dice = data[card]['smallSuccessDice'] : true
       data[card]['smallSuccessConversationPoints'] != "0" ? smallSuccessForCard.conversationpoints = data[card]['smallSuccessConversationPoints'] : true
       data[card]['smallSuccessThreatChange'] != "0" ? smallSuccessForCard.threat = data[card]['smallSuccessThreatChange'] : true
-      data[card]['smallSuccessHostageRelease'] != "0" ? smallSuccessForCard.hostage = data[card]['smallSuccessHostageRelease'] : true
       data[card]['smallSuccess4to5'] === "true" ? smallSuccessForCard.fourtofive = true : true
       data[card]['smallSuccessRevealDemand'] === "true" ? smallSuccessForCard.demand = true : true
+      data[card]['smallSuccessHostageRelease'] != "0" ? smallSuccessForCard.hostage = data[card]['smallSuccessHostageRelease'] : true
       data[card]['smallSuccessAbductorKill'] === "true" ? smallSuccessForCard.abductorkilled = true : smallSuccessForCard.abductorkilled = false
 
       let failureForCard = {}
@@ -312,19 +317,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     intro1()
     //typewriter introduction
     async function intro1() {
-      let introtext = "CAPTAIN!?!? \n\n Captain!? \n\n"
-      let i = 0
-      let result = introtext[i]
-      let typing = setInterval(function() {
-          if (i == introtext.length) {
-            clearInterval(typing);
-            return;
-          }
-          i++
-          result += introtext[i].replace("\n", "<br />")
-          $("#writetexthere").html(result)
-        },
-        30)
+      typeout("CAPTAIN!?!? \n\n Captain!? \n\n", $("#writetexthere"))
       await delayanimation(showbutton, 1300)
       document.getElementById("clicktocontinue").addEventListener("click", intro2)
     }
@@ -332,21 +325,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
     async function intro2() {
       document.getElementById("clicktocontinue").removeEventListener("click", intro2)
       $('#buttoncontinue').hide()
-      let result = ""
       $("#writetexthere").empty()
-      let introtext = "The bump to his head must be worse than we thought! \n\n Captain!?"
-      let i = 0
-      result = introtext[i]
-      let typing = setInterval(function() {
-          if (i == introtext.length) {
-            clearInterval(typing)
-            return;
-          };
-          i++;
-          result += introtext[i].replace("\n", "<br />")
-          $("#writetexthere").html(result)
-        },
-        30)
+      typeout("The bump to his head must be worse than we thought! \n\n Captain!?", $("#writetexthere"))
       await delayanimation(showbutton, 2000)
       document.getElementById("clicktocontinue").addEventListener("click", intro3)
     }
@@ -355,19 +335,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#buttoncontinue').remove()
       let result = ""
       $("#writetexthere").empty()
-      let introtext = "Hang on, he's coming around. \n\n Do you remember who you are and what you do?"
-      let i = 0
-      result = introtext[i]
-      let typing = setInterval(function() {
-          if (i == introtext.length) {
-            clearInterval(typing);
-            return;
-          }
-          i++
-          result += introtext[i].replace("\n", "<br />")
-          $("#writetexthere").html(result)
-        },
-        30)
+      typeout("Hang on, he's coming around. \n\n Do you remember who you are and what you do?", $("#writetexthere"))
       await delayanimation(showbutton2, 2500)
       document.getElementById("choice1").addEventListener("click", intro4)
       document.getElementById("choice2").addEventListener("click", intro5)
@@ -376,20 +344,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
     async function intro4() {
       $('#buttonchoice1').remove()
       $("#writetexthere").empty()
-      let introtext =
-        "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?"
-      let i = 0
-      let result = introtext[i]
-      let typing = setInterval(function() {
-          if (i == introtext.length) {
-            clearInterval(typing)
-            return
-          }
-          i++
-          result += introtext[i].replace("\n", "<br />")
-          $("#writetexthere").html(result)
-        },
-        30)
+      typeout(
+        "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?",
+        $("#writetexthere"))
       await delayanimation(showbutton3, 6000)
       document.getElementById("choice3").addEventListener("click", tutorial)
       document.getElementById("choice4").addEventListener("click", maingame)
@@ -398,20 +355,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
     async function intro5() {
       $('#buttonchoice1').remove()
       $("#writetexthere").empty()
-      let introtext = "You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?"
-      let i = 0
-      let result = introtext[i]
-      let typing = setInterval(function() {
-          if (i == introtext.length) {
-            clearInterval(typing)
-            return;
-          }
-          i++
-          result += introtext[i].replace("\n", "<br />")
-          $("#writetexthere").html(result)
-        },
-        30)
-      await delayanimation(showbutton3, 6000)
+      typeout("You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?", $("#writetexthere"))
+      await delayanimation(showbutton3, 5000)
       document.getElementById("choice3").addEventListener("click", tutorial)
       document.getElementById("choice4").addEventListener("click", maingame)
     }
@@ -443,6 +388,23 @@ if (!isset($_SESSION['UserData']['Username'])) {
       $('#buttonchoice2').show()
     }
 
+    //typing function to write messages in a more interesting way
+    function typeout(message, position) {
+      let messagetext = message
+      let i = 0
+      let result = messagetext[i]
+      let typing = setInterval(function() {
+          if (i == messagetext.length) {
+            clearInterval(typing)
+            return;
+          }
+          i++
+          result += messagetext[i].replace("\n", "<br />")
+          position.html(result)
+        },
+        30)
+    }
+
     //create chart for interface
     let ctx = $('#hostages_data_display');
     let hostagechart = new Chart(ctx, {
@@ -468,6 +430,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     })
 
+    //function to change the data in the chart
     function alterData(saved, alive, dead) {
       hostagedataset[0] += saved
       hostagedataset[1] += alive
@@ -557,11 +520,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#failureOutcome').append('</ul>')
       }
       $('#isInHand').empty()
-      $('#isInHand').append('No')
+      $('#isInHand').append('Available to buy')
       for (id in hand) {
         if (Number(hand[id]) === currentcard.id) {
           $('#isInHand').empty()
           $('#isInHand').append('Yes')
+        } else if (discards.includes(currentcard.id)) {
+          $('#isInHand').empty()
+          $('#isInHand').append('Discarded')
         }
       }
     }
@@ -620,6 +586,106 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
+    //Options for the Cards
+    let diceresult
+
+    function sacrifice() {
+      for (var i = 0; i < hand.length; i++) {
+        if (hand[i] === cardnumber + 1) {
+          discards.push(hand[i])
+          hand.splice(i, 1)
+          setCard()
+          conversationpoints += 1
+          $('#conversationPointsP').html(conversationpoints)
+        }
+      }
+    }
+
+    async function playthiscard() {
+      for (var i = 0; i < hand.length; i++) {
+        if (hand[i] === cardnumber + 1) {
+          discards.push(hand[i])
+          hand.splice(i, 1)
+          setCard()
+          diceresults = rolldice()
+          let successes = 0
+          //count successes
+          for (i = 0; i < numberofdice; i++) {
+            if (diceresults[i] > 4) {
+              successes += 1
+            }
+          }
+          //check outcome
+          if (successes > 1) {
+            await delayanimation(cardbigsuccess, 2000)
+          } else if (successes === 1) {
+            await delayanimation(cardsmallsuccess, 2000)
+          } else {
+            await delayanimation(cardfail, 2000)
+          }
+        }
+      }
+    }
+
+    function cardbigsuccess() {
+      let outcome = conversationcards[cardnumber]['bigSuccess']
+      if ("conversationpoints" in outcome) {
+        conversationpoints += parseInt(outcome['conversationpoints'])
+        $('#conversationPointsP').html(conversationpoints)
+      }
+      if ("threat" in outcome) {
+        threat += outcome['threat']
+      }
+      if ("hostage" in outcome) {
+        alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
+      }
+      if ("demand" in outcome) {
+
+      }
+      if (outcome['abductorkilled']) {
+
+      }
+    }
+
+    function cardsmallsuccess() {
+      let outcome = conversationcards[cardnumber]['smallSuccess']
+      if ("conversationpoints" in outcome) {
+        conversationpoints += parseInt(outcome['conversationpoints'])
+        $('#conversationPointsP').html(conversationpoints)
+      }
+      if ("threat" in outcome) {
+        threat += outcome['threat']
+      }
+      if ("hostage" in outcome) {
+        alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
+      }
+      if ("demand" in outcome) {
+
+      }
+      if (outcome['abductorkilled']) {
+
+      }
+    }
+
+    function cardfail() {
+      let outcome = conversationcards[cardnumber]['failure']
+      if ("conversationpoints" in outcome) {
+        conversationpoints += parseInt(outcome['conversationpoints'])
+        $('#conversationPointsP').html(conversationpoints)
+      }
+      if ("threat" in outcome) {
+        threat += outcome['threat']
+      }
+      if ("hostage" in outcome) {
+        alterData(0, -parseInt(outcome['hostage']), parseInt(outcome['hostage']))
+      }
+      if ("demand" in outcome) {
+
+      }
+      if (outcome['abductorkilled']) {
+
+      }
+    }
 
     //functions to roll the dice for the game
     function randomised6() {
