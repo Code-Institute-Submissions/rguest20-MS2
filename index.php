@@ -543,10 +543,11 @@ if (!isset($_SESSION['UserData']['Username'])) {
         if (Number(hand[id]) === currentcard.id) {
           $('#isInHand').empty()
           $('#isInHand').append('Yes')
-        } else if (discards.includes(currentcard.id)) {
-          $('#isInHand').empty()
-          $('#isInHand').append('Discarded')
         }
+      }
+      if (discards.includes(currentcard.id)) {
+        $('#isInHand').empty()
+        $('#isInHand').append('Discarded')
       }
     }
 
@@ -622,7 +623,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     async function playthiscard() {
       for (var i = 0; i < hand.length; i++) {
         if (hand[i] === cardnumber + 1) {
-          discards.push(hand[i])
+          await discards.push(hand[i])
           hand.splice(i, 1)
           setCard()
           diceresults = rolldice()
