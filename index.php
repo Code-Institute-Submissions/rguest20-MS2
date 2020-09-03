@@ -571,13 +571,13 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     //More or less dice
-    function moredice() {
+    function moredice(value = 1) {
       if (numberofdice <= 4) {
         $('#dice2').hide()
         $('#dice3').hide()
         $('#dice4').hide()
         $('#dice5').hide()
-        numberofdice += 1
+        numberofdice += value
         for (i = 1; i <= numberofdice; i++) {
           $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
@@ -588,13 +588,13 @@ if (!isset($_SESSION['UserData']['Username'])) {
       }
     }
 
-    function lessdice() {
+    function lessdice(value = 1) {
       if (numberofdice > 1) {
         $('#dice2').hide()
         $('#dice3').hide()
         $('#dice4').hide()
         $('#dice5').hide()
-        numberofdice -= 1
+        numberofdice -= value
         for (i = 1; i <= numberofdice; i++) {
           $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
           $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
