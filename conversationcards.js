@@ -566,7 +566,7 @@ let hostagetaker = [
     'name': 'Ann Greashopper', 'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!'
   },
   {
-    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our guys hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!'
+    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!'
   }
 ]
 
@@ -586,23 +586,23 @@ let demands = [
     'concedecost': 0,
     'concede': {'hostage': 2},
     'penalty': {'dicepermanent': -1}
-  }
+  },
   {
     'type': 'Arkayne',
-    'title': 'Release fugitives',
+    'title': 'Release Fugitives',
     'text': '"My team! Ya better release them!  Then we can talk!"',
     'concedecost': 4,
     'concede': {'freecard': 2},
     'penalty': {'threatmultiplier': 2}
-  }
+  },
   {
     'type': 'Arkayne',
-    'title': 'Supply of weapons',
+    'title': 'Supply of Weapons',
     'text': '"If ya can provide me guns and ammo, I\'ll consider ya request."',
     'concedecost': 4,
     'concede': {'hostage': 1, 'threat': -2},
     'penalty': {'threatincreaseperturn': 2}
-  }
+  },
   {
     'type': 'Escape',
     'title': 'Helicopter',
@@ -610,7 +610,7 @@ let demands = [
     'concedecost': 4,
     'concede': {'dice': 2},
     'penalty': {'lastturn': true}
-  }
+  },
   {
     'type': 'Escape',
     'title': 'School bus',
@@ -618,7 +618,7 @@ let demands = [
     'concedecost': 4,
     'concede': {'hostage':1,'dice': 1},
     'penalty': {'lastturn': true}
-  }
+  },
   {
     'type': 'Escape',
     'title': 'Armoured Truck',
@@ -629,126 +629,125 @@ let demands = [
   }
 ]
 
-let terror = [
-  {
+let terror = [{
     'title':'I\'ve taken more hostages',
     'dicerollneeded': true,
-    'threatsuccess': {'extrahostage', 1},
-    'threatfail': {'extrahostage',2},
+    'threatsuccess': {'extrahostage': 1},
+    'threatfail': {'extrahostage':2},
     'effect': false
-  }
+  },
   {
     'title':'This is going nowhere',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'hostagekilled': 1}
-  }
+  },
   {
     'title':'This is going nowhere',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'hostagekilled': 1}
-  }
+  },
   {
     'title':'This is going nowhere',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'hostagekilled': 1}
-  }
+  },
   {
     'title':'The situation is worsening',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 1}
-  }
+  },
   {
     'title':'The situation is worsening',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 1}
-  }
+  },
   {
     'title':'The situation is worsening',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 1}
-  }
+  },
   {
     'title':'The situation is worsening',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 1}
-  }
+  },
   {
     'title':'I\'m getting angry',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 2}
-  }
+  },
   {
     'title':'I\'m getting angry',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'threat': 2}
-  }
+  },
   {
     'title':'Don\'t test me',
     'dicerollneeded': true,
     'threatsuccess': {'hostagekilled': 1},
     'threatfail': false,
     'effect': false
-  }
+  },
   {
     'title':'Don\'t test me',
     'dicerollneeded': true,
     'threatsuccess': {'hostagekilled': 1},
     'threatfail': false,
     'effect': false
-  }
+  },
   {
     'title':'Hostage escape attempt',
     'dicerollneeded': true,
     'threatsuccess': {'hostageescape': 1},
     'threatfail': {'hostagekilled': 1},
     'effect': false
-  }
+  },
   {
     'title':'I\'m getting impatient',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'timeremaining': -1}
-  }
+  },
   {
     'title':'I\'m getting impatient',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'timeremaining': -1}
-  }
+  },
   {
     'title':'Your time is running out',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'timeremaining': 'half'}
-  }
+  },
   {
     'title':'A moment of weakness',
     'dicerollneeded': false,
     'threatsuccess': false,
     'threatfail': false,
     'effect': {'hostageescape': 1}
-  }
+  },
   {
     'title':'Back to square 1',
     'dicerollneeded': false,

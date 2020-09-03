@@ -30,7 +30,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       </div>
     </div>
     <div class="jumbotron" id='textbox'>
-      <p id="skipintro" onclick="tutorial()">X</p>
+      <p id="skipintro" onclick="maingame()">X</p>
       <div id="textinbox">
         <p id="writetexthere"></p>
         <p id="buttoncontinue"><button id="clicktocontinue">Click To Continue</button></p>
@@ -53,12 +53,37 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <h3>Hostage Taker</h3>
                 <h5><span id="hostagetakername"></span></h5>
                 <p id="whatweknow"></p>
+                <p id="turnsleft"></p>
               </td>
             </thead>
             <tbody>
               <tr>
                 <td id="demands">
                   <h3>Demands</h3>
+                  <div class="flip-card" id="demand1">
+                    <div class="flip-card-inner">
+                      <div class="flip-card-front">
+                        <h3>DEMAND 1</h3>
+                      </div>
+                      <div class="flip-card-back" id="demand1inner">
+                        <h5><span id="demand1title"></span></h5>
+                        <p id='demand1text'></p>
+                        <p id='demand1extra'></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flip-card" id="demand2">
+                    <div class="flip-card-inner">
+                      <div class="flip-card-front">
+                        <h3>DEMAND 2</h3>
+                      </div>
+                      <div class="flip-card-back" id="demand2inner">
+                        <h5><span id="demand2title"></span></h5>
+                        <p id='demand2text'></p>
+                        <p id='demand2extra'></p>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -253,12 +278,52 @@ if (!isset($_SESSION['UserData']['Username'])) {
     let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20]
     let cardnumber = 0
     let hostagedataset = [1, 0, 0]
+    let demandsingame = []
+    let timeleft = 10
+    updatetimeleft()
+    let terroringame = []
+    prepareterror()
     let threat = 4
     updatethreat()
     let conversationpoints = 0
     $('#conversationPointsP').html(conversationpoints)
 
-    //setup dice for play
+    //random number generator
+    function getrandomint(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    //set up terror for play
+    function prepareterror() {
+      for (i = 0; i < 10; i++) {
+        let randomcard = getrandomint(1, terror.length)
+        terroringame.push(terror[randomcard])
+        terror.splice(randomcard, 1)
+      }
+      return
+    }
+
+    //set up demands for play
+    function preparedemands() {
+      if ($('#hostagetakername').html() === "Ann Greashopper") {
+        demandsingame.push(demands[0])
+        demandsingame.push(demands[getrandomint(4, 7)])
+        displaydemands()
+      } else {
+        demandsingame.push(demands[getrandomint(1, 4)])
+        demandsingame.push(demands[getrandomint(4, 7)])
+        displaydemands()
+      }
+    }
+
+    function displaydemands() {
+      $('#demand1title').html(demandsingame[0]['title'])
+      $('#demand1text').html(demandsingame[0]['text'])
+      $('#demand2title').html(demandsingame[1]['title'])
+      $('#demand2text').html(demandsingame[1]['text'])
+    }
+
+    //set up dice for play
     let randomnumberondice = []
     let numberofdice = 2
     $('#dice3').hide()
@@ -280,6 +345,11 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#threatbar').removeClass('bg-warning')
         $('#threatbar').addClass('bg-success')
       }
+    }
+
+    //time left to complete game update
+    function updatetimeleft() {
+      $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
     }
 
     //create conversation cards
@@ -333,7 +403,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
     $('#buttonchoice2').hide()
     let introtext = ""
     intro1()
-    //typewriter introduction
+
+    //Introduction
     async function intro1() {
       typeout("CAPTAIN!?!? \n\n Captain!? \n\n", $("#writetexthere"))
       await delayanimation(showbutton, 1300)
@@ -384,6 +455,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       alterData(-1, 2, 0)
       $('#hostagetakername').html(hostagetaker[0]['name'])
       $('#whatweknow').html(hostagetaker[0]['description'])
+      preparedemands()
     }
 
     function maingame() {
@@ -392,6 +464,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
       console.log(hostagetaker)
       $('#hostagetakername').html(hostagetaker[1]['name'])
       $('#whatweknow').html(hostagetaker[1]['description'])
+      preparedemands()
     }
 
     function showbutton() {
@@ -424,8 +497,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     //create chart for interface
-    let ctx = $('#hostages_data_display');
-    let hostagechart = new Chart(ctx, {
+    let chartposition = $('#hostages_data_display');
+    let hostagechart = new Chart(chartposition, {
       type: 'doughnut',
       data: {
         labels: [
@@ -831,40 +904,15 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     function preparedie() {
-      $("#dice").removeClass('spintofront')
-      $("#dice").removeClass('spintoback')
-      $("#dice").removeClass('spintoleft')
-      $("#dice").removeClass('spintoright')
-      $("#dice").removeClass('spintotop')
-      $("#dice").removeClass('spintobottom')
+      $("#dice").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
       $("#dice").addClass('roll')
-      $("#dice2").removeClass('spintofront')
-      $("#dice2").removeClass('spintoback')
-      $("#dice2").removeClass('spintoleft')
-      $("#dice2").removeClass('spintoright')
-      $("#dice2").removeClass('spintotop')
-      $("#dice2").removeClass('spintobottom')
+      $("#dice2").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
       $("#dice2").addClass('roll')
-      $("#dice3").removeClass('spintofront')
-      $("#dice3").removeClass('spintoback')
-      $("#dice3").removeClass('spintoleft')
-      $("#dice3").removeClass('spintoright')
-      $("#dice3").removeClass('spintotop')
-      $("#dice3").removeClass('spintobottom')
+      $("#dice3").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
       $("#dice3").addClass('roll')
-      $("#dice4").removeClass('spintofront')
-      $("#dice4").removeClass('spintoback')
-      $("#dice4").removeClass('spintoleft')
-      $("#dice4").removeClass('spintoright')
-      $("#dice4").removeClass('spintotop')
-      $("#dice4").removeClass('spintobottom')
+      $("#dice4").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
       $("#dice4").addClass('roll')
-      $("#dice5").removeClass('spintofront')
-      $("#dice5").removeClass('spintoback')
-      $("#dice5").removeClass('spintoleft')
-      $("#dice5").removeClass('spintoright')
-      $("#dice5").removeClass('spintotop')
-      $("#dice5").removeClass('spintobottom')
+      $("#dice5").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
       $("#dice5").addClass('roll')
       $('#rollbutton').prop('disabled', true);
     }
