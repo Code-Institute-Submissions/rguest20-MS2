@@ -86,7 +86,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <div id="threat_level_div" class="border">
                   <p>Threat Level</p>
                   <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 57%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="7"></div>
+                    <div class="progress-bar bg-warning" id="threatbar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="7"></div>
                   </div>
                   <p><span style="float: left;">S</span><span style="float:right;">K</span></p>
                 </div>
@@ -254,6 +254,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     let cardnumber = 0
     let hostagedataset = [1, 0, 0]
     let threat = 4
+    updatethreat()
     let conversationpoints = 0
     $('#conversationPointsP').html(conversationpoints)
 
@@ -263,6 +264,23 @@ if (!isset($_SESSION['UserData']['Username'])) {
     $('#dice3').hide()
     $('#dice4').hide()
     $('#dice5').hide()
+
+    //threat bar workings
+    function updatethreat() {
+      let threatpercentage = (threat / 7) * 100
+      $('#threatbar').css("width", threatpercentage + "%")
+      if (threatpercentage === 100) {
+        $('#threatbar').removeClass('bg-warning')
+        $('#threatbar').addClass('bg-danger')
+      } else if (threatpercentage > 20) {
+        $('#threatbar').removeClass('bg-success')
+        $('#threatbar').removeClass('bg-danger')
+        $('#threatbar').addClass('bg-warning')
+      } else {
+        $('#threatbar').removeClass('bg-warning')
+        $('#threatbar').addClass('bg-success')
+      }
+    }
 
     //create conversation cards
     for (card in data) {
@@ -634,7 +652,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#conversationPointsP').html(conversationpoints)
       }
       if ("threat" in outcome) {
-        threat += outcome['threat']
+        threat += parseInt(outcome['threat'])
+        updatethreat()
       }
       if ("hostage" in outcome) {
         alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
@@ -654,7 +673,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#conversationPointsP').html(conversationpoints)
       }
       if ("threat" in outcome) {
-        threat += outcome['threat']
+        threat += parseInt(outcome['threat'])
+        updatethreat()
       }
       if ("hostage" in outcome) {
         alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
@@ -674,7 +694,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#conversationPointsP').html(conversationpoints)
       }
       if ("threat" in outcome) {
-        threat += outcome['threat']
+        threat += parseInt(outcome['threat'])
+        updatethreat()
       }
       if ("hostage" in outcome) {
         alterData(0, -parseInt(outcome['hostage']), parseInt(outcome['hostage']))
