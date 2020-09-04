@@ -53,7 +53,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <h3>Hostage Taker</h3>
                 <h5><span id="hostagetakername"></span></h5>
                 <p id="whatweknow"></p>
-                <p id="turnsleft"></p>
+                <h3 id="turnsleft"></h3>
               </td>
             </thead>
             <tbody>
@@ -272,6 +272,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     }
 
     // create variables
+    let numberofdice
     let conversationcards = []
     let hand = [1, 2, 3, 4, 5, 6, 18]
     let discards = []
@@ -279,6 +280,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     let cardnumber = 0
     let hostagedataset = [1, 0, 0]
     let demandsingame = []
+    let nextdemandcard = 1
     let timeleft = 10
     updatetimeleft()
     let terroringame = []
@@ -325,7 +327,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
     //set up dice for play
     let randomnumberondice = []
-    let numberofdice = 2
     $('#dice3').hide()
     $('#dice4').hide()
     $('#dice5').hide()
@@ -333,17 +334,37 @@ if (!isset($_SESSION['UserData']['Username'])) {
     //threat bar workings
     function updatethreat() {
       let threatpercentage = (threat / 7) * 100
+      console.log(threatpercentage)
       $('#threatbar').css("width", threatpercentage + "%")
-      if (threatpercentage === 100) {
+      if (threatpercentage > 100) {
+        let newhostageskilled = Math.round(((threatpercentage / 100) * 7) - 7)
+        alterData(0, -newhostageskilled, +newhostageskilled)
+        threatpercentage = 100
+        numberofdice = 1
+        showdice()
+      } else if (threatpercentage === 100) {
         $('#threatbar').removeClass('bg-warning')
         $('#threatbar').addClass('bg-danger')
+        numberofdice = 1
+        showdice()
       } else if (threatpercentage > 20) {
         $('#threatbar').removeClass('bg-success')
         $('#threatbar').removeClass('bg-danger')
         $('#threatbar').addClass('bg-warning')
-      } else {
+        numberofdice = 2
+        showdice()
+      } else if (threatpercentage >= 0) {
         $('#threatbar').removeClass('bg-warning')
         $('#threatbar').addClass('bg-success')
+        numberofdice = 3
+        showdice()
+      } else if (threatpercentage < 0) {
+        console.log(Math.round((threatpercentage / -100) * 7))
+        let newhostagessaved = Math.round((threatpercentage / -100) * 7)
+        alterData(+newhostagessaved, -newhostagessaved, 0)
+        threatpercentage = 0
+        numberofdice = 3
+        showdice()
       }
     }
 
@@ -461,7 +482,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
     function maingame() {
       $('#textbox').hide()
       alterData(-1, 7, 0)
-      console.log(hostagetaker)
       $('#hostagetakername').html(hostagetaker[1]['name'])
       $('#whatweknow').html(hostagetaker[1]['description'])
       preparedemands()
@@ -651,13 +671,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#dice4').hide()
         $('#dice5').hide()
         numberofdice += value
-        for (i = 1; i <= numberofdice; i++) {
-          $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-          $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-          $('#dice' + (i)).show()
-        }
-      } else {
-        return
+        showdice()
       }
     }
 
@@ -668,13 +682,19 @@ if (!isset($_SESSION['UserData']['Username'])) {
         $('#dice4').hide()
         $('#dice5').hide()
         numberofdice -= value
-        for (i = 1; i <= numberofdice; i++) {
-          $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-          $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-          $('#dice' + (i)).show()
-        }
-      } else {
-        return
+        showdice()
+      }
+    }
+
+    function showdice() {
+      $('#dice2').hide()
+      $('#dice3').hide()
+      $('#dice4').hide()
+      $('#dice5').hide()
+      for (i = 1; i <= numberofdice; i++) {
+        $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+        $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+        $('#dice' + (i)).show()
       }
     }
 
@@ -733,7 +753,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
         alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
       }
       if ("demand" in outcome) {
-
+        $('#demand' + nextdemandcard).addClass("flip-card-toggled")
+        nextdemandcard += 1
       }
       if (outcome['abductorkilled']) {
 
@@ -754,7 +775,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
         alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
       }
       if ("demand" in outcome) {
-
+        $('#demand' + nextdemandcard).addClass("flip-card-toggled")
+        nextdemandcard += 1
       }
       if (outcome['abductorkilled']) {
 
