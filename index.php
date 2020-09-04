@@ -285,7 +285,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     updatetimeleft()
     let terroringame = []
     prepareterror()
-    let threat = 4
+    let threat = 6
     updatethreat()
     let conversationpoints = 0
     $('#conversationPointsP').html(conversationpoints)
@@ -332,7 +332,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     $('#dice5').hide()
 
     //threat bar workings
-    function updatethreat() {
+    async function updatethreat() {
       let threatpercentage = (threat / 7) * 100
       console.log(threatpercentage)
       $('#threatbar').css("width", threatpercentage + "%")
@@ -341,30 +341,30 @@ if (!isset($_SESSION['UserData']['Username'])) {
         alterData(0, -newhostageskilled, +newhostageskilled)
         threatpercentage = 100
         numberofdice = 1
-        showdice()
+        await delayanimation(showdice, 1000)
       } else if (threatpercentage === 100) {
         $('#threatbar').removeClass('bg-warning')
         $('#threatbar').addClass('bg-danger')
         numberofdice = 1
-        showdice()
+        await delayanimation(showdice, 1000)
       } else if (threatpercentage > 20) {
         $('#threatbar').removeClass('bg-success')
         $('#threatbar').removeClass('bg-danger')
         $('#threatbar').addClass('bg-warning')
         numberofdice = 2
-        showdice()
+        await delayanimation(showdice, 1000)
       } else if (threatpercentage >= 0) {
         $('#threatbar').removeClass('bg-warning')
         $('#threatbar').addClass('bg-success')
         numberofdice = 3
-        showdice()
+        await delayanimation(showdice, 1000)
       } else if (threatpercentage < 0) {
         console.log(Math.round((threatpercentage / -100) * 7))
         let newhostagessaved = Math.round((threatpercentage / -100) * 7)
         alterData(+newhostagessaved, -newhostagessaved, 0)
         threatpercentage = 0
         numberofdice = 3
-        showdice()
+        await delayanimation(showdice, 1000)
       }
     }
 
