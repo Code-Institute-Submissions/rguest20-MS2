@@ -206,7 +206,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <p>
-                  <button onclick="playthiscardend()" id="playcard">Accept Roll</button> <button onclick="fourtofivemodalpopup()" id="fourtofivebutton">Convert 4 to 5</button> <button onclick="" id="reroll">Reroll</button>
+                  <button onclick="playthiscardend()" id="playcard">Accept Roll</button> <button onclick="fourtofivemodalpopup()" id="fourtofivebutton">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span> <button onclick=""
+                    id="reroll">Reroll</button>
                 </p>
               </td>
             </thead>

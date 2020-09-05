@@ -19,6 +19,7 @@ window.onload = function() {
 
 // create variables
 let extradice = false
+let fourtofivefromcard = false
 let numberofdice
 let conversationcards = []
 let hand = [1, 2, 3, 4, 5, 6, 18]
@@ -32,7 +33,7 @@ let timeleft = 10
 updatetimeleft()
 let terroringame = []
 prepareterror()
-let threat = 7
+let threat = 1
 updatethreat()
 let conversationpoints = 1000
 $('#conversationPointsP').html(conversationpoints)
@@ -119,6 +120,7 @@ async function updatethreat() {
     let newhostagessaved = Math.round((threatpercentage / -100) * 7)
     alterData(+newhostagessaved, -newhostagessaved, 0)
     threatpercentage = 0
+    threat=0
     numberofdice = 3
     await delayanimation(showdice, 1000)
   }
@@ -499,15 +501,33 @@ function buttondisable2(){
 }
 
 function fourtofivemodalpopup(){
-  $('#4sto5smainbody').empty()
-  for (card in hand){
-    $('#4sto5smainbody').append('<input type="checkbox" onclick = "countboxes()" id="' + conversationcards[hand[card]-1].title +  '" name="' + conversationcards[hand[card]-1].title + '"<label for="' + conversationcards[hand[card]-1].title + '">' + conversationcards[hand[card]-1].title + '</label><br>')
-  }
-  for (i=0; i<numberofdice; i++){
-    if (diceresults[i] === 4){
-      $('#4to5modal').modal({'backdrop':false, 'keyboard':false})
-      $('#discardbutton').prop('disabled', true)
-      break
+  if (fourtofivefromcard === true) {
+    for (i=0; i<numberofdice; i++){
+      if (diceresults[i] === 4){
+        diceresults[i] = 5
+        $('#dice' + (i+1)).removeClass('spintoright')
+        $('#dice' + (i+1)).addClass('spintobottom')
+        break
+      }
+    }
+    $('#fourtofivebutton').prop('disabled', true)
+    for (i=0; i<numberofdice; i++){
+      if (diceresults[i] === 4){
+        buttondisable2()
+        break
+      }
+    }
+  }else{
+    $('#4sto5smainbody').empty()
+    for (card in hand){
+      $('#4sto5smainbody').append('<input type="checkbox" onclick = "countboxes()" id="' + conversationcards[hand[card]-1].title +  '" name="' + conversationcards[hand[card]-1].title + '"<label for="' + conversationcards[hand[card]-1].title + '">' + conversationcards[hand[card]-1].title + '</label><br>')
+    }
+    for (i=0; i<numberofdice; i++){
+      if (diceresults[i] === 4){
+        $('#4to5modal').modal({'backdrop':false, 'keyboard':false})
+        $('#discardbutton').prop('disabled', true)
+        break
+      }
     }
   }
 }
@@ -609,6 +629,13 @@ function cardbigsuccess() {
     updatethreat()
     extradice = false
   }
+  if ("fourtofive" in outcome){
+    fourtofivefromcard = true
+    $('#fourtofivetrueorfalse').html("no cost to change fours to fives")
+  } else {
+    fourtofivefromcard = false
+    $('#fourtofivetrueorfalse').empty()
+  }
   if (outcome['abductorkilled']) {
 
   }
@@ -638,6 +665,13 @@ function cardsmallsuccess() {
         updatethreat()
         extradice = false
   }
+  if ("fourtofive" in outcome){
+    fourtofivefromcard = true
+    $('#fourtofivetrueorfalse').html("no cost to change fours to fives")
+  } else {
+    fourtofivefromcard = false
+    $('#fourtofivetrueorfalse').empty()
+  }
   if (outcome['abductorkilled']) {
 
   }
@@ -666,7 +700,9 @@ function cardfail() {
   if (outcome['abductorkilled']) {
 
     }
-  updatedice()
+    fourtofivefromcard = false
+    $('#fourtofivetrueorfalse').empty()
+    updatedice()
   }
 
 function updatedice(){
