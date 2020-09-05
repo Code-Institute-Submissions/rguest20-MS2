@@ -140,8 +140,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <thead>
               <td id="diceroller">
                 <h3>Dice Roller</h3>
-                <div id="view">
-                  <div id="dice">
+                <div id="view1">
+                  <div id="dice1">
                     <div class="diceFace front">1:</div>
                     <div class="diceFace right">2:</div>
                     <div class="diceFace back">3:</div>
@@ -206,7 +206,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <p>
-                  <button onclick="rolldice()" id="rollbutton">Roll</button> <button onclick="moredice()" id="onemoredice"> +1 Die</button> <button onclick="lessdice()" id="onelessdice"> -1 Die</button>
+                  <button onclick="playthiscardend()" id="playcard">Accept Roll</button> <button onclick="fourtofivemodalpopup()" id="fourtofivebutton">Convert 4 to 5</button> <button onclick="" id="reroll">Reroll</button>
                 </p>
               </td>
             </thead>
@@ -229,7 +229,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                           <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
                           <p>Failure: <span id="failureOutcome"></span></p>
                           <p>In Hand: <span id="isInHand"></span></p>
-                          <p> <button id="playCard" onclick="playthiscard()">Play Card</button> <button id="sacrificeCard" onclick="sacrifice()">Sacrifice for 1 CP</button> <button id="buyCard">Buy Card</button></p>
+                          <p> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> <button id="buycardtohand">Buy Card</button></p>
                         </th>
                       </tr>
                     </tbody>
@@ -238,6 +238,26 @@ if (!isset($_SESSION['UserData']['Username'])) {
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="4to5modal" tabindex="-1" role="dialog" aria-labelledby="modal for changing dice results" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Convert 4's to 5's</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Pick two cards to discard to convert a 4 to a 5</p>
+            <p id="4sto5smainbody"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Not This Time</button>
+            <button type="button" class="btn btn-primary" onclick="discardfourtofive()" id="discardbutton" data-dismiss="modal">Discard</button>
+          </div>
         </div>
       </div>
     </div>

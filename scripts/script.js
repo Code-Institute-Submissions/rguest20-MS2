@@ -31,10 +31,15 @@ let timeleft = 10
 updatetimeleft()
 let terroringame = []
 prepareterror()
-let threat = 6
+let threat = 1
 updatethreat()
 let conversationpoints = 0
 $('#conversationPointsP').html(conversationpoints)
+
+//set buttons to be disabled
+$('#playcard').prop('disabled', true)
+$('#fourtofivebutton').prop('disabled', true)
+$('#reroll').prop('disabled', true)
 
 //random number generator
 function getrandomint(min, max) {
@@ -85,6 +90,7 @@ async function updatethreat() {
   if (threatpercentage > 100) {
     let newhostageskilled = Math.round(((threatpercentage / 100) * 7) - 7)
     alterData(0, -newhostageskilled, +newhostageskilled)
+    threat = 7
     threatpercentage = 100
     numberofdice = 1
     await delayanimation(showdice, 1000)
@@ -438,7 +444,7 @@ function showdice() {
   $('#dice4').hide()
   $('#dice5').hide()
   for (i = 1; i <= numberofdice; i++) {
-    $('#dice').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
+    $('#dice1').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
     $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
     $('#dice' + (i)).show()
   }
@@ -462,26 +468,117 @@ function sacrifice() {
 async function playthiscard() {
   for (var i = 0; i < hand.length; i++) {
     if (hand[i] === cardnumber + 1) {
+      $('#nextCard').prop('disabled', true)
+      $('#prevCard').prop('disabled', true)
+      $('#playcardinhand').prop('disabled', true)
+      $('#sacrificecardinhand').prop('disabled', true)
+      $('#buycardtohand').prop('disabled', true)
+      diceresults = rolldice()
       await discards.push(hand[i])
       hand.splice(i, 1)
+      await delayanimation(buttondisable1, 2000)
       setCard()
-      diceresults = rolldice()
-      let successes = 0
-      //count successes
-      for (i = 0; i < numberofdice; i++) {
-        if (diceresults[i] > 4) {
-          successes += 1
+      for (i=0; i<numberofdice; i++){
+        if (diceresults[i] === 4){
+          await delayanimation(buttondisable2, 2000)
+          break
         }
       }
-      //check outcome
-      if (successes > 1) {
-        await delayanimation(cardbigsuccess, 2000)
-      } else if (successes === 1) {
-        await delayanimation(cardsmallsuccess, 2000)
-      } else {
-        await delayanimation(cardfail, 2000)
+    }
+  }
+}
+
+function buttondisable1(){
+  $('#playcard').prop('disabled', false)
+}
+
+function buttondisable2(){
+  $('#fourtofivebutton').prop('disabled', false)
+}
+
+function fourtofivemodalpopup(){
+  $('#4sto5smainbody').empty()
+  for (card in hand){
+    $('#4sto5smainbody').append('<input type="checkbox" onclick = "countboxes()" id="' + conversationcards[hand[card]-1].title +  '" name="' + conversationcards[hand[card]-1].title + '"<label for="' + conversationcards[hand[card]-1].title + '">' + conversationcards[hand[card]-1].title + '</label><br>')
+  }
+  for (i=0; i<numberofdice; i++){
+    if (diceresults[i] === 4){
+      $('#4to5modal').modal({'backdrop':false, 'keyboard':false})
+      $('#discardbutton').prop('disabled', true)
+      break
+    }
+  }
+}
+
+function countboxes(){
+  let boxchecknumber = $(":checkbox:checked").length
+  console.log( conversationcards.indexOf(($(":checkbox:checked")[0]['name'])))
+  if (boxchecknumber === 2){
+    $('#discardbutton').prop('disabled', false)
+  } else {
+    $('#discardbutton').prop('disabled', true)
+  }
+}
+
+function discardfourtofive(){
+  for (i = 0; i<2 ; i++){
+    let titletodiscard = $(":checkbox:checked")[i]['name']
+    console.log('$(":checkbox:checked")[i][\'name\']    ' + $(":checkbox:checked")[i]['name'])
+    for (j=0; j<conversationcards.length; j++){
+      if (conversationcards[j]['title'] === titletodiscard){
+        console.log("conversationcards[j]['title']  " + conversationcards[j]['title'])
+        let idtodiscard =  conversationcards[j]['id']
+        console.log('id to discard   ' + idtodiscard)
+        console.log(hand)
+        for(k=0; k<hand.length; k++){
+          if (hand[k] === idtodiscard){
+            discards.push(idtodiscard)
+            hand.splice(k,1)
+          }
+        }
       }
     }
+  }
+  for (i=0; i<numberofdice; i++){
+    if (diceresults[i] === 4){
+      diceresults[i] = 5
+      $('#dice' + (i+1)).removeClass('spintoright')
+      $('#dice' + (i+1)).addClass('spintobottom')
+      break
+    }
+  }
+  $('#fourtofivebutton').prop('disabled', true)
+  for (i=0; i<numberofdice; i++){
+    if (diceresults[i] === 4){
+      buttondisable2()
+      break
+    }
+  }
+}
+
+async function playthiscardend(){
+  let successes = 0
+  $('#playcard').prop('disabled', true)
+  $('#fourtofivebutton').prop('disabled', true)
+  $('#reroll').prop('disabled', true)
+  $('#nextCard').prop('disabled', false)
+  $('#prevCard').prop('disabled', false)
+  $('#playcardinhand').prop('disabled', false)
+  $('#sacrificecardinhand').prop('disabled', false)
+  $('#buycardtohand').prop('disabled', false)
+  //count successes
+  for (i = 0; i < numberofdice; i++) {
+    if (diceresults[i] > 4) {
+      successes += 1
+    }
+  }
+  //check outcome
+  if (successes > 1) {
+    cardbigsuccess()
+  } else if (successes === 1) {
+    cardsmallsuccess()
+  } else {
+    cardfail()
   }
 }
 
@@ -572,17 +669,17 @@ async function rolldie1() {
   await delayanimation(removeroll, 2000)
 
   if (randomnumberondie === 1) {
-    $("#dice").addClass('spintofront')
+    $('#dice1').addClass('spintofront')
   } else if (randomnumberondie === 2) {
-    $("#dice").addClass('spintoleft')
+    $('#dice1').addClass('spintoleft')
   } else if (randomnumberondie === 3) {
-    $("#dice").addClass('spintoback')
+    $('#dice1').addClass('spintoback')
   } else if (randomnumberondie === 4) {
-    $("#dice").addClass('spintoright')
+    $('#dice1').addClass('spintoright')
   } else if (randomnumberondie === 5) {
-    $("#dice").addClass('spintobottom')
+    $('#dice1').addClass('spintobottom')
   } else {
-    $("#dice").addClass('spintotop')
+    $('#dice1').addClass('spintotop')
   }
 }
 
@@ -672,8 +769,8 @@ function delayanimation(funct, val) {
 }
 
 function preparedie() {
-  $("#dice").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $("#dice").addClass('roll')
+  $('#dice1').removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
+  $('#dice1').addClass('roll')
   $("#dice2").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
   $("#dice2").addClass('roll')
   $("#dice3").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
@@ -687,7 +784,7 @@ function preparedie() {
 
 function removeroll() {
   $('#rollbutton').prop('disabled', false);
-  $("#dice").removeClass('roll')
+  $('#dice1').removeClass('roll')
   $("#dice2").removeClass('roll')
   $("#dice3").removeClass('roll')
   $("#dice4").removeClass('roll')
