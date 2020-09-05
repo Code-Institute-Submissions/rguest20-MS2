@@ -35,16 +35,37 @@ let terroringame = []
 prepareterror()
 let threat = 1
 updatethreat()
-let conversationpoints = 1000
+let conversationpoints =-111
 $('#conversationPointsP').html(conversationpoints)
 phase1initialise()
 
 //set up  for first phase
-function phase1initialise(){
-$('#phase1bar').addClass('activated')
-$('#playphasebuttons').show()
-$('#buyphasebuttons').hide()
+async function phase1initialise(){
+  $('#phase1bar').addClass('activated')
+  $('#phase2bar').removeClass('activated')
+  $('#playphasebuttons').show()
+  $('#buyphasebuttons').hide()
+  $('#endphase1').show()
+  $('#endphase2').hide()
+  while(discards.length > 0) {
+    discards.pop();
+  }
+  if (document.getElementById('isInHand').innerHTML === "Discarded"){
+    $('#isInHand').html("Available to buy")
+  }
+  conversationpoints = 0
+  $('#conversationPointsP').html(conversationpoints)
 }
+
+function phase2initialise(){
+$('#phase1bar').removeClass('activated')
+$('#phase2bar').addClass('activated')
+$('#playphasebuttons').hide()
+$('#buyphasebuttons').show()
+$('#endphase1').hide()
+$('#endphase2').show()
+}
+
 //set buttons to be disabled
 $('#playcard').prop('disabled', true)
 $('#fourtofivebutton').prop('disabled', true)
@@ -94,7 +115,6 @@ $('#dice5').hide()
 //threat bar workings
 async function updatethreat() {
   let threatpercentage = (threat / 7) * 100
-  console.log(threatpercentage)
   $('#threatbar').css("width", threatpercentage + "%")
   if (threatpercentage > 100) {
     let newhostageskilled = Math.round(((threatpercentage / 100) * 7) - 7)
@@ -120,7 +140,6 @@ async function updatethreat() {
     numberofdice = 3
     await delayanimation(showdice, 1000)
   } else if (threatpercentage < 0) {
-    console.log(Math.round((threatpercentage / -100) * 7))
     let newhostagessaved = Math.round((threatpercentage / -100) * 7)
     alterData(+newhostagessaved, -newhostagessaved, 0)
     threatpercentage = 0
@@ -390,15 +409,19 @@ function setCard() {
     $('#failureOutcome').append('<li> GAME OVER </li>')
     $('#failureOutcome').append('</ul>')
   }
+  iscardinhand(currentcard)
+}
+
+function iscardinhand(card){
   $('#isInHand').empty()
   $('#isInHand').append('Available to buy')
   for (id in hand) {
-    if (Number(hand[id]) === currentcard.id) {
+    if (Number(hand[id]) === card.id) {
       $('#isInHand').empty()
       $('#isInHand').append('Yes')
     }
   }
-  if (discards.includes(currentcard.id)) {
+  if (discards.includes(card.id)) {
     $('#isInHand').empty()
     $('#isInHand').append('Discarded')
   }
@@ -481,6 +504,7 @@ async function playthiscard() {
       $('#playcardinhand').prop('disabled', true)
       $('#sacrificecardinhand').prop('disabled', true)
       $('#buycardtohand').prop('disabled', true)
+      $('#endphase1').prop('disabled', true)
       diceresults = rolldice()
       await discards.push(hand[i])
       hand.splice(i, 1)
@@ -538,7 +562,6 @@ function fourtofivemodalpopup(){
 
 function countboxes(){
   let boxchecknumber = $(":checkbox:checked").length
-  console.log( conversationcards.indexOf(($(":checkbox:checked")[0]['name'])))
   if (boxchecknumber === 2){
     $('#discardbutton').prop('disabled', false)
   } else {
@@ -549,13 +572,9 @@ function countboxes(){
 function discardfourtofive(){
   for (i = 0; i<2 ; i++){
     let titletodiscard = $(":checkbox:checked")[i]['name']
-    console.log('$(":checkbox:checked")[i][\'name\']    ' + $(":checkbox:checked")[i]['name'])
     for (j=0; j<conversationcards.length; j++){
       if (conversationcards[j]['title'] === titletodiscard){
-        console.log("conversationcards[j]['title']  " + conversationcards[j]['title'])
         let idtodiscard =  conversationcards[j]['id']
-        console.log('id to discard   ' + idtodiscard)
-        console.log(hand)
         for(k=0; k<hand.length; k++){
           if (hand[k] === idtodiscard){
             discards.push(idtodiscard)
@@ -592,6 +611,7 @@ async function playthiscardend(){
   $('#playcardinhand').prop('disabled', false)
   $('#sacrificecardinhand').prop('disabled', false)
   $('#buycardtohand').prop('disabled', false)
+  $('#endphase1').prop('disabled', false)
   //count successes
   for (i = 0; i < numberofdice; i++) {
     if (diceresults[i] > 4) {

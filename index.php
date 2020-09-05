@@ -118,8 +118,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class="border" id="phase1bar">Phase 1<br>Play Your Cards</td>
-                      <td class="border" id="phase2bar">Phase 2<br>Buy New Cards</td>
+                      <td class="border" id="phase1bar">Phase 1<br>Play Your Cards<br><button class="button btn-success" id="endphase1" onclick="phase2initialise()">End Phase</button></td>
+                      <td class="border" id="phase2bar">Phase 2<br>Buy New Cards<br><button class="button btn-success" id="endphase2" onclick="phase1initialise()">End Phase</button></td>
                       <td class="border" id="phase3bar">Phase 3<br>Terror</td>
                     </tr>
                   </thead>
