@@ -36,6 +36,9 @@ updatethreat()
 let conversationpoints = 0
 $('#conversationPointsP').html(conversationpoints)
 
+//set class for phase bar
+$('#phase1bar').addClass('activated')
+
 //set buttons to be disabled
 $('#playcard').prop('disabled', true)
 $('#fourtofivebutton').prop('disabled', true)

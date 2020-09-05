@@ -118,9 +118,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class="border">Phase 1</td>
-                      <td class="border">Phase 2</td>
-                      <td class="border">Phase 3</td>
+                      <td class="border" id="phase1bar">Phase 1<br>Play Your Cards</td>
+                      <td class="border" id="phase2bar">Phase 2<br>Buy New Cards</td>
+                      <td class="border" id="phase3bar">Phase 3<br>Terror</td>
                     </tr>
                   </thead>
                 </table>
@@ -142,66 +142,66 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <h3>Dice Roller</h3>
                 <div id="view1">
                   <div id="dice1">
-                    <div class="diceFace front">1:</div>
-                    <div class="diceFace right">2:</div>
-                    <div class="diceFace back">3:</div>
-                    <div class="diceFace left">4: <p>2 Cards</p>
+                    <div class="diceFace front">1</div>
+                    <div class="diceFace right">2</div>
+                    <div class="diceFace back">3</div>
+                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
                     </div>
-                    <div class="diceFace top">5: <p>Success</p>
+                    <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
-                    <div class="diceFace bottom">6: <p>Success</p>
+                    <div class="diceFace bottom">6<p class="fiveorsix">&#x2729;</p>
                     </div>
                   </div>
                 </div>
                 <div id="view2">
                   <div id="dice2">
-                    <div class="diceFace front">1:</div>
-                    <div class="diceFace right">2:</div>
-                    <div class="diceFace back">3:</div>
-                    <div class="diceFace left">4: <p>2 Cards</p>
+                    <div class="diceFace front">1</div>
+                    <div class="diceFace right">2</div>
+                    <div class="diceFace back">3</div>
+                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
                     </div>
-                    <div class="diceFace top">5: <p>Success</p>
+                    <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
-                    <div class="diceFace bottom">6: <p>Success</p>
+                    <div class="diceFace bottom">6<p class="fiveorsix">&#x2729;</p>
                     </div>
                   </div>
                 </div>
                 <div id="view3">
                   <div id="dice3">
-                    <div class="diceFace front">1:</div>
-                    <div class="diceFace right">2:</div>
-                    <div class="diceFace back">3:</div>
-                    <div class="diceFace left">4: <p>2 Cards</p>
+                    <div class="diceFace front">1</div>
+                    <div class="diceFace right">2</div>
+                    <div class="diceFace back">3</div>
+                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
                     </div>
-                    <div class="diceFace top">5: <p>Success</p>
+                    <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
-                    <div class="diceFace bottom">6: <p>Success</p>
+                    <div class="diceFace bottom">6<p class="fiveorsix">&#x2729;</p>
                     </div>
                   </div>
                 </div>
                 <div id="view4">
                   <div id="dice4">
-                    <div class="diceFace front">1:</div>
-                    <div class="diceFace right">2:</div>
-                    <div class="diceFace back">3:</div>
-                    <div class="diceFace left">4: <p>2 Cards</p>
+                    <div class="diceFace front">1</div>
+                    <div class="diceFace right">2</div>
+                    <div class="diceFace back">3</div>
+                    <div class="diceFace left">4 <p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
                     </div>
-                    <div class="diceFace top">5: <p>Success</p>
+                    <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
-                    <div class="diceFace bottom">6: <p>Success</p>
+                    <div class="diceFace bottom">6 <p class="fiveorsix">&#x2729;</p>
                     </div>
                   </div>
                 </div>
                 <div id="view5">
                   <div id="dice5">
-                    <div class="diceFace front">1:</div>
-                    <div class="diceFace right">2:</div>
-                    <div class="diceFace back">3:</div>
-                    <div class="diceFace left">4: <p>2 Cards</p>
+                    <div class="diceFace front">1</div>
+                    <div class="diceFace right">2</div>
+                    <div class="diceFace back">3</div>
+                    <div class="diceFace left">4 <p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
                     </div>
-                    <div class="diceFace top">5: <p>Success</p>
+                    <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
-                    <div class="diceFace bottom">6: <p>Success</p>
+                    <div class="diceFace bottom">6 <p class="fiveorsix">&#x2729;</p>
                     </div>
                   </div>
                 </div>

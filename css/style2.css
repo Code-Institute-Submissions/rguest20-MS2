@@ -201,6 +201,14 @@ html{
   padding-top: 5%;
 }
 
+#phase1bar, #phase2bar, #phase3bar{
+  width: 33%
+}
+
+.activated{
+  background-color: rgba(0,200,0,0.8)
+}
+
 #diceroller{
   min-height: 180px;
   height: 180px;
@@ -362,6 +370,16 @@ html{
   animation-iteration-count: 1;
   animation-duration: 2s;
   animation-timing-function:
+}
+
+.fourondice{
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.fiveorsix{
+  margin-top: 7px;
+  font-size: 40px;
 }
 
 .textappear{
