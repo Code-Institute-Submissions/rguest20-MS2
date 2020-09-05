@@ -230,7 +230,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                           <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
                           <p>Failure: <span id="failureOutcome"></span></p>
                           <p>In Hand: <span id="isInHand"></span></p>
-                          <p> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> <button id="buycardtohand" onclick="buyacard()">Buy Card</button>
+                          <p id="playphasebuttons"> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> </p>
+                          <p id="buyphasebuttons"><button id="buycardtohand" onclick="buyacard()">Buy Card</button>
                           </p>
                         </th>
                       </tr>

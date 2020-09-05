@@ -12,7 +12,7 @@ let data = [
     "smallSuccessThreatChange":"0",
     "failureThreatChange":"+1",
     "bigSuccessRevealDemand":"true",
-    "smallSuccessRevealDemand":"true",
+    "smallSuccessRevealDemand":"false",
     "failureCardRemove":"false",
     "bigSuccessHostageRelease":"0",
     "smallSuccessHostageRelease":"0",
@@ -40,7 +40,7 @@ let data = [
     "smallSuccessThreatChange":"0",
     "failureThreatChange":"+1",
     "bigSuccessRevealDemand":"true",
-    "smallSuccessRevealDemand":"true",
+    "smallSuccessRevealDemand":"false",
     "failureCardRemove":"false",
     "bigSuccessHostageRelease":"0",
     "smallSuccessHostageRelease":"0",
@@ -230,7 +230,7 @@ let data = [
     "smallSuccessDice":"0",
     "failureDice":"0",
     "bigSuccessConversationPoints":"0",
-    "smallSuccessConversationPoints":"0",
+    "smallSuccessConversationPoints":"+1",
     "failureConversationPoints":"+1",
     "bigSuccessThreatChange":"0",
     "smallSuccessThreatChange":"0",
@@ -249,7 +249,7 @@ let data = [
     "smallSuccessConversationEnd":"false",
     "failureConversationEnd":"false",
     "bigSuccess4to5": "true",
-    "smallSuccess4to5": "true"
+    "smallSuccess4to5": "false"
     },
   { "id":"10",
     "title":"You Need To Trust Me: 2",
@@ -258,7 +258,7 @@ let data = [
     "smallSuccessDice":"0",
     "failureDice":"0",
     "bigSuccessConversationPoints":"0",
-    "smallSuccessConversationPoints":"0",
+    "smallSuccessConversationPoints":"+1",
     "failureConversationPoints":"+1",
     "bigSuccessThreatChange":"0",
     "smallSuccessThreatChange":"0",
@@ -277,7 +277,7 @@ let data = [
     "smallSuccessConversationEnd":"false",
     "failureConversationEnd":"false",
     "bigSuccess4to5": "true",
-    "smallSuccess4to5": "true"
+    "smallSuccess4to5": "false"
     },
 { "id":"11",
     "title":"Just Stay Calm: 1",

@@ -37,10 +37,14 @@ let threat = 1
 updatethreat()
 let conversationpoints = 1000
 $('#conversationPointsP').html(conversationpoints)
+phase1initialise()
 
-//set class for phase bar
+//set up  for first phase
+function phase1initialise(){
 $('#phase1bar').addClass('activated')
-
+$('#playphasebuttons').show()
+$('#buyphasebuttons').hide()
+}
 //set buttons to be disabled
 $('#playcard').prop('disabled', true)
 $('#fourtofivebutton').prop('disabled', true)
