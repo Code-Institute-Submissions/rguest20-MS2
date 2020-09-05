@@ -18,6 +18,7 @@ window.onload = function() {
 }
 
 // create variables
+let extradice = false
 let numberofdice
 let conversationcards = []
 let hand = [1, 2, 3, 4, 5, 6, 18]
@@ -31,9 +32,9 @@ let timeleft = 10
 updatetimeleft()
 let terroringame = []
 prepareterror()
-let threat = 1
+let threat = 7
 updatethreat()
-let conversationpoints = 0
+let conversationpoints = 1000
 $('#conversationPointsP').html(conversationpoints)
 
 //set class for phase bar
@@ -307,8 +308,6 @@ function alterData(saved, alive, dead) {
 // Creates the view for the conversation cards (bottom right)
 function setCard() {
   let currentcard = conversationcards[cardnumber]
-  $('#cardnumber').empty()
-  $('#cardnumber').append(currentcard.id)
   $('#titleOfCard').empty()
   $('#titleOfCard').append(currentcard.title)
   $('#costOfCard').empty()
@@ -585,6 +584,7 @@ async function playthiscardend(){
   }
 }
 
+
 function cardbigsuccess() {
   let outcome = conversationcards[cardnumber]['bigSuccess']
   if ("conversationpoints" in outcome) {
@@ -601,6 +601,13 @@ function cardbigsuccess() {
   if ("demand" in outcome) {
     $('#demand' + nextdemandcard).addClass("flip-card-toggled")
     nextdemandcard += 1
+  }
+  if ("dice" in outcome) {
+    moredice(2)
+    extradice = true
+  } else {
+    updatethreat()
+    extradice = false
   }
   if (outcome['abductorkilled']) {
 
@@ -624,6 +631,13 @@ function cardsmallsuccess() {
     $('#demand' + nextdemandcard).addClass("flip-card-toggled")
     nextdemandcard += 1
   }
+  if ("dice" in outcome) {
+        moredice()
+        extradice = true
+      } else {
+        updatethreat()
+        extradice = false
+  }
   if (outcome['abductorkilled']) {
 
   }
@@ -642,11 +656,22 @@ function cardfail() {
   if ("hostage" in outcome) {
     alterData(0, -parseInt(outcome['hostage']), parseInt(outcome['hostage']))
   }
-  if ("demand" in outcome) {
-
-  }
+  if ("dice" in outcome) {
+        lessdice()
+        extradice = true
+      } else {
+        updatethreat()
+        extradice = false
+      }
   if (outcome['abductorkilled']) {
 
+    }
+  updatedice()
+  }
+
+function updatedice(){
+  if (!extradice){
+    showdice()
   }
 }
 
@@ -792,4 +817,16 @@ function removeroll() {
   $("#dice3").removeClass('roll')
   $("#dice4").removeClass('roll')
   $("#dice5").removeClass('roll')
+}
+
+function buyacard(){
+  let currentcardcost = parseInt(conversationcards[cardnumber].cost)
+  if (!hand.includes(conversationcards[cardnumber].id) && !discards.includes(conversationcards[cardnumber].id)){
+    if (conversationpoints >= currentcardcost){
+      hand.push(conversationcards[cardnumber].id)
+      conversationpoints -= currentcardcost
+      $('#conversationPointsP').html(conversationpoints)
+      setCard()
+    }
+  }
 }
