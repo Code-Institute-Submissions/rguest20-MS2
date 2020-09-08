@@ -47,7 +47,7 @@
           <input name="Username" type="text" class="form-control" value="Player" id="username">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Password is "code"</label>
           <input name="Password" type="password" class="form-control" id="password">
         </div>
         <input name="Submit" type="submit" value="Login" class="btn btn-primary">
