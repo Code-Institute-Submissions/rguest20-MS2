@@ -20,6 +20,7 @@ window.onload = function() {
 }
 
 // create variables
+let initialsetup = true
 let extradice = false
 let fourtofivefromcard = false
 let numberofdice
@@ -30,6 +31,7 @@ let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 let cardnumber = 0
 let cardsremoved = 0
 let hostagedataset = [1, 0, 0]
+let hostagestotal = 2
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
@@ -157,7 +159,7 @@ async function phase3initialise() {
         break;
       case 'hostageescape: 1':
         effecttext = 'A hostage is freed'
-        terroroutcomepass = '1escape'
+        terroroutcomepass = '1free'
         break;
       case 'threat: reset':
         effecttext = 'Threat is reset to 4'
@@ -178,21 +180,24 @@ function unlockterrorbutton(){
 function terrorplay(){
   if (threatoutcome === 'fail'){
     terroroutcome = terroroutcomefail
+    threatoutcome = "not required"
   } else{
     terroroutcome = terroroutcomepass
   }
   switch (terroroutcome){
     case '1hostage':
-      alterData(0,+1,0)
+      alterData(0,1,0)
+      hostagestotal +=1
       break;
     case '2hostage':
-      alterData(0,+2,0)
+      alterData(0,2,0)
+      hostagestotal +=2
       break;
     case '1escape':
-      alterData(+1,-1,0)
+      alterData(1,-1,0)
       break;
     case '1dead':
-      alterData(0,-1,+1)
+      alterData(0,-1,1)
       break;
     case '-1time':
       timeleft -= 1
@@ -214,8 +219,12 @@ function terrorplay(){
       threat = 4
       updatethreat()
       break;
+    case '1free':
+      alterData(1,-1,0)
+      break;
   }
   phase1initialise()
+  currentterror = ""
 }
 
 //set buttons to be disabled
@@ -415,7 +424,7 @@ function tutorial() {
 
 function maingame() {
   $('#textbox').hide()
-  alterData(-1, 7, 0)
+  alterData(-1, 2, 0)
   $('#hostagetakername').html(hostagetaker[1]['name'])
   $('#whatweknow').html(hostagetaker[1]['description'])
   preparedemands()
@@ -477,9 +486,34 @@ let hostagechart = new Chart(chartposition, {
 
 //function to change the data in the chart
 function alterData(saved, alive, dead) {
-  hostagedataset[0] += saved
-  hostagedataset[1] += alive
-  hostagedataset[2] += dead
+  if (initialsetup != true){
+    let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
+    let numberalive = hostagechart['data']["datasets"][0]["data"][1]
+    let numberdead = hostagechart['data']["datasets"][0]["data"][2]
+    if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) <= hostagestotal){
+      hostagedataset[0] += saved
+      hostagedataset[1] += alive
+      hostagedataset[2] += dead
+    } else if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) === (hostagestotal + 1)) {
+      if (saved > 0) {
+        saved -=1
+      }
+      if (dead > 0) {
+        dead -=1
+      }
+      alive +=1
+      hostagedataset[0] += saved
+      hostagedataset[1] += alive
+      hostagedataset[2] += dead
+    } else{
+      return
+    }
+  } else {
+    hostagedataset[0] += saved
+    hostagedataset[1] += alive
+    hostagedataset[2] += dead
+    initialsetup = false
+  }
   hostagechart.update()
 }
 
