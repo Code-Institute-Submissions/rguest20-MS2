@@ -6,7 +6,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
@@ -130,7 +130,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class='border' id="maininterface"></td>
+                      <td class='border' id="maininterface"> TEXT TO GO HERE TO DESCRIBE HOW GAME IS PROGRESSING</td>
                     </tr>
                   </thead>
                 </table>

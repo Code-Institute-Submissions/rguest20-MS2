@@ -102,6 +102,7 @@ async function phase3initialise() {
         break;
       case 'noeffect':
         successtext = 'No effect this time'
+        terroroutcomepass = 'noeffect'
         break;
       case 'hostageescape':
         successtext = 'The hostage escapes'
@@ -222,6 +223,11 @@ function terrorplay(){
     case '1free':
       alterData(1,-1,0)
       break;
+    case 'noeffect':
+      break
+    default:
+      alert('This should never appear')
+      break
   }
   phase1initialise()
   currentterror = ""
@@ -313,7 +319,12 @@ async function updatethreat(change = 0) {
 
 //time left to complete game update
 function updatetimeleft() {
-  $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
+  if (timeleft >= 0) {
+    $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
+  } else {
+    alert('THE GAME IS OVER')
+
+  }
 }
 
 //create conversation cards
