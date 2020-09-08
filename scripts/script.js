@@ -22,10 +22,11 @@ let extradice = false
 let fourtofivefromcard = false
 let numberofdice
 let conversationcards = []
-let hand = [1, 2, 3, 4, 5, 6, 18]
+let hand = [1, 2, 3, 4, 5, 6]
 let discards = []
-let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20]
+let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 let cardnumber = 0
+let cardsremoved = 0
 let hostagedataset = [1, 0, 0]
 let demandsingame = []
 let nextdemandcard = 1
@@ -33,7 +34,8 @@ let timeleft = 10
 updatetimeleft()
 let terroringame = []
 prepareterror()
-let threat = 1
+let threat = 7
+let threatchangedouble = false
 updatethreat()
 let conversationpoints =-111
 $('#conversationPointsP').html(conversationpoints)
@@ -47,6 +49,9 @@ async function phase1initialise(){
   $('#buyphasebuttons').hide()
   $('#endphase1').show()
   $('#endphase2').hide()
+  for (i = 0; i<discards.length; i++){
+    available.push(discards[i])
+  }
   while(discards.length > 0) {
     discards.pop();
   }
@@ -113,7 +118,8 @@ $('#dice4').hide()
 $('#dice5').hide()
 
 //threat bar workings
-async function updatethreat() {
+async function updatethreat(change = 0) {
+  threat += change
   let threatpercentage = (threat / 7) * 100
   $('#threatbar').css("width", threatpercentage + "%")
   if (threatpercentage > 100) {
@@ -429,7 +435,7 @@ function iscardinhand(card){
 
 //arrows to scroll through cards
 function nextCard() {
-  if (cardnumber === 19) {
+  if (cardnumber === (conversationcards.length-1)) {
     return
   } else {
     cardnumber++
@@ -495,6 +501,8 @@ function sacrifice() {
     }
   }
 }
+
+//Playing cards - several functions
 
 async function playthiscard() {
   for (var i = 0; i < hand.length; i++) {
@@ -618,6 +626,7 @@ async function playthiscardend(){
       successes += 1
     }
   }
+
   //check outcome
   if (successes > 1) {
     cardbigsuccess()
@@ -636,8 +645,11 @@ function cardbigsuccess() {
     $('#conversationPointsP').html(conversationpoints)
   }
   if ("threat" in outcome) {
-    threat += parseInt(outcome['threat'])
-    updatethreat()
+    let threatchange = parseInt(outcome['threat'])
+    if (threatchangedouble === true && threatchange > 0){
+      threatchange += threatchange
+    }
+    updatethreat(threatchange)
   }
   if ("hostage" in outcome) {
     alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
@@ -661,7 +673,7 @@ function cardbigsuccess() {
     $('#fourtofivetrueorfalse').empty()
   }
   if (outcome['abductorkilled']) {
-
+    abductorkilled()
   }
 }
 
@@ -672,8 +684,11 @@ function cardsmallsuccess() {
     $('#conversationPointsP').html(conversationpoints)
   }
   if ("threat" in outcome) {
-    threat += parseInt(outcome['threat'])
-    updatethreat()
+    let threatchange = parseInt(outcome['threat'])
+    if (threatchangedouble === true && threatchange > 0){
+      threatchange += threatchange
+    }
+    updatethreat(threatchange)
   }
   if ("hostage" in outcome) {
     alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
@@ -697,7 +712,7 @@ function cardsmallsuccess() {
     $('#fourtofivetrueorfalse').empty()
   }
   if (outcome['abductorkilled']) {
-
+    abductorkilled()
   }
 }
 
@@ -708,11 +723,18 @@ function cardfail() {
     $('#conversationPointsP').html(conversationpoints)
   }
   if ("threat" in outcome) {
-    threat += parseInt(outcome['threat'])
-    updatethreat()
+    let threatchange = parseInt(outcome['threat'])
+    if (threatchangedouble === true && threatchange > 0){
+      threatchange += threatchange
+    }
+    updatethreat(threatchange)
   }
   if ("hostage" in outcome) {
     alterData(0, -parseInt(outcome['hostage']), parseInt(outcome['hostage']))
+  }
+  if ("remove" in outcome) {
+    prevCard()
+    conversationcards.splice(cardnumber + 1, 1)
   }
   if ("dice" in outcome) {
         lessdice()
@@ -721,13 +743,26 @@ function cardfail() {
         updatethreat()
         extradice = false
       }
-  if (outcome['abductorkilled']) {
-
+  if (outcome['abductorescaped']) {
+    gameover()
     }
     fourtofivefromcard = false
     $('#fourtofivetrueorfalse').empty()
     updatedice()
   }
+
+function gameover(){
+  alert("you have lost")
+}
+
+function abductorkilled() {
+  $('#hostagetakername').html("Second in Command")
+  $('#whatweknow').html("Apparently there was a second in command hiding in there as well.  He seems a lot less reasonable as well. Careful, Cap. Keep him cool!")
+  $('#demand1').hide()
+  $('#demand2').hide()
+  typeout("The second in command has no demands.  However, he is a lot more unstable than his boss.  All increases in threat are now doubled.", $('#secondincommanddemand'))
+  threatchangedouble = true
+}
 
 function updatedice(){
   if (!extradice){

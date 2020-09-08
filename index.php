@@ -84,6 +84,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       </div>
                     </div>
                   </div>
+                  <div>
+                    <p id="secondincommanddemand"></p>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -145,7 +148,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -158,7 +161,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -171,7 +174,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -184,7 +187,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
+                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -197,7 +200,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><span>&#9611;</span> <span>&#9611;</span></p>
+                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -266,6 +269,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
     </div>
   </div>
   <p><a href="logout.php">Click here</a> to Logout.</p>
+  <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
   <script src="./scripts/helper/Chart.js"></script>
   <script src="./scripts/helper/typewriter.js"></script>
