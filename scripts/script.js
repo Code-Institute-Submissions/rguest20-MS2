@@ -31,7 +31,7 @@ let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 let cardnumber = 0
 let cardsremoved = 0
 let hostagedataset = [1, 0, 0]
-let hostagestotal = 2
+let hostagestotal = 7
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
@@ -424,7 +424,7 @@ function tutorial() {
 
 function maingame() {
   $('#textbox').hide()
-  alterData(-1, 2, 0)
+  alterData(-1, 7, 0)
   $('#hostagetakername').html(hostagetaker[1]['name'])
   $('#whatweknow').html(hostagetaker[1]['description'])
   preparedemands()
