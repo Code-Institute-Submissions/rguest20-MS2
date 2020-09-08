@@ -21,6 +21,7 @@ window.onload = function() {
 
 // create variables
 let initialsetup = true
+let abductorkilledorcaptured = false
 let extradice = false
 let fourtofivefromcard = false
 let numberofdice
@@ -32,6 +33,7 @@ let cardnumber = 0
 let cardsremoved = 0
 let hostagedataset = [1, 0, 0]
 let hostagestotal = 7
+let allhostagessavedordead = false
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
@@ -322,8 +324,7 @@ function updatetimeleft() {
   if (timeleft >= 0) {
     $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
   } else {
-    alert('THE GAME IS OVER')
-
+    checkforvictory()
   }
 }
 
@@ -501,10 +502,16 @@ function alterData(saved, alive, dead) {
     let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
     let numberalive = hostagechart['data']["datasets"][0]["data"][1]
     let numberdead = hostagechart['data']["datasets"][0]["data"][2]
-    if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) <= hostagestotal){
+    if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) < hostagestotal){
       hostagedataset[0] += saved
       hostagedataset[1] += alive
       hostagedataset[2] += dead
+    } else if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) === hostagestotal){
+      hostagedataset[0] += saved
+      hostagedataset[1] += alive
+      hostagedataset[2] += dead
+      allhostagessavedordead = true
+      checkforvictory()
     } else if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) === (hostagestotal + 1)) {
       if (saved > 0) {
         saved -=1
@@ -516,6 +523,8 @@ function alterData(saved, alive, dead) {
       hostagedataset[0] += saved
       hostagedataset[1] += alive
       hostagedataset[2] += dead
+      allhostagessavedordead = true
+      checkforvictory()
     } else{
       return
     }
@@ -556,7 +565,7 @@ function setCard() {
     $('#bigSuccessOutcome').append('<li> Hostages Rescued: ' + currentcard.bigSuccess['hostage'] + '</li>')
   }
   if (currentcard.bigSuccess['abductorkilled'] === true) {
-    $('#bigSuccessOutcome').append('<li> Abductor Killed </li>')
+    $('#bigSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
   }
   $('#bigSuccessOutcome').append('</ul>')
   $('#littleSuccessOutcome').empty()
@@ -580,7 +589,7 @@ function setCard() {
     $('#littleSuccessOutcome').append('<li> Hostages Rescued: ' + currentcard.smallSuccess['hostage'] + '</li>')
   }
   if (currentcard.smallSuccess['abductorkilled'] === true) {
-    $('#littleSuccessOutcome').append('<li> Abductor Killed </li>')
+    $('#littleSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
   }
   $('#littleSuccessOutcome').append('</ul>')
   $('#failureOutcome').empty()
@@ -865,6 +874,8 @@ function cardbigsuccess() {
     $('#fourtofivetrueorfalse').empty()
   }
   if (outcome['abductorkilled']) {
+    abductorkilledorcaptured = true
+    checkforvictory()
     abductorkilled()
   }
 }
@@ -904,6 +915,8 @@ function cardsmallsuccess() {
     $('#fourtofivetrueorfalse').empty()
   }
   if (outcome['abductorkilled']) {
+    abductorkilledorcaptured = true
+    checkforvictory()
     abductorkilled()
   }
 }
@@ -1114,6 +1127,39 @@ function buyacard(){
       conversationpoints -= currentcardcost
       $('#conversationPointsP').html(conversationpoints)
       setCard()
+    }
+  }
+}
+
+function checkforvictory(){
+  if (abductorkilledorcaptured === true && allhostagessavedordead === true){
+    let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
+    $('#winlosemodal').modal({backdrop: false, keyboard: false})
+    if ((parseFloat(numbersaved)/parseFloat(hostagestotal)) < 0.5){
+      $('#winorlose').html("Pyrrhic Victory")
+      $('#winorloseflufftext').html("Well, captain. You captured the hostage taker, but at what cost?  I don't think top brass will be happy with this.")
+    } else if ((parseFloat(numbersaved)/parseFloat(hostagestotal)) < 0.95){
+      $('#winorlose').html("Victory")
+      $('#winorloseflufftext').html("Well done, Cap! You captured the hostage taker, and even managed to save over half of the hostages! A fantastic job!.")
+    } else {
+      $('#winorlose').html("Amazing Victory!")
+      $('#winorloseflufftext').html("Just wonderful, Cap! You captured the hostage taker, saved the day and all of the hostages to boot! I think you have a medal in your future!.")
+    }
+    $('#howmanyhostagessaved').html(numbersaved)
+    $('#howmanyhostageskilled').html(hostagestotal - numbersaved)
+    $('#abductoralive').html('Yes')
+  } else {
+    if (timeleft >= 0){
+      return
+    } else {
+      let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
+      let numberkilled = hostagechart['data']["datasets"][0]["data"][2]
+      $('#winlosemodal').modal({backdrop: false, keyboard: false})
+      $('#winorlose').html("Game Over")
+      $('#winorloseflufftext').html("Oh my, captain.  You didn't bring in the hostage taker. This will be a tough one to explain...")
+      $('#howmanyhostagessaved').html(numbersaved)
+      $('#howmanyhostageskilled').html(numberkilled)
+      $('#abductoralive').html('No')
     }
   }
 }

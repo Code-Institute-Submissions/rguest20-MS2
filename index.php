@@ -272,9 +272,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title" id="terrormodaltitle">Terror Phase!</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <h5 id="terrortitle"></h5>
@@ -283,6 +280,29 @@ if (!isset($_SESSION['UserData']['Username'])) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" onclick="terrorplay()" id="acceptterror" data-dismiss="modal">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="winlosemodal" tabindex="-1" role="dialog" aria-labelledby="modal for displaying whether or not the game is won or lost" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="winorlose"></h2>
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="winorloseflufftext"></p>
+            <p id="terroreffect">
+              Number of hostages saved = <span id="howmanyhostagessaved"></span><br>
+              Number of hostages killed = <span id="howmanyhostageskilled"></span><br>
+              Abductor in custody/killed = <span id="abductoralive"></span>
+            </p>
+            <p id="whathappened"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="acceptterror" data-dismiss="">Continue</button>
           </div>
         </div>
       </div>
