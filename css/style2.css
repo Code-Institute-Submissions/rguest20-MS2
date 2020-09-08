@@ -265,6 +265,16 @@ html{
    perspective-origin: -300% -200%;
 }
 
+#viewterror{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
 .spintofront{
   animation: spintofront 0.75s;
   animation-fill-mode: forwards;
@@ -324,6 +334,13 @@ html{
 }
 
 #dice5{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#diceterror{
    width:3rem;
    height:3rem;
    position:relative;

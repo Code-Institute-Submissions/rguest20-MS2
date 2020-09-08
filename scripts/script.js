@@ -11,6 +11,8 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
 
 //hide splash screen - comment out to show
 $('#splash').hide()
+$('#textbox').hide()
+delayanimation(maingame, 1000)
 //show splash screen
 window.onload = function() {
   $('#titleofgame').addClass('textappear')
@@ -33,8 +35,13 @@ let nextdemandcard = 1
 let timeleft = 10
 updatetimeleft()
 let terroringame = []
+let currentterror
+let terroroutcome
+let terroroutcomepass
+let terroroutcomefail
+let threatoutcome = "not required"
 prepareterror()
-let threat = 7
+let threat = 4
 let threatchangedouble = false
 updatethreat()
 let conversationpoints =-111
@@ -43,8 +50,8 @@ phase1initialise()
 
 //set up  for first phase
 async function phase1initialise(){
+  $('#phase3bar').removeClass('activated')
   $('#phase1bar').addClass('activated')
-  $('#phase2bar').removeClass('activated')
   $('#playphasebuttons').show()
   $('#buyphasebuttons').hide()
   $('#endphase1').show()
@@ -62,6 +69,7 @@ async function phase1initialise(){
   $('#conversationPointsP').html(conversationpoints)
 }
 
+//second phase set up
 function phase2initialise(){
 $('#phase1bar').removeClass('activated')
 $('#phase2bar').addClass('activated')
@@ -69,6 +77,145 @@ $('#playphasebuttons').hide()
 $('#buyphasebuttons').show()
 $('#endphase1').hide()
 $('#endphase2').show()
+}
+
+//third phase set up
+async function phase3initialise() {
+  $('#phase2bar').removeClass('activated')
+  $('#phase3bar').addClass('activated')
+  $('#buyphasebuttons').hide()
+  $('#endphase2').hide()
+  $('#endphase3').show()
+  timeleft -= 1
+  updatetimeleft()
+  currentterror = terroringame.pop()
+  $('#terrortitle').html(currentterror['title'])
+  if (currentterror['dicerollneeded'] === true){
+    let successtext = ""
+    let failtext = ""
+    switch(currentterror['threatsuccess']) {
+      case 'extrahostage':
+        successtext = "An extra hostage is taken"
+        terroroutcomepass = '1hostage'
+        break;
+      case 'noeffect':
+        successtext = 'No effect this time'
+        break;
+      case 'hostageescape':
+        successtext = 'The hostage escapes'
+        terroroutcomepass = '1escape'
+        break;
+      default:
+        false
+    }
+    switch(currentterror['threatfail']) {
+      case 'extrahostage':
+        failtext = "Two extra hostages are taken"
+        terroroutcomefail = '2hostage'
+        break;
+      case 'hostagekilled':
+        failtext = 'A hostage is killed'
+        terroroutcomefail = '1dead'
+        break;
+      default:
+        false
+    }
+    $('#terroreffect').html('<ul><li>On Success: ' + successtext + '</li><li>On Fail: ' + failtext + '</li></ul>')
+    let terrordice = rolldice()
+    $('#acceptterror').prop('disabled', true)
+    await delayanimation(unlockterrorbutton, 2000)
+    for (i=0; i<numberofdice;i++){
+      if (terrordice[i] > 4){
+        threatoutcome = "success"
+        break
+      } else{
+        threatoutcome =  "fail"
+      }
+    }
+  } else {
+    let effecttext = ""
+    switch(currentterror['effect']) {
+      case 'hostagekilled: 1':
+        effecttext = "A hostage is killed"
+        terroroutcomepass = '1dead'
+        break;
+      case 'threat: 1':
+        effecttext = 'Threat increases by 1'
+        terroroutcomepass = '1threat'
+        break;
+      case 'threat: 2':
+        effecttext = 'Threat increases by 2'
+        terroroutcomepass = '2threat'
+        break;
+      case 'timeremaining: -1':
+        effecttext = 'Time remaining decreases by 1'
+        terroroutcomepass = '-1time'
+        break;
+      case 'timeremaining: half':
+        effecttext = 'Time remaining halves(rounding up)'
+        terroroutcomepass = 'halftime'
+        break;
+      case 'hostageescape: 1':
+        effecttext = 'A hostage is freed'
+        terroroutcomepass = '1escape'
+        break;
+      case 'threat: reset':
+        effecttext = 'Threat is reset to 4'
+        terroroutcomepass = 'resetthreat'
+        break;
+      default:
+        false
+    }
+    $('#terroreffect').html(effecttext)
+  }
+  $('#terrormodal').modal({backdrop: false, keyboard: false})
+}
+
+function unlockterrorbutton(){
+  $('#acceptterror').prop('disabled', false)
+}
+
+function terrorplay(){
+  if (threatoutcome === 'fail'){
+    terroroutcome = terroroutcomefail
+  } else{
+    terroroutcome = terroroutcomepass
+  }
+  switch (terroroutcome){
+    case '1hostage':
+      alterData(0,+1,0)
+      break;
+    case '2hostage':
+      alterData(0,+2,0)
+      break;
+    case '1escape':
+      alterData(+1,-1,0)
+      break;
+    case '1dead':
+      alterData(0,-1,+1)
+      break;
+    case '-1time':
+      timeleft -= 1
+      updatetimeleft()
+      break;
+    case 'halftime':
+      timeleft = Math.ceil(timeleft/2)
+      updatetimeleft()
+      break;
+    case '1threat':
+      threat += 1
+      updatethreat()
+      break;
+    case '2threat':
+      threat += 2
+      updatethreat()
+      break;
+    case 'resetthreat':
+      threat = 4
+      updatethreat()
+      break;
+  }
+  phase1initialise()
 }
 
 //set buttons to be disabled

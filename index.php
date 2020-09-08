@@ -121,8 +121,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class="border" id="phase1bar">Phase 1<br>Play Your Cards<br><button class="button btn-success" id="endphase1" onclick="phase2initialise()">End Phase</button></td>
-                      <td class="border" id="phase2bar">Phase 2<br>Buy New Cards<br><button class="button btn-success" id="endphase2" onclick="phase1initialise()">End Phase</button></td>
+                      <td class="border" id="phase1bar">Phase 1<br>Play Actions<br><button class="button btn-success" id="endphase1" onclick="phase2initialise()">End Phase</button></td>
+                      <td class="border" id="phase2bar">Phase 2<br>Buy New Actions<br><button class="button btn-success" id="endphase2" onclick="phase3initialise()">End Phase</button></td>
                       <td class="border" id="phase3bar">Phase 3<br>Terror</td>
                     </tr>
                   </thead>
@@ -263,6 +263,26 @@ if (!isset($_SESSION['UserData']['Username'])) {
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Not This Time</button>
             <button type="button" class="btn btn-primary" onclick="discardfourtofive()" id="discardbutton" data-dismiss="modal">Discard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="terrormodal" tabindex="-1" role="dialog" aria-labelledby="modal for displaying terror cards" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="terrormodaltitle">Terror Phase!</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 id="terrortitle"></h5>
+            <p>Effect: <span id="terroreffect"></span></p>
+            <p id="whathappened"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="terrorplay()" id="acceptterror" data-dismiss="modal">Continue</button>
           </div>
         </div>
       </div>
