@@ -9,6 +9,8 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
   this.endTurnIf = endTurn
 }
 
+$('#fireworks').hide()
+
 //hide splash screen - comment out to show
 $('#splash').hide()
 $('#textbox').hide()
@@ -1148,6 +1150,7 @@ function checkforvictory(){
     $('#howmanyhostagessaved').html(numbersaved)
     $('#howmanyhostageskilled').html(hostagestotal - numbersaved)
     $('#abductoralive').html('Yes')
+    $('#fireworks').show()
   } else {
     if (timeleft >= 0){
       return

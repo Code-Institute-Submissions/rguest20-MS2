@@ -307,6 +307,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
+    <div id="fireworks">
+      <canvas id="canvas">canvas is not supported</canvas>
+    </div>
   </div>
   <p><a href="logout.php">Click here</a> to Logout.</p>
   <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
@@ -314,6 +317,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <script src="./scripts/helper/Chart.js"></script>
   <script src="./scripts/helper/typewriter.js"></script>
   <script src="./scripts/helper/moment.min.js"></script>
+  <script src="./scripts/helper/fireworks.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
