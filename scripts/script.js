@@ -240,7 +240,7 @@ function getrandomint(min, max) {
 //set up terror for play
 function prepareterror() {
   for (i = 0; i < 10; i++) {
-    let randomcard = getrandomint(1, terror.length)
+    let randomcard = getrandomint(0, terror.length-1)
     terroringame.push(terror[randomcard])
     terror.splice(randomcard, 1)
   }
