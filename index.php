@@ -9,6 +9,17 @@ if (!isset($_SESSION['UserData']['Username'])) {
 <html lang="en-US">
 
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173045056-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-173045056-1');
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Negotiation</title>
