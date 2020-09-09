@@ -170,9 +170,16 @@ html{
 }
 
 .flip-card-back {
+  font-size: 13px;
   background-color: lightblue;
   color: black;
   transform: rotateY(180deg);
+}
+
+.concedebutton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 #interfaceinside{

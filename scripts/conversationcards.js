@@ -583,7 +583,7 @@ let demands = [
     'type': 'Arkayne',
     'title': 'Wire $10,000,000',
     'text': '"10 million! That\'s what it\'ll cost ya to get your people.  Think it over."',
-    'concedecost': 0,
+    'concedecost': 4,
     'concede': {'hostage': 2},
     'penalty': {'dicepermanent': -1}
   },

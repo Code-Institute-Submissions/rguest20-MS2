@@ -53,7 +53,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <h3>Hostage Taker</h3>
                 <h5><span id="hostagetakername"></span></h5>
                 <p id="whatweknow"></p>
-                <h3 id="turnsleft"></h3>
+                <h4 id="turnsleft"></h4>
               </td>
             </thead>
             <tbody>
@@ -68,7 +68,10 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       <div class="flip-card-back" id="demand1inner">
                         <h5><span id="demand1title"></span></h5>
                         <p id='demand1text'></p>
-                        <p id='demand1extra'></p>
+                        <p id='demand1cost'></p>
+                        <p><span id='demand1reward'></span></p>
+                        <p id='demand1penalty'></p>
+                        <button class="btn btn-primary btn-sm concedebutton">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -80,7 +83,10 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       <div class="flip-card-back" id="demand2inner">
                         <h5><span id="demand2title"></span></h5>
                         <p id='demand2text'></p>
-                        <p id='demand2extra'></p>
+                        <p id='demand2cost'></p>
+                        <p id='demand2reward'></p>
+                        <p id='demand2penalty'></p>
+                        <button class="btn btn-primary btn-sm concedebutton">Concede</button>
                       </div>
                     </div>
                   </div>
