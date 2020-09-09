@@ -734,13 +734,13 @@ let terror = [{
     'threatfail': false,
     'effect': 'timeremaining: -1'
   },
-  {
-    'title':'Your time is running out',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'timeremaining: half'
-  },
+  // {
+  //   'title':'Your time is running out',
+  //   'dicerollneeded': false,
+  //   'threatsuccess': false,
+  //   'threatfail': false,
+  //   'effect': 'timeremaining: half'
+  // },
   {
     'title':'A moment of weakness',
     'dicerollneeded': false,

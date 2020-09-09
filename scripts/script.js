@@ -219,12 +219,18 @@ function terrorplay(){
       updatetimeleft()
       break;
     case '1threat':
-      threat += 1
-      updatethreat()
+      if(threatchangedouble === true){
+        updatethreat(2)
+      } else{
+        updatethreat(1)
+      }
       break;
     case '2threat':
-      threat += 2
-      updatethreat()
+      if(threatchangedouble === true){
+        updatethreat(4)
+      } else{
+        updatethreat(2)
+      }
       break;
     case 'resetthreat':
       threat = 4
@@ -450,8 +456,8 @@ async function updatethreat(change = 0) {
     $('#threatbar').removeClass('bg-warning')
     $('#threatbar').addClass('bg-danger')
     numberofdice = 1 + dicechangepermanent
-    if (dice === 0){
-      dice = 1
+    if (numberofdice <= 0){
+      numberofdice = 1
     }
     showdice()
   } else if (threatpercentage > 20) {
@@ -702,6 +708,11 @@ function setCard() {
   $('#costOfCard').append(currentcard.cost)
   $('#bigSuccessOutcome').empty()
   $('#bigSuccessOutcome').append('<ul>')
+  if (freecardnumber > 0 && !hand.includes(currentcard.id) && !discards.includes(currentcard.id)){
+    $('#freecardbutton').show()
+  } else {
+    $('#freecardbutton').hide()
+  }
   if ('conversationpoints' in currentcard.bigSuccess) {
     $('#bigSuccessOutcome').append('<li> CP: ' + currentcard.bigSuccess['conversationpoints'] + '</li>')
   }

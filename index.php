@@ -237,7 +237,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <tbody>
                       <tr>
                         <th>
-                          <p>Cost: <span id="costOfCard"></span></p>
+                          <p>Cost: <span id="costOfCard"></span> <button id="freecardbutton" class="button btn-primary btn-sm" onclick="">Get Card For Free</button></p>
                           <table id="actioninformation" class="table table-borderless">
                             <tr>
                               <td>
