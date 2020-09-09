@@ -107,21 +107,20 @@ html{
 }
 
 #interface{
-  height: 1000px !important;
+  height: 800px;
 }
 
 #interface > table, #leftside > table, #rightside > table{
-  min-height: 1000px;
-  height: 1000px !important;
+  height: 800px;
 }
 
 #maininterface{
   margin-top: 10px;
-  height: 650px;
+  height: 400px;
 }
 
 .innertable{
-  height:95%;
+  height:90%;
 }
 
 #hostagetakerwindow{
@@ -129,7 +128,7 @@ html{
 }
 
 #demands{
-  height:700px;
+  height:500px;
   overflow: auto;
 }
 
@@ -137,7 +136,7 @@ html{
 .flip-card {
   background-color: transparent;
   width: 95%;
-  height: 30%;
+  height: 35%;
   perspective: 1000px;
   margin-bottom: 20px;
 }
@@ -183,7 +182,7 @@ html{
 }
 
 #interfaceinside{
-  height: 1000px;
+  height: 800px;
   min-width: 480px;
   text-align: center;
 }
@@ -202,9 +201,14 @@ html{
   padding-top: 2%;
   float: left;
   display: inline-block;
-  height: 20%;
+  height: 25%;
   width: 33%;
   min-width: 150px;
+}
+
+#hostages_data_display{
+  height:auto;
+  width:auto;
 }
 
 #conversation_points_div{
@@ -212,7 +216,7 @@ html{
   display: inline-block;
   min-width: 150px;
   width: 33%;
-  height: 20%;
+  height: 25%;
 }
 
 #threat_level_div{
@@ -220,7 +224,7 @@ html{
   display: inline-block;
   width: 33%;
   min-width: 150px;
-  height: 20%;
+  height: 25%;
   padding: 0 10px 0 10px;
   padding-top: 5%;
 }
@@ -437,6 +441,23 @@ html{
   animation-fill-mode: forwards;
 }
 
+#actiontitle{
+  float: left;
+}
+
+#actioninformation{
+  width:100%;
+  border-style: none;
+}
+
+#playphasebuttons{
+float: right;
+}
+
+#buyphasebuttons{
+  float:right;
+}
+
 #cards{
   max-height: 60%;
   height: 60%;
@@ -583,6 +604,42 @@ html{
   }
   #textbox{
     height: 90%;
+  }
+  .flip-card{
+    height: 25%%
+  }
+  #twosuccesses{
+    float:left;
+    width:50%;
+  }
+  #onesuccess{
+    float:right;
+    width: 50%;
+    padding-left: 40px;
+  }
+  #failurewriteout{
+    float:left;
+    width:50%;
+  }
+  #inhand{
+    float:right;
+    width: 50%;
+      padding-left: 40px;
+  }
+  #titlediceroller{
+    visibility: hidden;
+    height: 0px;
+  }
+  #hostagetakerwindow{
+    font-size: 0px;
+    height:0px !important;
+  }
+  #demands h3{
+    visibility: hidden;
+    font-size: 0px;
+  }
+  #demands{
+    height:100%;
   }
 }
 

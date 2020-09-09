@@ -347,6 +347,17 @@ function displaydemands() {
   $('#demand2penalty').html('HOWEVER ' + demand2penalty)
 }
 
+//make concede button work
+function concedebutton1(){
+  $('#concedebutton1').prop('disabled', true)
+  $('#concedebutton1').html("Conceded")
+}
+
+function concedebutton2(){
+  $('#concedebutton2').prop('disabled', true)
+  $('#concedebutton2').html("Conceded")
+}
+
 //set up dice for play
 let randomnumberondice = []
 $('#dice3').hide()

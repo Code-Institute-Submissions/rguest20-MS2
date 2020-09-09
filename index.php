@@ -71,7 +71,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand1cost'></p>
                         <p><span id='demand1reward'></span></p>
                         <p id='demand1penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton1" onclick="concedebutton1()">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand2cost'></p>
                         <p id='demand2reward'></p>
                         <p id='demand2penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton2" onclick="concedebutton2()">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
           <table class="table border">
             <thead>
               <td id="diceroller">
-                <h3>Dice Roller</h3>
+                <h3 id="titlediceroller">Dice Roller</h3>
                 <div id="view1">
                   <div id="dice1">
                     <div class="diceFace front">1</div>
@@ -214,16 +214,19 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     </div>
                   </div>
                 </div>
-                <p>
+                <div>
                   <button onclick="playthiscardend()" id="playcard">Accept Roll</button> <button onclick="fourtofivemodalpopup()" id="fourtofivebutton">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span> <button onclick=""
                     id="reroll">Reroll</button>
-                </p>
+                </div>
               </td>
             </thead>
             <tbody>
               <tr>
                 <td id="cards">
-                  <h3>Actions</h3>
+                  <h3 id="actiontitle">Actions</h3>
+                  <div id="playphasebuttons"> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> </div>
+                  <div id="buyphasebuttons"><button id="buycardtohand" onclick="buyacard()">Buy Card</button>
+                  </div>
                   <table class="table table-bordered innertable">
                     <thead>
                       <tr>
@@ -235,13 +238,20 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       <tr>
                         <th>
                           <p>Cost: <span id="costOfCard"></span></p>
-                          <p>On 2 successes: <span id="bigSuccessOutcome"></span></p>
-                          <p>On 1 success: <span id="littleSuccessOutcome"></span></p>
-                          <p>Failure: <span id="failureOutcome"></span></p>
-                          <p>In Hand: <span id="isInHand"></span></p>
-                          <p id="playphasebuttons"> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> </p>
-                          <p id="buyphasebuttons"><button id="buycardtohand" onclick="buyacard()">Buy Card</button>
-                          </p>
+                          <table id="actioninformation" class="table table-borderless">
+                            <tr>
+                              <td>
+                                <p id="twosuccesses">On 2 successes: <span id="bigSuccessOutcome"></span></p>
+                                <p id="onesuccess">On 1 success: <span id="littleSuccessOutcome"></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <p id="failurewriteout">Failure: <span id="failureOutcome"></span></p>
+                                <p id="inhand">In Hand: <span id="isInHand"></span></p>
+                              </td>
+                            </tr>
+                          </table>
                         </th>
                       </tr>
                     </tbody>
