@@ -137,7 +137,10 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class='border' id="maininterface"> TEXT TO GO HERE TO DESCRIBE HOW GAME IS PROGRESSING</td>
+                      <td class='border' id="maininterface">
+                        <p>TEXT TO GO HERE TO DESCRIBE HOW GAME IS PROGRESSING</p>
+                        <p>This is not available yet, but will be once the game is out of beta</p>
+                      </td>
                     </tr>
                   </thead>
                 </table>
@@ -274,7 +277,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             </button>
           </div>
           <div class="modal-body">
-            <p>Pick two cards to discard to convert a 4 to a 5</p>
+            <p>Pick two actions to discard to convert a 4 to a 5</p>
             <p id="4sto5smainbody"></p>
           </div>
           <div class="modal-footer">
@@ -306,8 +309,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title" id="winorlose"></h2>
-            <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <p id="winorloseflufftext"></p>
@@ -324,12 +325,138 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
+    <div class="modal fade" id="instructionsmodal" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>How to win</h3>
+            <p>Negotiation is a solitaire game where you play the role of a hostage negotiator trying to bring an abductor in along with as many hostages as you can. To win you must not only take in the abductor, but also resolve the fates of as many
+              hostages as you can. </p>
+            <h3>How to lose</h3>
+            <p>If, at any time, the abductor escapes or time runs out, you have lost.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal2">Your Interface</button> <button type="button" class="btn btn-primary"
+              data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="instructionsmodal2" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>Interface</h3>
+            <h5>Hostages</h5>
+            <p>This bar will tell you how many hostages there are, how many you have saved and how many you have failed to save.</p>
+            <h5>Conversation Points</h5>
+            <p>Conversation points are used to buy extra more powerful actions. This represents the back and forth between the negotiator and the abductor as you work towards your ultimate goal. Each turn, these will refresh to zero, so use the
+              points wisely to buy cards.</p>
+            <h5>Threat</h5>
+            <p>This bar represents the frustrations of the abductor. If this fills and more threat is added, hostages will die. If, however, you can empty this bar and reduce threat further then hostages may be let go. At high threats, your number of
+              dice will decrease, whereas at low threat you will have more dice and thus more leverage to get your actions to work.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal3">Actions and Dice</button> <button type="button" class="btn btn-primary"
+              data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="instructionsmodal3" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>Actions and Dice</h3>
+            <h5>Playing Actions</h5>
+            <p> On the right of the screen there are actions that you can select by using the &lt;&lt; and &gt;&gt; buttons. You will notice that there are different outcomes based on the number of successes you get. Once you play an action the dice
+              will roll and on a &#x2729; you will obtain 1 success.</p>
+            <p> If you get <img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px">, then you can convert
+              this to a success by discarding 2 actions. Either way, once you have done this, click 'accept roll' to continue </p>
+            <h5>Discarding Actions</h5>
+            <p>You can also discard an action to gain 1 conversation point. This is a key ability and I highly recommend you use it!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal4">Demands</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="instructionsmodal4" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>Demands</h3>
+            <h5>Flipping Demands</h5>
+            <p> On the left of the screen there are 2 demands that your abductor has. Before you can see what these are you must flip the demand by playing an appropriate card.</p>
+            <h5>Conceding Demands</h5>
+            <p>You can concede the demand by clicking 'concede' if you have enough conversation points. This will give you a powerful one off benefit, but will come with a long term drawback. I suggest you use this sparingly.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal5">Buying Actions</button> <button type="button" class="btn btn-primary"
+              data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="instructionsmodal5" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>Buying Actions</h3>
+            <h5>Ending the play phase</h5>
+            <p>To end the play phase, click "end phase" below the play phase. This will put you into the buy phase of the game</p>
+            <h5>Buying cards</h5>
+            <p>To buy an action, navigate to it and click 'buy'. This will work if you have enough conversation points and if the action was not used this round.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal6">Terror</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="instructionsmodal6" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>How to play</h2>
+          </div>
+          <div class="modal-body">
+            <h3>Terror</h3>
+            <h5>Ending the buy phase</h5>
+            <p>To end the buy phase, click "end phase" below the buy phase. This will put you into the terror phase of the game</p>
+            <h5>End of turn</h5>
+            <p>At this point the abductor will respond with a terror event and time will tick down. These can throw a spanner in the works of some of your best plans, so be prepared.</p>
+            <h2> Best Of Luck, Cap!!!</h2>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="fireworks">
       <canvas id="canvas">canvas is not supported</canvas>
     </div>
   </div>
-  <p><a href="logout.php">Click here</a> to Logout.</p>
-  <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  <p id="logout"><a href="logout.php">Click here</a> to Logout.</p>
+  <div id="credits">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  <button id="instructionsbutton" class="button btn-secondary btn-sm" data-toggle="modal" data-target="#instructionsmodal">Instructions</button>
   </div>
   <script src="./scripts/helper/Chart.js"></script>
   <script src="./scripts/helper/typewriter.js"></script>

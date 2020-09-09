@@ -12,7 +12,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
 $('#fireworks').hide()
 
 //hide splash screen - comment out to show
-$('#splash').hide()
+// $('#splash').hide()
 $('#textbox').hide()
 delayanimation(maingame, 1000)
 //show splash screen
@@ -42,8 +42,6 @@ let allhostagessavedordead = false
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
-$('#demand1').addClass("flip-card-toggled")
-$('#demand2').addClass("flip-card-toggled")
 updatetimeleft()
 let terroringame = []
 let currentterror
@@ -55,7 +53,7 @@ prepareterror()
 let threat = 4
 let threatchangedouble = false
 updatethreat()
-let conversationpoints =-111
+let conversationpoints = 0
 $('#conversationPointsP').html(conversationpoints)
 phase1initialise()
 
@@ -1331,7 +1329,7 @@ function checkforvictory(){
       let numberkilled = hostagechart['data']["datasets"][0]["data"][2]
       $('#winlosemodal').modal({backdrop: false, keyboard: false})
       $('#winorlose').html("Game Over")
-      $('#winorloseflufftext').html("Oh my, captain.  You didn't bring in the hostage taker. This will be a tough one to explain...")
+      $('#winorloseflufftext').html("Oh my, captain.  That didn't go too well did it?  Remember, that the most important thing is to bring in the abductor. This will be a tough one to explain...")
       $('#howmanyhostagessaved').html(numbersaved)
       $('#howmanyhostageskilled').html(numberkilled)
       $('#abductoralive').html('No')

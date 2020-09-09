@@ -477,6 +477,21 @@ float: right;
   float: right;
 }
 
+#instructionsbutton{
+  float:left;
+}
+
+#logout{
+  display: inline;
+  text-align: center;
+  margin-left: 40%;
+  align-self: center;
+}
+
+#credits{
+  float:right;
+}
+
 @keyframes spintofront {
   from{
 
@@ -634,7 +649,7 @@ float: right;
     font-size: 0px;
     height:0px !important;
   }
-  #demands h3{
+  #demands > h3{
     visibility: hidden;
     font-size: 0px;
   }
