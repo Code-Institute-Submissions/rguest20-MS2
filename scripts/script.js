@@ -22,6 +22,9 @@ window.onload = function() {
 }
 
 // create variables
+let freecardnumber
+let dicechangepermanent = 0
+let threatperturn = 0
 let initialsetup = true
 let abductorkilledorcaptured = false
 let extradice = false
@@ -75,6 +78,7 @@ async function phase1initialise(){
   }
   conversationpoints = 0
   $('#conversationPointsP').html(conversationpoints)
+  updatethreat(threatperturn)
 }
 
 //second phase set up
@@ -306,7 +310,7 @@ function displaydemands() {
   $('#demand1title').html(demandsingame[0]['title'])
   $('#demand1cost').html(' CP to concede: ' + demandsingame[0]['concedecost'])
   for (i=0; i<demand1reward.length; i++){
-    $('#demand1reward').html(demand1reward[i] + '<br>')
+    $('#demand1reward').append(demand1reward[i] + '<br>')
   }
   $('#demand1penalty').html('HOWEVER ' + demand1penalty)
   //prepare demand 2 text
@@ -342,20 +346,86 @@ function displaydemands() {
   $('#demand2title').html(demandsingame[1]['title'])
   $('#demand2cost').html(' CP to concede: ' + demandsingame[1]['concedecost'])
   for (i=0; i<demand2reward.length; i++){
-    $('#demand2reward').html(demand2reward[i] + '<br>')
+    $('#demand2reward').append(demand2reward[i] + '<br>')
   }
   $('#demand2penalty').html('HOWEVER ' + demand2penalty)
 }
 
 //make concede button work
 function concedebutton1(){
-  $('#concedebutton1').prop('disabled', true)
-  $('#concedebutton1').html("Conceded")
+  if (conversationpoints >= demandsingame[0]['concedecost']){
+    conversationpoints -= demandsingame[0]['concedecost']
+    $('#conversationPointsP').html(conversationpoints)
+    $('#concedebutton1').prop('disabled', true)
+    $('#concedebutton1').html("Conceded")
+    let demand1rewards = demandsingame[0]['concede']
+    if ('hostage' in demand1rewards){
+      let hostagessaved = demand1rewards['hostage']
+      alterData(hostagessaved, -hostagessaved, 0)
+    }
+    if ('freecard' in demand1rewards){
+      freecardnumber = demand1rewards['freecard']
+    }
+    if ('dice' in demand1rewards){
+      moredice(demand1rewards['dice'])
+    }
+    if ('threat' in demand1rewards){
+      updatethreat(demand1rewards['threat'])
+    }
+    let demand1penalties = demandsingame[0]['penalty']
+    if ('timeleft' in demand1penalties){
+      timeleft = 0
+      updatetimeleft()
+    }
+    if ('dicepermanent' in demand1penalties){
+      dicechangepermanent -=1
+      updatethreat()
+    }
+    if ('threatmultiplier' in demand1penalties){
+      threatchangedouble = true
+    }
+    if ('threatincreaseperturn' in demand1penalties){
+      threatperturn = 2
+    }
+  }
 }
 
 function concedebutton2(){
-  $('#concedebutton2').prop('disabled', true)
-  $('#concedebutton2').html("Conceded")
+  if (conversationpoints >= demandsingame[1]['concedecost']){
+    conversationpoints -= demandsingame[1]['concedecost']
+    $('#conversationPointsP').html(conversationpoints)
+    $('#concedebutton2').prop('disabled', true)
+    $('#concedebutton2').html("Conceded")
+    let demand2rewards = demandsingame[1]['concede']
+    if ('hostage' in demand2rewards){
+      let hostagessaved = demand2rewards['hostage']
+      alterData(hostagessaved, -hostagessaved, 0)
+    }
+    if ('freecard' in demand2rewards){
+      freecardnumber = demand2rewards['freecard']
+    }
+    if ('dice' in demand2rewards){
+      moredice(demand2rewards['dice'])
+    }
+    if ('threat' in demand2rewards){
+      updatethreat(demand2rewards['threat'])
+    }
+    let demand2penalties = demandsingame[1]['penalty']
+    if ('timeleft' in demand2penalties){
+      timeleft = 0
+      updatetimeleft()
+    }
+    if ('dicepermanent' in demand2penalties){
+      dicechangepermanent -=1
+      updatethreat()
+    }
+    if ('threatmultiplier' in demand2penalties){
+      threatchangedouble = true
+    }
+    if ('threatincreaseperturn' in demand2penalties){
+      threatperturn = 2
+    }
+  }
 }
 
 //set up dice for play
@@ -375,30 +445,33 @@ async function updatethreat(change = 0) {
     threat = 7
     threatpercentage = 100
     numberofdice = 1
-    await delayanimation(showdice, 1000)
+    showdice()
   } else if (threatpercentage === 100) {
     $('#threatbar').removeClass('bg-warning')
     $('#threatbar').addClass('bg-danger')
-    numberofdice = 1
-    await delayanimation(showdice, 1000)
+    numberofdice = 1 + dicechangepermanent
+    if (dice === 0){
+      dice = 1
+    }
+    showdice()
   } else if (threatpercentage > 20) {
     $('#threatbar').removeClass('bg-success')
     $('#threatbar').removeClass('bg-danger')
     $('#threatbar').addClass('bg-warning')
-    numberofdice = 2
-    await delayanimation(showdice, 1000)
+    numberofdice = 2 + dicechangepermanent
+    showdice()
   } else if (threatpercentage >= 0) {
     $('#threatbar').removeClass('bg-warning')
     $('#threatbar').addClass('bg-success')
-    numberofdice = 3
-    await delayanimation(showdice, 1000)
+    numberofdice = 3 + dicechangepermanent
+    showdice()
   } else if (threatpercentage < 0) {
     let newhostagessaved = Math.round((threatpercentage / -100) * 7)
     alterData(+newhostagessaved, -newhostagessaved, 0)
     threatpercentage = 0
     threat=0
-    numberofdice = 3
-    await delayanimation(showdice, 1000)
+    numberofdice = 3 + dicechangepermanent
+    showdice()
   }
 }
 

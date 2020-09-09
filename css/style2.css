@@ -136,7 +136,7 @@ html{
 .flip-card {
   background-color: transparent;
   width: 95%;
-  height: 35%;
+  height: 38%;
   perspective: 1000px;
   margin-bottom: 20px;
 }
