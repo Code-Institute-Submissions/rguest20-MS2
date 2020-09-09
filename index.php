@@ -20,6 +20,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 <body>
   <div id="portrait">
     <h1>Please Rotate Your Device To Play</h1>
+    <p>This game displays best on a tablet/desktop</p>
     <p><a href="logout.php">Click here</a> to Logout.</p>
   </div>
   <div id="landscape">
@@ -237,7 +238,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <tbody>
                       <tr>
                         <th>
-                          <p>Cost: <span id="costOfCard"></span> <button id="freecardbutton" class="button btn-primary btn-sm" onclick="">Get Card For Free</button></p>
+                          <p>Cost: <span id="costOfCard"></span> <button id="freecardbutton" class="button btn-primary btn-sm" onclick="freecard()">Get Card For Free</button></p>
                           <table id="actioninformation" class="table table-borderless">
                             <tr>
                               <td>

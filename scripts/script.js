@@ -1116,17 +1116,14 @@ function cardfail() {
         extradice = false
       }
   if (outcome['abductorescaped']) {
-    gameover()
+    timeleft = -1
     }
     fourtofivefromcard = false
     $('#fourtofivetrueorfalse').empty()
     updatedice()
   }
 
-function gameover(){
-  alert("you have lost")
-}
-
+//abductor killed
 function abductorkilled() {
   $('#hostagetakername').html("Second in Command")
   $('#whatweknow').html("Apparently there was a second in command hiding in there as well.  He seems a lot less reasonable as well. Careful, Cap. Keep him cool!")
@@ -1136,6 +1133,7 @@ function abductorkilled() {
   threatchangedouble = true
 }
 
+// function to ensure that dice do not reset early
 function updatedice(){
   if (!extradice){
     showdice()
@@ -1286,6 +1284,7 @@ function removeroll() {
   $("#dice5").removeClass('roll')
 }
 
+//allows player to buy cards
 function buyacard(){
   let currentcardcost = parseInt(conversationcards[cardnumber].cost)
   if (!hand.includes(conversationcards[cardnumber].id) && !discards.includes(conversationcards[cardnumber].id)){
@@ -1298,6 +1297,14 @@ function buyacard(){
   }
 }
 
+//free cards
+function freecard(){
+  hand.push(conversationcards[cardnumber].id)
+  freecardnumber -= 1
+  setCard()
+}
+
+// win/lose modal appearance
 function checkforvictory(){
   if (abductorkilledorcaptured === true && allhostagessavedordead === true){
     let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
