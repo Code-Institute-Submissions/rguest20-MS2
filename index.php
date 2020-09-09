@@ -26,7 +26,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <div id="landscape">
     <div class="jumbotron" id='splash'>
       <div id="titleofgame">
-        <h2>NEGOTIATION!</h2>
+        <h2>NEGOTIATION! Beta</h2>
         <h5>A Game Of Saving Lives</h5>
       </div>
     </div>
