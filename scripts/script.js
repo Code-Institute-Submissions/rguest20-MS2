@@ -620,12 +620,12 @@ function typeout(message, position) {
   let i = 0
   let result = messagetext[i]
   let typing = setInterval(function() {
-      if (i == messagetext.length) {
+      if (i == messagetext.length-1) {
         clearInterval(typing)
         return;
       }
       i++
-      result += messagetext[i].replace("\n", "<br />")
+      result += messagetext[i]
       position.html(result)
     },
     30)
@@ -986,6 +986,7 @@ async function playthiscardend(){
   $('#sacrificecardinhand').prop('disabled', false)
   $('#buycardtohand').prop('disabled', false)
   $('#endphase1').prop('disabled', false)
+
   //count successes
   for (i = 0; i < numberofdice; i++) {
     if (diceresults[i] > 4) {
