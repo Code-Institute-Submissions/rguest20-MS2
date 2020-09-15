@@ -1,13 +1,4 @@
-//initialize conversation cards object
-function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
-  this.id = id
-  this.title = title
-  this.cost = cost
-  this.bigSuccess = bigSuccess
-  this.smallSuccess = smallSuccess
-  this.failure = failure
-  this.endTurnIf = endTurn
-}
+
 
 $('#fireworks').hide()
 
@@ -488,50 +479,6 @@ function updatetimeleft() {
   }
 }
 
-//create conversation cards
-for (card in data) {
-  let bigSuccessForCard = {}
-  data[card]['bigSuccessDice'] != "0" ? bigSuccessForCard.dice = data[card]['bigSuccessDice'] : true
-  data[card]['bigSuccessConversationPoints'] != "0" ? bigSuccessForCard.conversationpoints = data[card]['bigSuccessConversationPoints'] : true
-  data[card]['bigSuccessThreatChange'] != "0" ? bigSuccessForCard.threat = data[card]['bigSuccessThreatChange'] : true
-  data[card]['bigSuccessHostageRelease'] != "0" ? bigSuccessForCard.hostage = data[card]['bigSuccessHostageRelease'] : true
-  data[card]['bigSuccess4to5'] === "true" ? bigSuccessForCard.fourtofive = true : true
-  data[card]['bigSuccessRevealDemand'] === "true" ? bigSuccessForCard.demand = true : true
-  data[card]['bigSuccessAbductorKill'] === "true" ? bigSuccessForCard.abductorkilled = true : bigSuccessForCard.abductorkilled = false
-
-  let smallSuccessForCard = {}
-  data[card]['smallSuccessDice'] != "0" ? smallSuccessForCard.dice = data[card]['smallSuccessDice'] : true
-  data[card]['smallSuccessConversationPoints'] != "0" ? smallSuccessForCard.conversationpoints = data[card]['smallSuccessConversationPoints'] : true
-  data[card]['smallSuccessThreatChange'] != "0" ? smallSuccessForCard.threat = data[card]['smallSuccessThreatChange'] : true
-  data[card]['smallSuccess4to5'] === "true" ? smallSuccessForCard.fourtofive = true : true
-  data[card]['smallSuccessRevealDemand'] === "true" ? smallSuccessForCard.demand = true : true
-  data[card]['smallSuccessHostageRelease'] != "0" ? smallSuccessForCard.hostage = data[card]['smallSuccessHostageRelease'] : true
-  data[card]['smallSuccessAbductorKill'] === "true" ? smallSuccessForCard.abductorkilled = true : smallSuccessForCard.abductorkilled = false
-
-  let failureForCard = {}
-  data[card]['failureDice'] != "0" ? failureForCard.dice = data[card]['failureDice'] : true
-  data[card]['failureConversationPoints'] != "0" ? failureForCard.conversationpoints = data[card]['failureConversationPoints'] : true
-  data[card]['failureThreatChange'] != "0" ? failureForCard.threat = data[card]['failureThreatChange'] : true
-  data[card]['failureHostageKill'] != "0" ? failureForCard.hostage = data[card]['failureHostageKill'] : true
-  data[card]['failureCardRemove'] === "true" ? failureForCard.remove = true : true
-  data[card]['failureAbductorEscape'] === "true" ? failureForCard.abductorescaped = true : failureForCard.abductorescaped = false
-
-  let endTurnIf = ""
-  if (data[card]['bigSuccessConversationEnd'] === "false" && data[card]['smallSuccessConversationEnd'] === "false" && data[card]['failureConversationEnd'] === "false") {
-    endTurnIf = false
-  } else if (data[card]['bigSuccessConversationEnd'] === "true" && data[card]['smallSuccessConversationEnd'] === "true" && data[card]['failureConversationEnd'] === "true") {
-    endTurnIf = "all"
-  } else if (data[card]['bigSuccessConversationEnd'] === "true") {
-    endTurnIf = "big"
-  } else if (data[card]['smallSuccessConversationEnd'] === "true") {
-    endTurnIf = "small"
-  } else {
-    endTurnIf = "failure"
-  }
-
-  let convoCard = new ConversationCard(Number(data[card]['id']), data[card]['title'], data[card]['cost'], bigSuccessForCard, smallSuccessForCard, failureForCard, endTurnIf)
-  conversationcards.push(convoCard)
-}
 //set 1st card once created
 setCard()
 $('#buttoncontinue').hide()
