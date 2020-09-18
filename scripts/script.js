@@ -578,71 +578,7 @@ function typeout(message, position) {
     30)
 }
 
-//create chart for interface
-let chartposition = $('#hostages_data_display');
-let hostagechart = new Chart(chartposition, {
-  type: 'doughnut',
-  data: {
-    labels: [
-      'Saved',
-      'Alive',
-      'Dead',
-    ],
-    datasets: [{
-      data: hostagedataset,
-      backgroundColor: [
-        'rgba(0, 255, 0, 0.2)',
-        'rgba(0, 0 , 255, 0.2)',
-        'rgba(255, 0 ,0 , 0.2)'
-      ],
-    }]
-  },
-  options: {
-    responsive: true,
-    legend: false
-  }
-})
 
-//function to change the data in the chart
-function alterData(saved, alive, dead) {
-  if (initialsetup != true){
-    let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
-    let numberalive = hostagechart['data']["datasets"][0]["data"][1]
-    let numberdead = hostagechart['data']["datasets"][0]["data"][2]
-    if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) < hostagestotal){
-      hostagedataset[0] += saved
-      hostagedataset[1] += alive
-      hostagedataset[2] += dead
-    } else if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) === hostagestotal){
-      hostagedataset[0] += saved
-      hostagedataset[1] += alive
-      hostagedataset[2] += dead
-      allhostagessavedordead = true
-      checkforvictory()
-    } else if ((numbersaved + numberdead + Math.abs(saved) + Math.abs(dead)) === (hostagestotal + 1)) {
-      if (saved > 0) {
-        saved -=1
-      }
-      if (dead > 0) {
-        dead -=1
-      }
-      alive +=1
-      hostagedataset[0] += saved
-      hostagedataset[1] += alive
-      hostagedataset[2] += dead
-      allhostagessavedordead = true
-      checkforvictory()
-    } else{
-      return
-    }
-  } else {
-    hostagedataset[0] += saved
-    hostagedataset[1] += alive
-    hostagedataset[2] += dead
-    initialsetup = false
-  }
-  hostagechart.update()
-}
 
 // Creates the view for the conversation cards (bottom right)
 function setCard() {

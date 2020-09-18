@@ -132,6 +132,116 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
   this.threatsuccess = threatsuccess
   this.threatfail = threatfail
   this.effect = effect
+  this.play = function (){
+    if (diceroll = false){
+      this.effect
+    } else{
+      let success = dice.roll
+      if (success >= 1){
+        switch (threatsuccess){
+          switch (threatfail){
+            case '1hostage':
+              hostagetakerindividual.addhostage(1)
+              break;
+            case '2hostage':
+              hostagetakerindividual.addhostage(2)
+              break;
+            case '1escape':
+              hostagetakerindividual.hostageescape()
+              break;
+            case '1dead':
+              hostagetakerindividual.hostagekilled(1)
+              break;
+            case '-1time':
+              // timeleft -= 1
+              // updatetimeleft()
+              // break;
+            case 'halftime':
+              // timeleft = Math.ceil(timeleft/2)
+              // updatetimeleft()
+              // break;
+            case '1threat':
+              // if(threatchangedouble === true){
+              //   updatethreat(2)
+              // } else{
+              //   updatethreat(1)
+              // }
+              break;
+            case '2threat':
+              // if(threatchangedouble === true){
+              //   updatethreat(4)
+              // } else{
+              //   updatethreat(2)
+              // }
+              // break;
+            case 'resetthreat':
+              // threat = 4
+              // updatethreat()
+              // break;
+            case '1free':
+              hostagetakerindividual.hostageescape()
+              break;
+            case 'noeffect':
+              break
+            default:
+              alert('This should never appear')
+              break
+        } else {
+          switch (threatfail){
+            case '1hostage':
+              hostagetakerindividual.addhostage(1)
+              break;
+            case '2hostage':
+              hostagetakerindividual.addhostage(2)
+              break;
+            case '1escape':
+              hostagetakerindividual.hostageescape()
+              break;
+            case '1dead':
+              hostagetakerindividual.hostagekilled(1)
+              break;
+            case '-1time':
+              // timeleft -= 1
+              // updatetimeleft()
+              // break;
+            case 'halftime':
+              // timeleft = Math.ceil(timeleft/2)
+              // updatetimeleft()
+              // break;
+            case '1threat':
+              // if(threatchangedouble === true){
+              //   updatethreat(2)
+              // } else{
+              //   updatethreat(1)
+              // }
+              break;
+            case '2threat':
+              // if(threatchangedouble === true){
+              //   updatethreat(4)
+              // } else{
+              //   updatethreat(2)
+              // }
+              // break;
+            case 'resetthreat':
+              // threat = 4
+              // updatethreat()
+              // break;
+            case '1free':
+              hostagetakerindividual.hostageescape()
+              break;
+            case 'noeffect':
+              break
+            default:
+              alert('This should never appear')
+              break
+        }
+      }
+    }
+
+
+    phase1initialise()
+    currentterror = ""
+  }
 }
 
 let terrorcarddeck = []

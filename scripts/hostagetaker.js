@@ -12,18 +12,50 @@ function HostageTaker(name, description, hostagenumber, extrarule){
   this.description = description
   this.number = hostagenumber
   this.extrarule = extrarule
-  this.addhostage = function(){
-
+  this.addhostage = function (amount) {
+    let hostagedataset = hostagechart['data']["datasets"][0]["data"]
+    hostagedataset[1] += amount
+    this.number += amount
+    hostagechart.update()
   }
-  this.hostageescape = function(value){
-
+  this.killhostage = function (amount) {
+    let hostagedataset = hostagechart['data']["datasets"][0]["data"]
+    hostagedataset[1] += amount
+    this.number += amount
+    hostagechart.update()
   }
-  this.hostagekilled = function(value){
-
+  this.hostageescape = function(amount){
+    
   }
 }
+
 let hostagetakerarray= []
 for (person in hostagetaker){
   let hostagetakerindividual = new HostageTaker (hostagetakerdata[person]['name'], hostagetakerdata[person]['description'], hostagetakerdata[person]['hostages'], hostagetakerdata[person]['extrarule'] = "none")
   hostagetakerarray.push(hostagetakerindividual)
 }
+
+//create chart for interface
+let chartposition = $('#hostages_data_display');
+let hostagechart = new Chart(chartposition, {
+  type: 'doughnut',
+  data: {
+    labels: [
+      'Saved',
+      'Alive',
+      'Dead',
+    ],
+    datasets: [{
+      data: hostagedataset,
+      backgroundColor: [
+        'rgba(0, 255, 0, 0.2)',
+        'rgba(0, 0 , 255, 0.2)',
+        'rgba(255, 0 ,0 , 0.2)'
+      ],
+    }]
+  },
+  options: {
+    responsive: true,
+    legend: false
+  }
+})
