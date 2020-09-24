@@ -1,5 +1,3 @@
-
-
 $('#fireworks').hide()
 
 //hide splash screen - comment out to show
@@ -21,10 +19,6 @@ let abductorkilledorcaptured = false
 let extradice = false
 let fourtofivefromcard = false
 let numberofdice
-let conversationcards = []
-let hand = [1, 2, 3, 4, 5, 6]
-let discards = []
-let available = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 let cardnumber = 0
 let cardsremoved = 0
 let hostagedataset = [1, 0, 0]
@@ -424,10 +418,6 @@ function concedebutton2(){
 }
 
 //set up dice for play
-let randomnumberondice = []
-$('#dice3').hide()
-$('#dice4').hide()
-$('#dice5').hide()
 
 //threat bar workings
 async function updatethreat(change = 0) {
@@ -578,117 +568,13 @@ function typeout(message, position) {
     30)
 }
 
-
-
-// Creates the view for the conversation cards (bottom right)
-function setCard() {
-  let currentcard = conversationcards[cardnumber]
-  $('#titleOfCard').empty()
-  $('#titleOfCard').append(currentcard.title)
-  $('#costOfCard').empty()
-  $('#costOfCard').append(currentcard.cost)
-  $('#bigSuccessOutcome').empty()
-  $('#bigSuccessOutcome').append('<ul>')
-  if (freecardnumber > 0 && !hand.includes(currentcard.id) && !discards.includes(currentcard.id)){
-    $('#freecardbutton').show()
-  } else {
-    $('#freecardbutton').hide()
-  }
-  if ('conversationpoints' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append('<li> CP: ' + currentcard.bigSuccess['conversationpoints'] + '</li>')
-  }
-  if ('dice' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append('<li> Dice: ' + currentcard.bigSuccess['dice'] + '</li>')
-  }
-  if ('threat' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append('<li> THR: ' + currentcard.bigSuccess['threat'] + '</li>')
-  }
-  if ('fourtofive' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append("<li> 4's become 5's </li>")
-  }
-  if ('demand' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append('<li> Demand Reveal</li>')
-  }
-  if ('hostage' in currentcard.bigSuccess) {
-    $('#bigSuccessOutcome').append('<li> Hostages Rescued: ' + currentcard.bigSuccess['hostage'] + '</li>')
-  }
-  if (currentcard.bigSuccess['abductorkilled'] === true) {
-    $('#bigSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
-  }
-  $('#bigSuccessOutcome').append('</ul>')
-  $('#littleSuccessOutcome').empty()
-  $('#littleSuccessOutcome').append('<ul>')
-  if ('conversationpoints' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append('<li> CP: ' + currentcard.smallSuccess['conversationpoints'] + '</li>')
-  }
-  if ('dice' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append('<li> Dice: ' + currentcard.smallSuccess['dice'] + '</li>')
-  }
-  if ('threat' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append('<li> THR: ' + currentcard.smallSuccess['threat'] + '</li>')
-  }
-  if ('fourtofive' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append("<li> 4's become 5's </li>")
-  }
-  if ('demand' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append('<li> Demand Reveal </li>')
-  }
-  if ('hostage' in currentcard.smallSuccess) {
-    $('#littleSuccessOutcome').append('<li> Hostages Rescued: ' + currentcard.smallSuccess['hostage'] + '</li>')
-  }
-  if (currentcard.smallSuccess['abductorkilled'] === true) {
-    $('#littleSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
-  }
-  $('#littleSuccessOutcome').append('</ul>')
-  $('#failureOutcome').empty()
-  $('#failureOutcome').append('<ul>')
-  if ('conversationpoints' in currentcard.failure) {
-    $('#failureOutcome').append('<li> CP: ' + currentcard.failure['conversationpoints'] + '</li>')
-  }
-  if ('dice' in currentcard.failure) {
-    $('#failureOutcome').append('<li> Dice: ' + currentcard.failure['dice'] + '</li>')
-  }
-  if ('threat' in currentcard.failure) {
-    $('#failureOutcome').append('<li> THR: ' + currentcard.failure['threat'] + '</li>')
-  }
-  if ('fourtofive' in currentcard.failure) {
-    $('#failureOutcome').append("<li> 4's become 5's </li>")
-  }
-  if ('remove' in currentcard.failure) {
-    $('#failureOutcome').append('<li> Card Lost Permanently </li>')
-  }
-  if ('hostage' in currentcard.failure) {
-    $('#failureOutcome').append('<li> Hostages Killed: ' + currentcard.failure['hostage'] + '</li>')
-  }
-  if (currentcard.failure['abductorescaped'] === true) {
-    $('#failureOutcome').append('<li> GAME OVER </li>')
-    $('#failureOutcome').append('</ul>')
-  }
-  iscardinhand(currentcard)
-}
-
-function iscardinhand(card){
-  $('#isInHand').empty()
-  $('#isInHand').append('Available to buy')
-  for (id in hand) {
-    if (Number(hand[id]) === card.id) {
-      $('#isInHand').empty()
-      $('#isInHand').append('Yes')
-    }
-  }
-  if (discards.includes(card.id)) {
-    $('#isInHand').empty()
-    $('#isInHand').append('Discarded')
-  }
-}
-
 //arrows to scroll through cards
 function nextCard() {
   if (cardnumber === (conversationcards.length-1)) {
     return
   } else {
     cardnumber++
-    setCard()
+
   }
 }
 
@@ -698,41 +584,6 @@ function prevCard() {
   } else {
     cardnumber--
     setCard()
-  }
-}
-
-//More or less dice
-function moredice(value = 1) {
-  if (numberofdice <= 4) {
-    $('#dice2').hide()
-    $('#dice3').hide()
-    $('#dice4').hide()
-    $('#dice5').hide()
-    numberofdice += value
-    showdice()
-  }
-}
-
-function lessdice(value = 1) {
-  if (numberofdice > 1) {
-    $('#dice2').hide()
-    $('#dice3').hide()
-    $('#dice4').hide()
-    $('#dice5').hide()
-    numberofdice -= value
-    showdice()
-  }
-}
-
-function showdice() {
-  $('#dice2').hide()
-  $('#dice3').hide()
-  $('#dice4').hide()
-  $('#dice5').hide()
-  for (i = 1; i <= numberofdice; i++) {
-    $('#dice1').removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-    $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
-    $('#dice' + (i)).show()
   }
 }
 
@@ -1023,116 +874,7 @@ function updatedice(){
 }
 
 //functions to roll the dice for the game
-function randomised6() {
-  let randomnumber = Math.ceil(Math.random() * 6)
-  return randomnumber
-}
 
-function rolldice() {
-  randomnumberondice = [randomised6(), randomised6(), randomised6(), randomised6(), randomised6()]
-  rolldie1()
-  rolldie2()
-  rolldie3()
-  rolldie4()
-  rolldie5()
-  return randomnumberondice
-}
-
-async function rolldie1() {
-  let randomnumberondie = Number(randomnumberondice[0])
-  preparedie()
-  await delayanimation(removeroll, 2000)
-
-  if (randomnumberondie === 1) {
-    $('#dice1').addClass('spintofront')
-  } else if (randomnumberondie === 2) {
-    $('#dice1').addClass('spintoleft')
-  } else if (randomnumberondie === 3) {
-    $('#dice1').addClass('spintoback')
-  } else if (randomnumberondie === 4) {
-    $('#dice1').addClass('spintoright')
-  } else if (randomnumberondie === 5) {
-    $('#dice1').addClass('spintobottom')
-  } else {
-    $('#dice1').addClass('spintotop')
-  }
-}
-
-async function rolldie2() {
-  let randomnumberondie = Number(randomnumberondice[1])
-  await delayanimation(removeroll, 2000)
-
-  if (randomnumberondie === 1) {
-    $("#dice2").addClass('spintofront')
-  } else if (randomnumberondie === 2) {
-    $("#dice2").addClass('spintoleft')
-  } else if (randomnumberondie === 3) {
-    $("#dice2").addClass('spintoback')
-  } else if (randomnumberondie === 4) {
-    $("#dice2").addClass('spintoright')
-  } else if (randomnumberondie === 5) {
-    $("#dice2").addClass('spintobottom')
-  } else {
-    $("#dice2").addClass('spintotop')
-  }
-}
-
-async function rolldie3() {
-  let randomnumberondie = Number(randomnumberondice[2])
-  await delayanimation(removeroll, 2000)
-
-  if (randomnumberondie === 1) {
-    $("#dice3").addClass('spintofront')
-  } else if (randomnumberondie === 2) {
-    $("#dice3").addClass('spintoleft')
-  } else if (randomnumberondie === 3) {
-    $("#dice3").addClass('spintoback')
-  } else if (randomnumberondie === 4) {
-    $("#dice3").addClass('spintoright')
-  } else if (randomnumberondie === 5) {
-    $("#dice3").addClass('spintobottom')
-  } else {
-    $("#dice3").addClass('spintotop')
-  }
-}
-
-async function rolldie4() {
-  let randomnumberondie = Number(randomnumberondice[3])
-  await delayanimation(removeroll, 2000)
-
-  if (randomnumberondie === 1) {
-    $("#dice4").addClass('spintofront')
-  } else if (randomnumberondie === 2) {
-    $("#dice4").addClass('spintoleft')
-  } else if (randomnumberondie === 3) {
-    $("#dice4").addClass('spintoback')
-  } else if (randomnumberondie === 4) {
-    $("#dice4").addClass('spintoright')
-  } else if (randomnumberondie === 5) {
-    $("#dice4").addClass('spintobottom')
-  } else {
-    $("#dice4").addClass('spintotop')
-  }
-}
-
-async function rolldie5() {
-  let randomnumberondie = Number(randomnumberondice[4])
-  await delayanimation(removeroll, 2000)
-
-  if (randomnumberondie === 1) {
-    $("#dice5").addClass('spintofront')
-  } else if (randomnumberondie === 2) {
-    $("#dice5").addClass('spintoleft')
-  } else if (randomnumberondie === 3) {
-    $("#dice5").addClass('spintoback')
-  } else if (randomnumberondie === 4) {
-    $("#dice5").addClass('spintoright')
-  } else if (randomnumberondie === 5) {
-    $("#dice5").addClass('spintobottom')
-  } else {
-    $("#dice5").addClass('spintotop')
-  }
-}
 
 function delayanimation(funct, val) {
   let waittime = new Promise(function(resolve) {
@@ -1141,29 +883,6 @@ function delayanimation(funct, val) {
   waittime.then(function() {
     clearTimeout()
   })
-}
-
-function preparedie() {
-  $('#dice1').removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $('#dice1').addClass('roll')
-  $("#dice2").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $("#dice2").addClass('roll')
-  $("#dice3").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $("#dice3").addClass('roll')
-  $("#dice4").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $("#dice4").addClass('roll')
-  $("#dice5").removeClass('spintofront spintoback spintoleft spintoright spintotop spintobottom')
-  $("#dice5").addClass('roll')
-  $('#rollbutton').prop('disabled', true);
-}
-
-function removeroll() {
-  $('#rollbutton').prop('disabled', false);
-  $('#dice1').removeClass('roll')
-  $("#dice2").removeClass('roll')
-  $("#dice3").removeClass('roll')
-  $("#dice4").removeClass('roll')
-  $("#dice5").removeClass('roll')
 }
 
 //allows player to buy cards
