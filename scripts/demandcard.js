@@ -91,39 +91,56 @@ function DemandCard (id, type, title, text, cost, concedebonus, concedepenalty){
   this.setpenalty = function(){
     let penalty = []
     if ('timeleft' in this.concedepenalty){
-      demand1penalty.push('Abductor will escape at the end of the turn')
+      penalty.push('Abductor will escape at the end of the turn')
     }
     if ('dicepermanent' in this.concedepenalty){
-      demand1penalty.push('1 Less Die Permanently')
+      penalty.push('1 Less Die Permanently')
     }
     if ('threatmultiplier' in this.concedepenalty){
-      demand1penalty.push('Threat Increases are Doubled Permanently')
+      penalty.push('Threat Increases are Doubled Permanently')
     }
     if ('threatincreaseperturn' in this.concedepenalty){
-      demand1penalty.push('Threat Increases by 2 Per Turn Permanently')
+      penalty.push('Threat Increases by 2 Per Turn Permanently')
     }
     return penalty
   }
-  this.setcards = function (firstid = 1, secondid = 6){
-    $('#demand1title').html(demandcards[firstid-1].title)
-    $('#demand1cost').html(' CP to concede: ' + demandcards[firstid-1].cost)
-    for (i=0; i<demandcards[firstid-1].setreward.length; i++){
-      $('#demand1reward').append(demandcards[firstid-1].setreward[i])
+  this.concede = function(cardnumber){
+      if ('hostage' in this.concedebonus){
+        let hostagessaved = this.conceedebonus['hostage']
+        alterData(hostagessaved, -hostagessaved, 0)
+      }
+      if ('freecard' in this.concedebonus){
+        freecardnumber = this.concedebonus['freecard']
+      }
+      if ('dice' in this.concedebonus){
+        moredice(this.concedebonus['dice'])
+      }
+      if ('threat' in this.concedebonus){
+        updatethreat(this.concedebonus['threat'])
+      }
+      if ('timeleft' in this.concedepenalty){
+        timeleft = 0
+        updatetimeleft()
+      }
+      if ('dicepermanent' in this.concedepenalty){
+        dicechangepermanent -=1
+        updatethreat()
+      }
+      if ('threatmultiplier' in this.concedepenalty){
+        threatchangedouble = true
+      }
+      if ('threatincreaseperturn' in this.concedepenalty){
+        threatperturn = 2
+      }
     }
-    $('#demand1penalty').html('HOWEVER ' + demandcards[firstid-1].setpenalty)
-    $('#demand2title').html(demandcards[secondid-1].title)
-    $('#demand2cost').html(' CP to concede: ' + demandcards[secondid-1].cost)
-    for (i=0; i<demandcards[secondid-1].setreward.length; i++){
-      $('#demand2reward').append(demandcards[secondid-1].setreward[i])
-    }
-    $('#demand2penalty').html('HOWEVER ' + demandcards[secondid-1].setpenalty)
+  }
   }
 }
-
-
 
 let demandcards = []
 for (card in demands){
   let demandcardindividual = new DemandCard(demands[card]['id'], demands[card]['type'], demands[card]['title'],demands[card]['text'],demands[card]['concedecost'],demands[card]['concede'],demands[card]['penalty'])
   demandcards.push(demandcardindividual)
 }
+demandcardsingame=[]
+events.preparedemands()
