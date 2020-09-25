@@ -7,6 +7,39 @@ function EventHandler(){
   this.conversationpoints = 0
   this.demand1flipped = false
   this.demand2flipped = false
+  this.concedebutton = function(number){
+    if (conversationpoints >= demandsingame[(number-1)].cost){
+      conversationpoints -= demandsingame[(number-1)].cost
+      demandsingame[(number-1)].concede()
+      $('#conversationPointsP').html(conversationpoints)
+      $('#concedebutton' + number).prop('disabled', true)
+      $('#concedebutton' + number).html("Conceded")
+  }
+  this.preparedemands = function(){
+    if (hostagetakerindividual.name === "Ann Greashopper") {
+      demandsingame.push(demands[0])
+      demandsingame.push(demands[getrandomint(4, 7)])
+      this.setdemandcards(demandsingame[0], demandsingame[1])
+    } else {
+      demandsingame.push(demands[getrandomint(1, 4)])
+      demandsingame.push(demands[getrandomint(4, 7)])
+      this.setdemandcards(demandsingame[0], demandsingame[1])
+    }
+  }
+  this.setdemandcards = function (firstid = 1, secondid = 6){
+    $('#demand1title').html(demandcards[firstid-1].title)
+    $('#demand1cost').html(' CP to concede: ' + demandcards[firstid-1].cost)
+    for (i=0; i<demandcards[firstid-1].setreward.length; i++){
+      $('#demand1reward').append(demandcards[firstid-1].setreward[i])
+    }
+    $('#demand1penalty').html('HOWEVER ' + demandcards[firstid-1].setpenalty)
+    $('#demand2title').html(demandcards[secondid-1].title)
+    $('#demand2cost').html(' CP to concede: ' + demandcards[secondid-1].cost)
+    for (i=0; i<demandcards[secondid-1].setreward.length; i++){
+      $('#demand2reward').append(demandcards[secondid-1].setreward[i])
+    }
+    $('#demand2penalty').html('HOWEVER ' + demandcards[secondid-1].setpenalty)
+  }
   this.gameover = function(){
     if (this.abductoralive === false && allhostagessavedordead === true){
       let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
@@ -132,6 +165,17 @@ function EventHandler(){
       $('#terroreffect').html(effecttext)
     }
     $('#terrormodal').modal({backdrop: false, keyboard: false})
+  }
+  this.preparegame = function(){
+    for (abductor in hostagetakerarray){
+      if hostagetakerarray[abductor].name = "Arkayne Massua"
+      hostagetakeringame = hostagetakerarray[0]
+      hostagetakeringame.sethostages(0, hostagetakeringame.hostagenumber, 0)
+      $('#textbox').hide()
+      $('#hostagetakername').html(hostagetakeringame.name)
+      $('#whatweknow').html(hostagetakeringame.description)
+      events.preparedemands()
+    }
   }
   this.phaseone = async function(){
     $('#phase3bar').removeClass('activated')
