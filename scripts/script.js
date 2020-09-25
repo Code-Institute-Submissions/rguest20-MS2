@@ -15,15 +15,11 @@ let freecardnumber
 let dicechangepermanent = 0
 let threatperturn = 0
 let initialsetup = true
-let abductorkilledorcaptured = false
 let extradice = false
 let fourtofivefromcard = false
 let numberofdice
 let cardnumber = 0
 let cardsremoved = 0
-let hostagedataset = [1, 0, 0]
-let hostagestotal = 7
-let allhostagessavedordead = false
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
@@ -53,106 +49,6 @@ $('#reroll').prop('disabled', true)
 //random number generator
 function getrandomint(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-}
-
-//set up terror for play
-function prepareterror() {
-  for (i = 0; i < 10; i++) {
-    let randomcard = getrandomint(0, terror.length-1)
-    terroringame.push(terror[randomcard])
-    terror.splice(randomcard, 1)
-  }
-  return
-}
-
-//set up demands for play
-function preparedemands() {
-  if ($('#hostagetakername').html() === "Ann Greashopper") {
-    demandsingame.push(demands[0])
-    demandsingame.push(demands[getrandomint(4, 7)])
-    displaydemands()
-  } else {
-    demandsingame.push(demands[getrandomint(1, 4)])
-    demandsingame.push(demands[getrandomint(4, 7)])
-    displaydemands()
-  }
-}
-
-//make concede button work
-function concedebutton1(){
-  if (conversationpoints >= demandsingame[0]['concedecost']){
-    conversationpoints -= demandsingame[0]['concedecost']
-    $('#conversationPointsP').html(conversationpoints)
-    $('#concedebutton1').prop('disabled', true)
-    $('#concedebutton1').html("Conceded")
-    let demand1rewards = demandsingame[0]['concede']
-    if ('hostage' in demand1rewards){
-      let hostagessaved = demand1rewards['hostage']
-      alterData(hostagessaved, -hostagessaved, 0)
-    }
-    if ('freecard' in demand1rewards){
-      freecardnumber = demand1rewards['freecard']
-    }
-    if ('dice' in demand1rewards){
-      moredice(demand1rewards['dice'])
-    }
-    if ('threat' in demand1rewards){
-      updatethreat(demand1rewards['threat'])
-    }
-    let demand1penalties = demandsingame[0]['penalty']
-    if ('timeleft' in demand1penalties){
-      timeleft = 0
-      updatetimeleft()
-    }
-    if ('dicepermanent' in demand1penalties){
-      dicechangepermanent -=1
-      updatethreat()
-    }
-    if ('threatmultiplier' in demand1penalties){
-      threatchangedouble = true
-    }
-    if ('threatincreaseperturn' in demand1penalties){
-      threatperturn = 2
-    }
-  }
-}
-
-function concedebutton2(){
-  if (conversationpoints >= demandsingame[1]['concedecost']){
-    conversationpoints -= demandsingame[1]['concedecost']
-    $('#conversationPointsP').html(conversationpoints)
-    $('#concedebutton2').prop('disabled', true)
-    $('#concedebutton2').html("Conceded")
-    let demand2rewards = demandsingame[1]['concede']
-    if ('hostage' in demand2rewards){
-      let hostagessaved = demand2rewards['hostage']
-      alterData(hostagessaved, -hostagessaved, 0)
-    }
-    if ('freecard' in demand2rewards){
-      freecardnumber = demand2rewards['freecard']
-    }
-    if ('dice' in demand2rewards){
-      moredice(demand2rewards['dice'])
-    }
-    if ('threat' in demand2rewards){
-      updatethreat(demand2rewards['threat'])
-    }
-    let demand2penalties = demandsingame[1]['penalty']
-    if ('timeleft' in demand2penalties){
-      timeleft = 0
-      updatetimeleft()
-    }
-    if ('dicepermanent' in demand2penalties){
-      dicechangepermanent -=1
-      updatethreat()
-    }
-    if ('threatmultiplier' in demand2penalties){
-      threatchangedouble = true
-    }
-    if ('threatincreaseperturn' in demand2penalties){
-      threatperturn = 2
-    }
-  }
 }
 
 //threat bar workings
@@ -204,66 +100,50 @@ $('#buttonchoice2').hide()
 let introtext = ""
 intro1()
 
-//Introduction
-async function intro1() {
-  typeout("CAPTAIN!?!? \n\n Captain!? \n\n", $("#writetexthere"))
-  await delayanimation(showbutton, 1300)
-  document.getElementById("clicktocontinue").addEventListener("click", intro2)
-}
-
-async function intro2() {
-  document.getElementById("clicktocontinue").removeEventListener("click", intro2)
-  $('#buttoncontinue').hide()
-  $("#writetexthere").empty()
-  typeout("The bump to his head must be worse than we thought! \n\n Captain!?", $("#writetexthere"))
-  await delayanimation(showbutton, 2000)
-  document.getElementById("clicktocontinue").addEventListener("click", intro3)
-}
-
-async function intro3() {
-  $('#buttoncontinue').remove()
-  let result = ""
-  $("#writetexthere").empty()
-  typeout("Hang on, he's coming around. \n\n Do you remember who you are and what you do?", $("#writetexthere"))
-  await delayanimation(showbutton2, 2500)
-  document.getElementById("choice1").addEventListener("click", intro4)
-  document.getElementById("choice2").addEventListener("click", intro5)
-}
-
-async function intro4() {
-  $('#buttonchoice1').remove()
-  $("#writetexthere").empty()
-  typeout(
-    "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?",
-    $("#writetexthere"))
-  await delayanimation(showbutton3, 6000)
-  document.getElementById("choice3").addEventListener("click", tutorial)
-  document.getElementById("choice4").addEventListener("click", maingame)
-}
-
-async function intro5() {
-  $('#buttonchoice1').remove()
-  $("#writetexthere").empty()
-  typeout("You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?", $("#writetexthere"))
-  await delayanimation(showbutton3, 5000)
-  document.getElementById("choice3").addEventListener("click", tutorial)
-  document.getElementById("choice4").addEventListener("click", maingame)
-}
-
-function tutorial() {
-  $('#textbox').hide()
-  alterData(-1, 2, 0)
-  $('#hostagetakername').html(hostagetaker[0]['name'])
-  $('#whatweknow').html(hostagetaker[0]['description'])
-  preparedemands()
-}
-
-function maingame() {
-  $('#textbox').hide()
-  alterData(-1, 7, 0)
-  $('#hostagetakername').html(hostagetaker[1]['name'])
-  $('#whatweknow').html(hostagetaker[1]['description'])
-  preparedemands()
+// //Introduction
+// async function intro1() {
+//   typeout("CAPTAIN!?!? \n\n Captain!? \n\n", $("#writetexthere"))
+//   await delayanimation(showbutton, 1300)
+//   document.getElementById("clicktocontinue").addEventListener("click", intro2)
+// }
+//
+// async function intro2() {
+//   document.getElementById("clicktocontinue").removeEventListener("click", intro2)
+//   $('#buttoncontinue').hide()
+//   $("#writetexthere").empty()
+//   typeout("The bump to his head must be worse than we thought! \n\n Captain!?", $("#writetexthere"))
+//   await delayanimation(showbutton, 2000)
+//   document.getElementById("clicktocontinue").addEventListener("click", intro3)
+// }
+//
+// async function intro3() {
+//   $('#buttoncontinue').remove()
+//   let result = ""
+//   $("#writetexthere").empty()
+//   typeout("Hang on, he's coming around. \n\n Do you remember who you are and what you do?", $("#writetexthere"))
+//   await delayanimation(showbutton2, 2500)
+//   document.getElementById("choice1").addEventListener("click", intro4)
+//   document.getElementById("choice2").addEventListener("click", intro5)
+// }
+//
+// async function intro4() {
+//   $('#buttonchoice1').remove()
+//   $("#writetexthere").empty()
+//   typeout(
+//     "You're a hostage negotiator.  If there are people in peril, your job is to save them and get the hostage taker to give themselves up. \n\n We can't save everyone, but we can save at least half of the hostages... \n\n You look unwell, do you want to sit this one out?",
+//     $("#writetexthere"))
+//   await delayanimation(showbutton3, 6000)
+//   document.getElementById("choice3").addEventListener("click", tutorial)
+//   document.getElementById("choice4").addEventListener("click", maingame)
+// }
+//
+// async function intro5() {
+//   $('#buttonchoice1').remove()
+//   $("#writetexthere").empty()
+//   typeout("You took a knock to the head! \n\n Worst time for it, given we've got a bit of a situation here. \n\n You still look a bit unwell, do you want to sit this one out?", $("#writetexthere"))
+//   await delayanimation(showbutton3, 5000)
+//   document.getElementById("choice3").addEventListener("click", tutorial)
+//   document.getElementById("choice4").addEventListener("click", maingame)
 }
 
 function showbutton() {
