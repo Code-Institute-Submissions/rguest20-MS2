@@ -1,5 +1,8 @@
 function ThreatBar (position){
   this.position = position
+  this.set = function(){
+
+  }
   this.value = 4
   this.maximum = 7
   this.minimum = 0

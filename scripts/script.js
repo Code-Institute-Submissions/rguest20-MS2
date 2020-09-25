@@ -40,198 +40,11 @@ let threatchangedouble = false
 updatethreat()
 let conversationpoints = 0
 $('#conversationPointsP').html(conversationpoints)
-phase1initialise()
-
-//set up  for first phase
-async function phase1initialise(){
-  $('#phase3bar').removeClass('activated')
-  $('#phase1bar').addClass('activated')
-  $('#playphasebuttons').show()
-  $('#buyphasebuttons').hide()
-  $('#endphase1').show()
-  $('#endphase2').hide()
-  for (i = 0; i<discards.length; i++){
-    available.push(discards[i])
-  }
-  while(discards.length > 0) {
-    discards.pop();
-  }
-  if (document.getElementById('isInHand').innerHTML === "Discarded"){
-    $('#isInHand').html("Available to buy")
-  }
-  conversationpoints = 0
-  $('#conversationPointsP').html(conversationpoints)
-  updatethreat(threatperturn)
-}
-
-//second phase set up
-function phase2initialise(){
-$('#phase1bar').removeClass('activated')
-$('#phase2bar').addClass('activated')
-$('#playphasebuttons').hide()
-$('#buyphasebuttons').show()
-$('#endphase1').hide()
-$('#endphase2').show()
-}
-
-//third phase set up
-async function phase3initialise() {
-  $('#phase2bar').removeClass('activated')
-  $('#phase3bar').addClass('activated')
-  $('#buyphasebuttons').hide()
-  $('#endphase2').hide()
-  $('#endphase3').show()
-  timeleft -= 1
-  updatetimeleft()
-  currentterror = terroringame.pop()
-  $('#terrortitle').html(currentterror['title'])
-  if (currentterror['dicerollneeded'] === true){
-    let successtext = ""
-    let failtext = ""
-    switch(currentterror['threatsuccess']) {
-      case 'extrahostage':
-        successtext = "An extra hostage is taken"
-        terroroutcomepass = '1hostage'
-        break;
-      case 'noeffect':
-        successtext = 'No effect this time'
-        terroroutcomepass = 'noeffect'
-        break;
-      case 'hostageescape':
-        successtext = 'The hostage escapes'
-        terroroutcomepass = '1escape'
-        break;
-      default:
-        false
-    }
-    switch(currentterror['threatfail']) {
-      case 'extrahostage':
-        failtext = "Two extra hostages are taken"
-        terroroutcomefail = '2hostage'
-        break;
-      case 'hostagekilled':
-        failtext = 'A hostage is killed'
-        terroroutcomefail = '1dead'
-        break;
-      default:
-        false
-    }
-    $('#terroreffect').html('<ul><li>On Success: ' + successtext + '</li><li>On Fail: ' + failtext + '</li></ul>')
-    let terrordice = rolldice()
-    $('#acceptterror').prop('disabled', true)
-    await delayanimation(unlockterrorbutton, 2000)
-    for (i=0; i<numberofdice;i++){
-      if (terrordice[i] > 4){
-        threatoutcome = "success"
-        break
-      } else{
-        threatoutcome =  "fail"
-      }
-    }
-  } else {
-    let effecttext = ""
-    switch(currentterror['effect']) {
-      case 'hostagekilled: 1':
-        effecttext = "A hostage is killed"
-        terroroutcomepass = '1dead'
-        break;
-      case 'threat: 1':
-        effecttext = 'Threat increases by 1'
-        terroroutcomepass = '1threat'
-        break;
-      case 'threat: 2':
-        effecttext = 'Threat increases by 2'
-        terroroutcomepass = '2threat'
-        break;
-      case 'timeremaining: -1':
-        effecttext = 'Time remaining decreases by 1'
-        terroroutcomepass = '-1time'
-        break;
-      case 'timeremaining: half':
-        effecttext = 'Time remaining halves(rounding up)'
-        terroroutcomepass = 'halftime'
-        break;
-      case 'hostageescape: 1':
-        effecttext = 'A hostage is freed'
-        terroroutcomepass = '1free'
-        break;
-      case 'threat: reset':
-        effecttext = 'Threat is reset to 4'
-        terroroutcomepass = 'resetthreat'
-        break;
-      default:
-        false
-    }
-    $('#terroreffect').html(effecttext)
-  }
-  $('#terrormodal').modal({backdrop: false, keyboard: false})
-}
+events.phaseone()
 
 function unlockterrorbutton(){
   $('#acceptterror').prop('disabled', false)
 }
-
-function terrorplay(){
-  if (threatoutcome === 'fail'){
-    terroroutcome = terroroutcomefail
-    threatoutcome = "not required"
-  } else{
-    terroroutcome = terroroutcomepass
-  }
-  switch (terroroutcome){
-    case '1hostage':
-      alterData(0,1,0)
-      hostagestotal +=1
-      break;
-    case '2hostage':
-      alterData(0,2,0)
-      hostagestotal +=2
-      break;
-    case '1escape':
-      alterData(1,-1,0)
-      break;
-    case '1dead':
-      alterData(0,-1,1)
-      break;
-    case '-1time':
-      timeleft -= 1
-      updatetimeleft()
-      break;
-    case 'halftime':
-      timeleft = Math.ceil(timeleft/2)
-      updatetimeleft()
-      break;
-    case '1threat':
-      if(threatchangedouble === true){
-        updatethreat(2)
-      } else{
-        updatethreat(1)
-      }
-      break;
-    case '2threat':
-      if(threatchangedouble === true){
-        updatethreat(4)
-      } else{
-        updatethreat(2)
-      }
-      break;
-    case 'resetthreat':
-      threat = 4
-      updatethreat()
-      break;
-    case '1free':
-      alterData(1,-1,0)
-      break;
-    case 'noeffect':
-      break
-    default:
-      alert('This should never appear')
-      break
-  }
-  phase1initialise()
-  currentterror = ""
-}
-
 //set buttons to be disabled
 $('#playcard').prop('disabled', true)
 $('#fourtofivebutton').prop('disabled', true)
@@ -264,8 +77,6 @@ function preparedemands() {
     displaydemands()
   }
 }
-
-function
 
 //make concede button work
 function concedebutton1(){
@@ -344,8 +155,6 @@ function concedebutton2(){
   }
 }
 
-//set up dice for play
-
 //threat bar workings
 async function updatethreat(change = 0) {
   threat += change
@@ -384,15 +193,6 @@ async function updatethreat(change = 0) {
     threat=0
     numberofdice = 3 + dicechangepermanent
     showdice()
-  }
-}
-
-//time left to complete game update
-function updatetimeleft() {
-  if (timeleft >= 0) {
-    $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
-  } else {
-    checkforvictory()
   }
 }
 
@@ -830,39 +630,4 @@ function freecard(){
   hand.push(conversationcards[cardnumber].id)
   freecardnumber -= 1
   setCard()
-}
-
-// win/lose modal appearance
-function checkforvictory(){
-  if (abductorkilledorcaptured === true && allhostagessavedordead === true){
-    let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
-    $('#winlosemodal').modal({backdrop: false, keyboard: false})
-    if ((parseFloat(numbersaved)/parseFloat(hostagestotal)) < 0.5){
-      $('#winorlose').html("Pyrrhic Victory")
-      $('#winorloseflufftext').html("Well, captain. You captured the hostage taker, but at what cost?  I don't think top brass will be happy with this.")
-    } else if ((parseFloat(numbersaved)/parseFloat(hostagestotal)) < 0.95){
-      $('#winorlose').html("Victory")
-      $('#winorloseflufftext').html("Well done, Cap! You captured the hostage taker, and even managed to save over half of the hostages! A fantastic job!.")
-    } else {
-      $('#winorlose').html("Amazing Victory!")
-      $('#winorloseflufftext').html("Just wonderful, Cap! You captured the hostage taker, saved the day and all of the hostages to boot! I think you have a medal in your future!.")
-    }
-    $('#howmanyhostagessaved').html(numbersaved)
-    $('#howmanyhostageskilled').html(hostagestotal - numbersaved)
-    $('#abductoralive').html('Yes')
-    $('#fireworks').show()
-  } else {
-    if (timeleft >= 0){
-      return
-    } else {
-      let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
-      let numberkilled = hostagechart['data']["datasets"][0]["data"][2]
-      $('#winlosemodal').modal({backdrop: false, keyboard: false})
-      $('#winorlose').html("Game Over")
-      $('#winorloseflufftext').html("Oh my, captain.  That didn't go too well did it?  Remember, that the most important thing is to bring in the abductor. This will be a tough one to explain...")
-      $('#howmanyhostagessaved').html(numbersaved)
-      $('#howmanyhostageskilled').html(numberkilled)
-      $('#abductoralive').html('No')
-    }
-  }
 }
