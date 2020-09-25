@@ -133,13 +133,12 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
   this.threatfail = threatfail
   this.effect = effect
   this.play = function (){
-    if (diceroll = false){
+    if (this.diceroll === false){
       this.effect
-    } else{
-      let success = dice.roll
-      if (success >= 1){
-        switch (threatsuccess){
-          switch (threatfail){
+    } else {
+      if (events.terrorsuccess === true){
+        events.terrorsuccess = false
+        switch (this.threatsuccess){
             case '1hostage':
               hostagetakerindividual.addhostage(1)
               break;
@@ -153,13 +152,13 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
               hostagetakerindividual.hostagekilled(1)
               break;
             case '-1time':
-              // timeleft -= 1
-              // updatetimeleft()
-              // break;
+              timeleft -= 1
+              events.updatetime()
+              break;
             case 'halftime':
-              // timeleft = Math.ceil(timeleft/2)
-              // updatetimeleft()
-              // break;
+              timeleft = Math.ceil(timeleft/2)
+              events.updatetime()
+              break;
             case '1threat':
               // if(threatchangedouble === true){
               //   updatethreat(2)
@@ -186,8 +185,9 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
             default:
               alert('This should never appear')
               break
-        } else {
-          switch (threatfail){
+        }
+      } else {
+          switch (this.threatfail){
             case '1hostage':
               hostagetakerindividual.addhostage(1)
               break;
@@ -237,10 +237,8 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
         }
       }
     }
-
-
-    phase1initialise()
-    currentterror = ""
+    events.phaseone()
+    events.currentterror = {}
   }
 }
 
@@ -248,4 +246,12 @@ let terrorcarddeck = []
 for (card in terror){
   let terrorcard = new TerrorCard (terror[card]['title'], terror[card]['diceroll'], terror[card]['threatsuccess'], terror[card]['threatfail'], terror[card]['effect'])
   terrorcarddeck.push(terrorcard)
+}
+shuffle(terrorcarddeck)
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
