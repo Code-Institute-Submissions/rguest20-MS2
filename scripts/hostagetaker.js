@@ -1,9 +1,9 @@
 let hostagetakerdata = [
   {
-    'name': 'Ann Greashopper', 'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!'
+    'name': 'Ann Greashopper', 'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!', 'numberofhostages': 2
   },
   {
-    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!', 'hostages': 7
+    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!', 'numberofhostages': 2
   }
 ]
 
@@ -12,6 +12,13 @@ function HostageTaker(name, description, hostagenumber, extrarule){
   this.description = description
   this.number = hostagenumber
   this.extrarule = extrarule
+  this.sethostages = function(saved, alive, dead){
+    let hostagedataset = hostagechart['data']["datasets"][0]["data"]
+    hostagedataset[0] = saved
+    hostagedataset[1] = alive
+    hostagedataset[2] = dead
+    hostagechart.update()
+  }
   this.addhostage = function (amount) {
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[1] += amount
@@ -20,18 +27,21 @@ function HostageTaker(name, description, hostagenumber, extrarule){
   }
   this.killhostage = function (amount) {
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
-    hostagedataset[1] += amount
-    this.number += amount
+    hostagedataset[2] += amount
+    hostagedataset[1] -= amount
     hostagechart.update()
   }
   this.hostageescape = function(amount){
-    
+    let hostagedataset = hostagechart['data']["datasets"][0]["data"]
+    hostagedataset[0] += amount
+    hostagedataset[1] -= amount
+    hostagechart.update()
   }
 }
 
 let hostagetakerarray= []
 for (person in hostagetaker){
-  let hostagetakerindividual = new HostageTaker (hostagetakerdata[person]['name'], hostagetakerdata[person]['description'], hostagetakerdata[person]['hostages'], hostagetakerdata[person]['extrarule'] = "none")
+  let hostagetakerindividual = new HostageTaker (hostagetakerdata[person]['name'], hostagetakerdata[person]['description'], hostagetakerdata[person]['numberofhostages'], hostagetakerdata[person]['extrarule'] = "none")
   hostagetakerarray.push(hostagetakerindividual)
 }
 
@@ -46,7 +56,7 @@ let hostagechart = new Chart(chartposition, {
       'Dead',
     ],
     datasets: [{
-      data: hostagedataset,
+      data: [0,0,0],
       backgroundColor: [
         'rgba(0, 255, 0, 0.2)',
         'rgba(0, 0 , 255, 0.2)',
