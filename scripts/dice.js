@@ -27,7 +27,6 @@ function Dice(){
     diceingame.displayroll()
   }
   this.displayroll = function(){
-    console.log(this.randomnumber)
     for (i = 1; i <= this.number; i++) {
       $('#dice' + (i)).removeClass('roll')
     }

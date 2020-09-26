@@ -19,19 +19,19 @@ function HostageTaker(name, description, hostagenumber, extrarule){
     hostagedataset[2] = dead
     hostagechart.update()
   }
-  this.addhostage = function (amount) {
+  this.addhostage = function (amount = 1) {
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[1] += amount
     this.number += amount
     hostagechart.update()
   }
-  this.killhostage = function (amount) {
+  this.killhostage = function (amount = 1) {
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[2] += amount
     hostagedataset[1] -= amount
     hostagechart.update()
   }
-  this.hostageescape = function(amount){
+  this.hostageescape = function(amount = 1){
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[0] += amount
     hostagedataset[1] -= amount
