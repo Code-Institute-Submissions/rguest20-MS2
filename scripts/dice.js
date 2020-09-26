@@ -4,37 +4,46 @@ function randomised6() {
 }
 function Dice(){
   this.number = 2
+  this.permanentchange = 0
   this.randomnumber =[]
   this.set = function(){
+    for(i=2; i<=5; i++){
+      $('#dice' + i).hide()
+    }
     for (i = 1; i <= this.number; i++) {
       $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
       $('#dice' + (i)).show()
     }
   }
-  this.roll = async function(){
+  this.roll = function(){
     this.randomnumber = [randomised6(), randomised6(), randomised6(), randomised6(), randomised6()]
     for (i = 1; i <= this.number; i++) {
       $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
       $('#dice' + (i)).addClass('roll')
     }
-    await delayanimation(function(){
-      for (i = 1; i <= this.number; i++) {
-        $('#dice' + (i)).removeClass('roll')
-      }
-    }, 2000)
-    for (i = 0; i <= this.number; i++) {
-      if (this.randomnumber[i] === 1) {
-        $("#dice" + (i+1)).addClass('spintofront')
-      } else if (randomnumberondie === 2) {
-        $("#dice" + (i+1)).addClass('spintoleft')
-      } else if (randomnumberondie === 3) {
-        $("#dice" + (i+1)).addClass('spintoback')
-      } else if (randomnumberondie === 4) {
-        $("#dice" + (i+1)).addClass('spintoright')
-      } else if (randomnumberondie === 5) {
-        $("#dice" + (i+1)).addClass('spintobottom')
+    delayanimation(this.delay, 2000)
+  }
+  this.delay = function(){
+    diceingame.displayroll()
+  }
+  this.displayroll = function(){
+    console.log(this.randomnumber)
+    for (i = 1; i <= this.number; i++) {
+      $('#dice' + (i)).removeClass('roll')
+    }
+    for (i = 1; i <= this.number; i++) {
+      if (this.randomnumber[i-1] === 1) {
+        $("#dice" + (i)).addClass('spintofront')
+      } else if (this.randomnumber[i-1] === 2) {
+        $("#dice" + (i)).addClass('spintoleft')
+      } else if (this.randomnumber[i-1] === 3) {
+        $("#dice" + (i)).addClass('spintoback')
+      } else if (this.randomnumber[i-1] === 4) {
+        $("#dice" + (i)).addClass('spintoright')
+      } else if (this.randomnumber[i-1] === 5) {
+        $("#dice" + (i)).addClass('spintobottom')
       } else {
-        $("#dice" + (i+1)).addClass('spintotop')
+        $("#dice" + (i)).addClass('spintotop')
       }
     }
   }
@@ -45,7 +54,7 @@ function Dice(){
       $('#dice4').hide()
       $('#dice5').hide()
       this.number += 1
-
+      this.set()
       }
     }
   this.remove = function(){
@@ -61,4 +70,3 @@ function Dice(){
 }
 
 diceingame = new Dice()
-diceingame.set()

@@ -105,35 +105,33 @@ function DemandCard (id, type, title, text, cost, concedebonus, concedepenalty){
     return penalty
   }
   this.concede = function(cardnumber){
-      if ('hostage' in this.concedebonus){
-        let hostagessaved = this.conceedebonus['hostage']
-        alterData(hostagessaved, -hostagessaved, 0)
-      }
-      if ('freecard' in this.concedebonus){
-        freecardnumber = this.concedebonus['freecard']
-      }
-      if ('dice' in this.concedebonus){
-        moredice(this.concedebonus['dice'])
-      }
-      if ('threat' in this.concedebonus){
-        updatethreat(this.concedebonus['threat'])
-      }
-      if ('timeleft' in this.concedepenalty){
-        timeleft = 0
-        updatetimeleft()
-      }
-      if ('dicepermanent' in this.concedepenalty){
-        dicechangepermanent -=1
-        updatethreat()
-      }
-      if ('threatmultiplier' in this.concedepenalty){
-        threatchangedouble = true
-      }
-      if ('threatincreaseperturn' in this.concedepenalty){
-        threatperturn = 2
-      }
+    if ('hostage' in this.concedebonus){
+      let hostagessaved = this.conceedebonus['hostage']
+      alterData(hostagessaved, -hostagessaved, 0)
     }
-  }
+    if ('freecard' in this.concedebonus){
+      freecardnumber = this.concedebonus['freecard']
+    }
+    if ('dice' in this.concedebonus){
+      moredice(this.concedebonus['dice'])
+    }
+    if ('threat' in this.concedebonus){
+      updatethreat(this.concedebonus['threat'])
+    }
+    if ('timeleft' in this.concedepenalty){
+      timeleft = 0
+      updatetimeleft()
+    }
+    if ('dicepermanent' in this.concedepenalty){
+      dicechangepermanent -=1
+      updatethreat()
+    }
+    if ('threatmultiplier' in this.concedepenalty){
+      threatchangedouble = true
+    }
+    if ('threatincreaseperturn' in this.concedepenalty){
+      threatperturn = 2
+    }
   }
 }
 

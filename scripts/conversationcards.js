@@ -561,6 +561,10 @@ let data = [
     },
 ]
 
+let conversationcards = []
+let hand = [1,2,3,4,5,6]
+let discards = []
+let available = [7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 //initialize conversation cards object
 function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
   this.id = id
@@ -577,11 +581,11 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
       $('#costOfCard').append(this.cost)
       $('#bigSuccessOutcome').empty()
       $('#bigSuccessOutcome').append('<ul>')
-      if (freecardnumber > 0 && !hand.includes(this.id) && !discards.includes(this.id)){
-        $('#freecardbutton').show()
-      } else {
-        $('#freecardbutton').hide()
-      }
+      // if (freecardnumber > 0 && !hand.includes(this.id) && !discards.includes(this.id)){
+      //   $('#freecardbutton').show()
+      // } else {
+      //   $('#freecardbutton').hide()
+      // }
       if ('conversationpoints' in this.bigSuccess) {
         $('#bigSuccessOutcome').append('<li> CP: ' + this.bigSuccess['conversationpoints'] + '</li>')
       }
@@ -652,9 +656,9 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
         $('#failureOutcome').append('<li> GAME OVER </li>')
         $('#failureOutcome').append('</ul>')
       }
-      if (hand contains('this.id')){
+      if (events.hand.includes(this.id)){
         $('#isInHand').html('In Hand')
-      } else if (available contains('this.id')){
+      } else if (available.includes('this.id')){
         $('#isInHand').html('Available to buy')
       } else{
         $('#isInHand').html('Discarded')
@@ -663,10 +667,6 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
   }
 
 //create conversation cards
-let conversationcards = []
-let hand = [1,2,3,4,5,6]
-let discards = []
-let available = [7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 for (card in data) {
   let bigSuccessForCard = {}
   data[card]['bigSuccessDice'] != "0" ? bigSuccessForCard.dice = data[card]['bigSuccessDice'] : true
@@ -712,7 +712,3 @@ for (card in data) {
 }
 
 //set 1st card once created
-conversationcards.setCard
-$('#buttoncontinue').hide()
-$('#buttonchoice1').hide()
-$('#buttonchoice2').hide()

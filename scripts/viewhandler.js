@@ -1,29 +1,35 @@
 function EventHandler(){
+  this.randomnumber = function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
   this.terrorsuccess = false
   this.currentterror ={}
   this.abductoralive = true
   this.nomorehostages = false
   this.turnsleft = 10
   this.conversationpoints = 0
+  this.currentcard = 0
   this.demand1flipped = false
   this.demand2flipped = false
+  this.hand = [1,2,3,4,5,6]
   this.concedebutton = function(number){
-    if (conversationpoints >= demandsingame[(number-1)].cost){
-      conversationpoints -= demandsingame[(number-1)].cost
-      demandsingame[(number-1)].concede()
+    if (conversationpoints >= demandcardsingame[(number-1)].cost){
+      conversationpoints -= demandcardsingame[(number-1)].cost
+      demandcardsingame[(number-1)].concede()
       $('#conversationPointsP').html(conversationpoints)
       $('#concedebutton' + number).prop('disabled', true)
       $('#concedebutton' + number).html("Conceded")
+    }
   }
   this.preparedemands = function(){
-    if (hostagetakerindividual.name === "Ann Greashopper") {
-      demandsingame.push(demands[0])
-      demandsingame.push(demands[getrandomint(4, 7)])
-      this.setdemandcards(demandsingame[0], demandsingame[1])
+    if (hostagetakerarray[0].name === "Ann Greashopper") {
+      demandcardsingame.push(demands[0])
+      demandcardsingame.push(demands[this.randomnumber(4, 7)])
+      this.setdemandcards(demandcardsingame[0].id, demandcardsingame[1].id)
     } else {
-      demandsingame.push(demands[getrandomint(1, 4)])
-      demandsingame.push(demands[getrandomint(4, 7)])
-      this.setdemandcards(demandsingame[0], demandsingame[1])
+      demandcardsingame.push(demands[this.randomnumber(1, 4)])
+      demandcardsingame.push(demands[this.randomnumber(4, 7)])
+      this.setdemandcards(demandcardsingame[0].id, demandcardsingame[1].id)
     }
   }
   this.setdemandcards = function (firstid = 1, secondid = 6){
@@ -77,13 +83,13 @@ function EventHandler(){
   this.interfaceabductor = ""
   this.interfacenegotiator = ""
   this.updatetime = function(){
-    if (timeleft >= 0) {
-      $('#turnsleft').html('<strong>Turns remaining: ' + timeleft + "</strong>")
+    if (this.turnsleft >= 0) {
+      $('#turnsleft').html('<strong>Turns remaining: ' + this.turnsleft + "</strong>")
     } else {
       this.gameover()
     }
   }
-  this.displayterror = function(){
+  this.displayterror = async function(){
     this.currentterror = terrorcarddeck.pop()
     $('#terrortitle').html(this.currentterror.title)
     if (this.currentterror.diceroll === true){
@@ -167,16 +173,13 @@ function EventHandler(){
     $('#terrormodal').modal({backdrop: false, keyboard: false})
   }
   this.preparegame = function(){
-    for (abductor in hostagetakerarray){
-      if hostagetakerarray[abductor].name = "Arkayne Massua"
-      hostagetakeringame = hostagetakerarray[0]
-      hostagetakeringame.sethostages(0, hostagetakeringame.hostagenumber, 0)
-      $('#textbox').hide()
-      $('#hostagetakername').html(hostagetakeringame.name)
-      $('#whatweknow').html(hostagetakeringame.description)
-      events.preparedemands()
+        hostagetakeringame = hostagetakerarray[1]
+        hostagetakeringame.sethostages(0, hostagetakeringame.number, 0)
+        $('#textbox').hide()
+        $('#hostagetakername').html(hostagetakeringame.name)
+        $('#whatweknow').html(hostagetakeringame.description)
+        events.preparedemands()
     }
-  }
   this.phaseone = async function(){
     $('#phase3bar').removeClass('activated')
     $('#phase1bar').addClass('activated')
@@ -193,9 +196,9 @@ function EventHandler(){
     if (document.getElementById('isInHand').innerHTML === "Discarded"){
       $('#isInHand').html("Available to buy")
     }
-    conversationpoints = 0
+    this.conversationpoints = 0
     $('#conversationPointsP').html(this.conversationpoints)
-    updatethreat(threatperturn)
+    // updatethreat(threatperturn)
   }
   this.phasetwo = function(){
     $('#phase1bar').removeClass('activated')
@@ -216,6 +219,4 @@ function EventHandler(){
       this.displayterror()
   }
 }
-
-
 let events = new EventHandler()

@@ -3,7 +3,7 @@ let hostagetakerdata = [
     'name': 'Ann Greashopper', 'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!', 'numberofhostages': 2
   },
   {
-    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!', 'numberofhostages': 2
+    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!', 'numberofhostages': 7
   }
 ]
 
@@ -40,7 +40,7 @@ function HostageTaker(name, description, hostagenumber, extrarule){
 }
 
 let hostagetakerarray= []
-for (person in hostagetaker){
+for (person in hostagetakerdata){
   let hostagetakerindividual = new HostageTaker (hostagetakerdata[person]['name'], hostagetakerdata[person]['description'], hostagetakerdata[person]['numberofhostages'], hostagetakerdata[person]['extrarule'] = "none")
   hostagetakerarray.push(hostagetakerindividual)
 }
@@ -56,7 +56,7 @@ let hostagechart = new Chart(chartposition, {
       'Dead',
     ],
     datasets: [{
-      data: [0,0,0],
+      data: [1,0,0],
       backgroundColor: [
         'rgba(0, 255, 0, 0.2)',
         'rgba(0, 0 , 255, 0.2)',

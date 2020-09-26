@@ -1,17 +1,27 @@
 $('#fireworks').hide()
-
+console.log("I am running")
 //hide splash screen - comment out to show
 // $('#splash').hide()
 $('#textbox').hide()
-delayanimation(maingame, 1000)
+delayanimation(events.preparegame, 1000)
 //show splash screen
 window.onload = function() {
   $('#titleofgame').addClass('textappear')
   $('#splash').addClass('titlecarddisappear')
 }
+//initial preparation for game
+events.updatetime()
+// updatethreat()
+$('#conversationPointsP').html(events.conversationpoints)
+events.phaseone()
+conversationcards[events.currentcard].setCard()
+$('#buttoncontinue').hide()
+$('#buttonchoice1').hide()
+$('#buttonchoice2').hide()
+threatbar.set()
 
 // create variables
-let freecardnumber
+// let freecardnumber
 let dicechangepermanent = 0
 let threatperturn = 0
 let initialsetup = true
@@ -23,20 +33,15 @@ let cardsremoved = 0
 let demandsingame = []
 let nextdemandcard = 1
 let timeleft = 10
-updatetimeleft()
 let terroringame = []
 let currentterror
 let terroroutcome
 let terroroutcomepass
 let terroroutcomefail
 let threatoutcome = "not required"
-prepareterror()
 let threat = 4
 let threatchangedouble = false
-updatethreat()
 let conversationpoints = 0
-$('#conversationPointsP').html(conversationpoints)
-events.phaseone()
 
 function unlockterrorbutton(){
   $('#acceptterror').prop('disabled', false)
@@ -52,53 +57,9 @@ function getrandomint(min, max) {
 }
 
 //threat bar workings
-async function updatethreat(change = 0) {
-  threat += change
-  let threatpercentage = (threat / 7) * 100
-  $('#threatbar').css("width", threatpercentage + "%")
-  if (threatpercentage > 100) {
-    let newhostageskilled = Math.round(((threatpercentage / 100) * 7) - 7)
-    alterData(0, -newhostageskilled, +newhostageskilled)
-    threat = 7
-    threatpercentage = 100
-    numberofdice = 1
-    showdice()
-  } else if (threatpercentage === 100) {
-    $('#threatbar').removeClass('bg-warning')
-    $('#threatbar').addClass('bg-danger')
-    numberofdice = 1 + dicechangepermanent
-    if (numberofdice <= 0){
-      numberofdice = 1
-    }
-    showdice()
-  } else if (threatpercentage > 20) {
-    $('#threatbar').removeClass('bg-success')
-    $('#threatbar').removeClass('bg-danger')
-    $('#threatbar').addClass('bg-warning')
-    numberofdice = 2 + dicechangepermanent
-    showdice()
-  } else if (threatpercentage >= 0) {
-    $('#threatbar').removeClass('bg-warning')
-    $('#threatbar').addClass('bg-success')
-    numberofdice = 3 + dicechangepermanent
-    showdice()
-  } else if (threatpercentage < 0) {
-    let newhostagessaved = Math.round((threatpercentage / -100) * 7)
-    alterData(+newhostagessaved, -newhostagessaved, 0)
-    threatpercentage = 0
-    threat=0
-    numberofdice = 3 + dicechangepermanent
-    showdice()
-  }
-}
 
-//set 1st card once created
-setCard()
-$('#buttoncontinue').hide()
-$('#buttonchoice1').hide()
-$('#buttonchoice2').hide()
-let introtext = ""
-intro1()
+// let introtext = ""
+// intro1()
 
 // //Introduction
 // async function intro1() {
@@ -144,7 +105,6 @@ intro1()
 //   await delayanimation(showbutton3, 5000)
 //   document.getElementById("choice3").addEventListener("click", tutorial)
 //   document.getElementById("choice4").addEventListener("click", maingame)
-}
 
 function showbutton() {
   $('#buttoncontinue').show()
@@ -177,20 +137,20 @@ function typeout(message, position) {
 
 //arrows to scroll through cards
 function nextCard() {
-  if (cardnumber === (conversationcards.length-1)) {
+  if (events.currentcard === (conversationcards.length-1)) {
     return
   } else {
-    cardnumber++
-
+    events.currentcard ++
+    conversationcards[events.currentcard].setCard()
   }
 }
 
 function prevCard() {
-  if (cardnumber === 0) {
+  if (events.currentcard === 0) {
     return
   } else {
-    cardnumber--
-    setCard()
+    events.currentcard --
+    conversationcards[events.currentcard].setCard()
   }
 }
 
@@ -492,6 +452,7 @@ function delayanimation(funct, val) {
   })
 }
 
+
 //allows player to buy cards
 function buyacard(){
   let currentcardcost = parseInt(conversationcards[cardnumber].cost)
@@ -505,9 +466,9 @@ function buyacard(){
   }
 }
 
-//free cards
-function freecard(){
-  hand.push(conversationcards[cardnumber].id)
-  freecardnumber -= 1
-  setCard()
-}
+// //free cards
+// function freecard(){
+//   hand.push(conversationcards[cardnumber].id)
+//   freecardnumber -= 1
+//   setCard()
+// }
