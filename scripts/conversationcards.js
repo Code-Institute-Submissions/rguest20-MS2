@@ -562,9 +562,6 @@ let data = [
 ]
 
 let conversationcards = []
-let hand = [1,2,3,4,5,6]
-let discards = []
-let available = [7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 //initialize conversation cards object
 function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
   this.id = id
@@ -574,6 +571,45 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
   this.smallSuccess = smallSuccess
   this.failure = failure
   this.endTurnIf = endTurn
+  this.playcard = async function(){
+      for (var i = 0; i < player.hand.length; i++) {
+        //this can be severely streamlined by sorting cards into hand, available and discards
+        if (player.hand[i] === events.currentcard + 1) {
+          $('#nextCard').prop('disabled', true)
+          $('#prevCard').prop('disabled', true)
+          $('#playcardinhand').prop('disabled', true)
+          $('#sacrificecardinhand').prop('disabled', true)
+          $('#buycardtohand').prop('disabled', true)
+          $('#endphase1').prop('disabled', true)
+          diceresults = dice.roll()
+          player.discards.push(player.hand[i])
+          player.hand.splice(i, 1)
+          await delayanimation(buttondisable1, 2000)
+          this.setCard()
+          for (i=0; i<dice.number; i++){
+            if (diceresults[i] === 4){
+              await delayanimation(buttondisable2, 2000)
+              break
+            }
+          }
+        }
+      }
+    }
+  }
+  this.buy = function (){
+    if (player.availabletobuy.contains(this.id) && events.conversationpoints >= this.cost){
+      player.hand.push(this.id)
+      events.conversationpoints -= this.cost
+      for (i=0; i < player.availabletobuy.length; i++){
+        if (player.availabletobuy[i] === this.id){
+          player.availabletobuy.splice(i,1)
+        }
+      }
+      events.currentcard = 0
+      $('#conversationPointsP').html(events.conversationpoints)
+      this.setCard()
+    }
+  }
   this.setCard = function (){
       $('#titleOfCard').empty()
       $('#titleOfCard').append(this.title)
@@ -656,7 +692,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
         $('#failureOutcome').append('<li> GAME OVER </li>')
         $('#failureOutcome').append('</ul>')
       }
-      if (events.hand.includes(this.id)){
+      if (player.hand.includes(this.id)){
         $('#isInHand').html('In Hand')
       } else if (available.includes('this.id')){
         $('#isInHand').html('Available to buy')

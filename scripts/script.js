@@ -170,31 +170,6 @@ function sacrifice() {
 }
 
 //Playing cards - several functions
-
-async function playthiscard() {
-  for (var i = 0; i < hand.length; i++) {
-    if (hand[i] === cardnumber + 1) {
-      $('#nextCard').prop('disabled', true)
-      $('#prevCard').prop('disabled', true)
-      $('#playcardinhand').prop('disabled', true)
-      $('#sacrificecardinhand').prop('disabled', true)
-      $('#buycardtohand').prop('disabled', true)
-      $('#endphase1').prop('disabled', true)
-      diceresults = rolldice()
-      await discards.push(hand[i])
-      hand.splice(i, 1)
-      await delayanimation(buttondisable1, 2000)
-      setCard()
-      for (i=0; i<numberofdice; i++){
-        if (diceresults[i] === 4){
-          await delayanimation(buttondisable2, 2000)
-          break
-        }
-      }
-    }
-  }
-}
-
 function buttondisable1(){
   $('#playcard').prop('disabled', false)
 }
@@ -204,35 +179,7 @@ function buttondisable2(){
 }
 
 function fourtofivemodalpopup(){
-  if (fourtofivefromcard === true) {
-    for (i=0; i<numberofdice; i++){
-      if (diceresults[i] === 4){
-        diceresults[i] = 5
-        $('#dice' + (i+1)).removeClass('spintoright')
-        $('#dice' + (i+1)).addClass('spintobottom')
-        break
-      }
-    }
-    $('#fourtofivebutton').prop('disabled', true)
-    for (i=0; i<numberofdice; i++){
-      if (diceresults[i] === 4){
-        buttondisable2()
-        break
-      }
-    }
-  }else{
-    $('#4sto5smainbody').empty()
-    for (card in hand){
-      $('#4sto5smainbody').append('<input type="checkbox" onclick = "countboxes()" id="' + conversationcards[hand[card]-1].title +  '" name="' + conversationcards[hand[card]-1].title + '"<label for="' + conversationcards[hand[card]-1].title + '">' + conversationcards[hand[card]-1].title + '</label><br>')
-    }
-    for (i=0; i<numberofdice; i++){
-      if (diceresults[i] === 4){
-        $('#4to5modal').modal({'backdrop':false, 'keyboard':false})
-        $('#discardbutton').prop('disabled', true)
-        break
-      }
-    }
-  }
+
 }
 
 function countboxes(){
@@ -454,17 +401,7 @@ function delayanimation(funct, val) {
 
 
 //allows player to buy cards
-function buyacard(){
-  let currentcardcost = parseInt(conversationcards[cardnumber].cost)
-  if (!hand.includes(conversationcards[cardnumber].id) && !discards.includes(conversationcards[cardnumber].id)){
-    if (conversationpoints >= currentcardcost){
-      hand.push(conversationcards[cardnumber].id)
-      conversationpoints -= currentcardcost
-      $('#conversationPointsP').html(conversationpoints)
-      setCard()
-    }
-  }
-}
+
 
 // //free cards
 // function freecard(){

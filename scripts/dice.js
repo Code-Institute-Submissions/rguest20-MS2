@@ -22,6 +22,7 @@ function Dice(){
       $('#dice' + (i)).addClass('roll')
     }
     delayanimation(this.delay, 2000)
+    return this.randomnumber
   }
   this.delay = function(){
     diceingame.displayroll()
