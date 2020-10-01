@@ -30,6 +30,37 @@ function ModalHandler(){
       }
     }
   }
+  this.discardfourtofive = function(){
+    for (i = 0; i<2 ; i++){
+      let titletodiscard = $(":checkbox:checked")[i]['name']
+      for (j=0; j<conversationcards.length; j++){
+        if (conversationcards[j]['title'] === titletodiscard){
+          let idtodiscard =  conversationcards[j]['id']
+          for(k=0; k<hand.length; k++){
+            if (hand[k] === idtodiscard){
+              discards.push(idtodiscard)
+              hand.splice(k,1)
+            }
+          }
+        }
+      }
+    }
+    for (i=0; i<numberofdice; i++){
+      if (diceresults[i] === 4){
+        diceresults[i] = 5
+        $('#dice' + (i+1)).removeClass('spintoright')
+        $('#dice' + (i+1)).addClass('spintobottom')
+        break
+      }
+    }
+    $('#fourtofivebutton').prop('disabled', true)
+    for (i=0; i<numberofdice; i++){
+      if (diceresults[i] === 4){
+        buttondisable2()
+        break
+      }
+    }
+  }
 }
 
 let modals = new ModalHandler

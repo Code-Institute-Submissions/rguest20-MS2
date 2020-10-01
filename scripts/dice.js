@@ -3,6 +3,8 @@ function randomised6() {
   return randomnumber
 }
 function Dice(){
+  this.fourtofivefree = false
+  this.extradice = false
   this.number = 2
   this.permanentchange = 0
   this.randomnumber =[]
@@ -47,16 +49,25 @@ function Dice(){
       }
     }
   }
-  this.add = function(){
-    if (this.number <= 4) {
+  this.add = function(amount = 1){
+    if (this.number < 4) {
+      $('#dice2').hide()
+      $('#dice3').hide()
+      $('#dice4').hide()
+      $('#dice5').hide()
+      this.number += amount
+      this.set()
+    } else if (this.number === 4){
       $('#dice2').hide()
       $('#dice3').hide()
       $('#dice4').hide()
       $('#dice5').hide()
       this.number += 1
       this.set()
-      }
+    } else {
+      break
     }
+  }
   this.remove = function(){
     if (numberofdice > 1) {
       $('#dice2').hide()

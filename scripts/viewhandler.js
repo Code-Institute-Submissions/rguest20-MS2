@@ -47,7 +47,7 @@ function EventHandler(){
     $('#demand2penalty').html('HOWEVER ' + demandcards[secondid-1].setpenalty)
   }
   this.gameover = function(){
-    if (this.abductoralive === false && allhostagessavedordead === true){
+    if (this.abductoralive === false && this.nomorehostages === true){
       let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
       $('#winlosemodal').modal({backdrop: false, keyboard: false})
       if ((parseFloat(numbersaved)/parseFloat(hostagetaker.numberofhostages)) < 0.5){

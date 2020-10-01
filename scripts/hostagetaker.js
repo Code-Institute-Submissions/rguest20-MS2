@@ -37,6 +37,14 @@ function HostageTaker(name, description, hostagenumber, extrarule){
     hostagedataset[1] -= amount
     hostagechart.update()
   }
+  this.killed = function(){
+    $('#hostagetakername').html("Second in Command")
+    typeout("Apparently there was a second in command hiding in there as well.  He seems a lot less reasonable as well. Careful, Cap. Keep him cool!", $('#whatweknow'))
+    $('#demand1').hide()
+    $('#demand2').hide()
+    typeout("The second in command has no demands.  However, he is a lot more unstable than his boss.  All increases in threat are now doubled.", $('#secondincommanddemand'))
+    threatchangedouble = true
+  }
 }
 
 let hostagetakerarray= []
