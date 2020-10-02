@@ -68,7 +68,7 @@ function Dice(){
       break
     }
   }
-  this.remove = function(){
+  this.removedice = function(){
     if (numberofdice > 1) {
       $('#dice2').hide()
       $('#dice3').hide()

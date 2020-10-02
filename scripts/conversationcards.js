@@ -641,6 +641,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
     if ("demand" in this.bigSucess) {
       if (events.demand1flipped === false){
         $('#demand1').addClass("flip-card-toggled")
+        events.demand1flipped = true
       } else {
         $('#demand2').addClass("flip-card-toggled")
       }
@@ -649,6 +650,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
       dice.add(2)
       dice.extradice = true
     } else {
+      dice.set()
       dice.extradice = false
     }
     if ("fourtofive" in this.bigSucess){
@@ -665,78 +667,80 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
     }
   }
   this.enactsmallsuccess = function(){
-    let outcome = conversationcards[cardnumber]['smallSuccess']
-    if ("conversationpoints" in outcome) {
-      conversationpoints += parseInt(outcome['conversationpoints'])
-      $('#conversationPointsP').html(conversationpoints)
+    if ("conversationpoints" in this.smallSuccess) {
+      events.conversationpoints += parseInt(this.smallSuccess.conversationpoints)
+      $('#conversationPointsP').html(events.conversationpoints)
     }
-    if ("threat" in outcome) {
-      let threatchange = parseInt(outcome['threat'])
-      if (threatchangedouble === true && threatchange > 0){
+    if ("threat" in this.smallSuccess) {
+      let threatchange = parseInt(this.smallSuccess.threat)
+      if (events.threatchangedouble === true && threatchange > 0){
         threatchange += threatchange
       }
-      updatethreat(threatchange)
+      threat.change(threatchange)
     }
-    if ("hostage" in outcome) {
-      alterData(parseInt(outcome['hostage']), -parseInt(outcome['hostage']), 0)
+    if ("hostage" in this.smallSuccess) {
+      hostagetakeringame.hostageescape(parseInt(this.smallSuccess.hostage))
     }
-    if ("demand" in outcome) {
-      $('#demand' + nextdemandcard).addClass("flip-card-toggled")
-      nextdemandcard += 1
+    if ("demand" in this.smallSuccess) {
+      if (events.demand1flipped === false){
+        $('#demand1').addClass("flip-card-toggled")
+        events.demand1flipped = true
+      } else {
+        $('#demand2').addClass("flip-card-toggled")
+      }
     }
-    if ("dice" in outcome) {
-          moredice()
-          extradice = true
+    if ("dice" in this.smallSuccess) {
+          dice.add(1)
+          dice.extradice = true
         } else {
-          updatethreat()
-          extradice = false
+          dice.set()
+          dice.extradice = false
     }
-    if ("fourtofive" in outcome){
-      fourtofivefromcard = true
+    if ("fourtofive" in this.smallSuccess){
+      dice.fourtofivefree = true
       $('#fourtofivetrueorfalse').html("no cost to change fours to fives")
     } else {
-      fourtofivefromcard = false
+      dice.fourtofivefree = false
       $('#fourtofivetrueorfalse').empty()
     }
-    if (outcome['abductorkilled']) {
-      abductorkilledorcaptured = true
-      checkforvictory()
-      abductorkilled()
+    if (this.smallSuccess.abductorkilled) {
+      events.abductoralive = false
+      events.gameover()
+      hostagetakeringame.killed()
     }
   }
   this.enactfailure = function(){
-    let outcome = conversationcards[cardnumber]['failure']
-    if ("conversationpoints" in outcome) {
-      conversationpoints += parseInt(outcome['conversationpoints'])
-      $('#conversationPointsP').html(conversationpoints)
+    if ("conversationpoints" in this.failure) {
+      events.conversationpoints += parseInt(this.failure.conversationpoints)
+      $('#conversationPointsP').html(events.conversationpoints)
     }
-    if ("threat" in outcome) {
-      let threatchange = parseInt(outcome['threat'])
-      if (threatchangedouble === true && threatchange > 0){
+    if ("threat" in this.failure) {
+      let threatchange = parseInt(this.failure.threat)
+      if (events.threatchangedouble === true && threatchange > 0){
         threatchange += threatchange
       }
-      updatethreat(threatchange)
+      threat.change(threatchange)
     }
-    if ("hostage" in outcome) {
-      alterData(0, -parseInt(outcome['hostage']), parseInt(outcome['hostage']))
+    if ("hostage" in this.failure) {
+      hostagetakeringame.hostagekilled(parseInt(this.failure.hostage))
     }
-    if ("remove" in outcome) {
+    if ("remove" in this.failure) {
       prevCard()
-      conversationcards.splice(cardnumber + 1, 1)
+      events.conversationcards.splice(cardnumber + 1, 1)
     }
-    if ("dice" in outcome) {
-      lessdice()
-      extradice = true
+    if ("dice" in this.failure) {
+      dice.removedice(1)
+      dice.extradice = true
     } else {
-      updatethreat()
-      extradice = false
+      dice.set()
+      dice.extradice = false
     }
-    if (outcome['abductorescaped']) {
-      timeleft = -1
+    if (this.failure.abductorescaped) {
+      events.turnsleft = -1
     }
-    fourtofivefromcard = false
+    dice.fourtofivefree = false
     $('#fourtofivetrueorfalse').empty()
-    updatedice()
+    dice.set()
   }
   this.buy = function (){
     if (player.availabletobuy.contains(this.id) && events.conversationpoints >= this.cost){
