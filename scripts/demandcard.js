@@ -72,21 +72,20 @@ function DemandCard (id, type, title, text, cost, concedebonus, concedepenalty){
   this.cost = cost
   this.concedebonus = concedebonus
   this.concedepenalty = concedepenalty
+  this.rewards = []
   this.setreward = function () {
-    let rewards= []
     if ('hostage' in this.concedebonus){
-      rewards.push('Hostages Released: ' + this.concedebonus['hostage'])
+      this.rewards.push('Hostages Released: ' + this.concedebonus['hostage'])
     }
     if ('freecard' in this.concedebonus){
-      rewards.push('Number of Free Cards: ' + this.concedebonus['freecard'])
+      this.rewards.push('Number of Free Cards: ' + this.concedebonus['freecard'])
     }
     if ('dice' in this.concedebonus){
-      rewards.push('Extra Dice: ' + this.concedebonus['dice'])
+      this.rewards.push('Extra Dice: ' + this.concedebonus['dice'])
     }
     if ('threat' in this.concedebonus){
-      rewards.push('Threat Change: ' + this.concedebonus['threat'])
+      this.rewards.push('Threat Change: ' + this.concedebonus['threat'])
     }
-    return rewards
   }
   this.setpenalty = function(){
     let penalty = []
@@ -141,4 +140,3 @@ for (card in demands){
   demandcards.push(demandcardindividual)
 }
 demandcardsingame=[]
-events.preparedemands()

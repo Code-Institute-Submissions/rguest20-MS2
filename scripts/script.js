@@ -12,6 +12,7 @@ window.onload = function() {
 
 //initial preparation for game
 events.updatetime()
+diceingame.set()
 // updatethreat()
 $('#conversationPointsP').html(events.conversationpoints)
 events.phaseone()

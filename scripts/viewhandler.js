@@ -22,29 +22,31 @@ function EventHandler(){
     }
   }
   this.preparedemands = function(){
-    if (hostagetakerarray[0].name === "Ann Greashopper") {
-      demandcardsingame.push(demands[0])
-      demandcardsingame.push(demands[this.randomnumber(4, 7)])
+    if (hostagetakerarray[1].name === "Ann Greashopper") {
+      demandcardsingame.push(demandcards[0])
+      demandcardsingame.push(demandcards[this.randomnumber(4, 7)])
       this.setdemandcards(demandcardsingame[0].id, demandcardsingame[1].id)
     } else {
-      demandcardsingame.push(demands[this.randomnumber(1, 4)])
-      demandcardsingame.push(demands[this.randomnumber(4, 7)])
-      this.setdemandcards(demandcardsingame[0].id, demandcardsingame[1].id)
+      demandcardsingame.push(demandcards[this.randomnumber(1, 4)])
+      demandcardsingame.push(demandcards[this.randomnumber(4, 7)])
+      this.setdemandcards()
     }
   }
-  this.setdemandcards = function (firstid = 1, secondid = 6){
-    $('#demand1title').html(demandcards[firstid-1].title)
-    $('#demand1cost').html(' CP to concede: ' + demandcards[firstid-1].cost)
-    for (i=0; i<demandcards[firstid-1].setreward.length; i++){
-      $('#demand1reward').append(demandcards[firstid-1].setreward[i])
+  this.setdemandcards = function (){
+    demandcardsingame[0].setreward()
+    demandcardsingame[1].setreward()
+    $('#demand1title').html(demandcardsingame[0].title)
+    $('#demand1cost').html(' CP to concede: ' + demandcardsingame[0].cost)
+    for (i=0; i<demandcardsingame[0].rewards.length; i++){
+      $('#demand1reward').append(demandcardsingame[0].rewards[i] + " ")
     }
-    $('#demand1penalty').html('HOWEVER ' + demandcards[firstid-1].setpenalty)
-    $('#demand2title').html(demandcards[secondid-1].title)
-    $('#demand2cost').html(' CP to concede: ' + demandcards[secondid-1].cost)
-    for (i=0; i<demandcards[secondid-1].setreward.length; i++){
-      $('#demand2reward').append(demandcards[secondid-1].setreward[i])
+    $('#demand1penalty').html('HOWEVER ' + demandcardsingame[0].setpenalty())
+    $('#demand2title').html(demandcardsingame[1].title)
+    $('#demand2cost').html(' CP to concede: ' + demandcardsingame[1].cost)
+    for (i=0; i<demandcardsingame[1].rewards.length; i++){
+      $('#demand2reward').append(demandcardsingame[1].rewards[i] + " ")
     }
-    $('#demand2penalty').html('HOWEVER ' + demandcards[secondid-1].setpenalty)
+    $('#demand2penalty').html('HOWEVER ' + demandcardsingame[1].setpenalty())
   }
   this.gameover = function(){
     if (this.abductoralive === false && this.nomorehostages === true){
@@ -187,11 +189,11 @@ function EventHandler(){
     $('#buyphasebuttons').hide()
     $('#endphase1').show()
     $('#endphase2').hide()
-    for (i = 0; i<discards.length; i++){
-      available.push(discards[i])
+    for (i = 0; i< player.discard.length; i++){
+      player.availabletobuy.push(player.discard[i])
     }
-    while(discards.length > 0) {
-      discards.pop();
+    while(player.discard.length > 0) {
+      player.discards.pop();
     }
     if (document.getElementById('isInHand').innerHTML === "Discarded"){
       $('#isInHand').html("Available to buy")

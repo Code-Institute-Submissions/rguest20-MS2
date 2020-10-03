@@ -83,7 +83,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand1cost'></p>
                         <p><span id='demand1reward'></span></p>
                         <p id='demand1penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton1" onclick="concedebutton1()">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton1" onclick="demandcardsingame[0].concede()">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand2cost'></p>
                         <p id='demand2reward'></p>
                         <p id='demand2penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton2" onclick="concedebutton2()">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton2" onclick="demandcardsingame[1].concede()">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -139,8 +139,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class="border" id="phase1bar">Phase 1<br>Play Actions<br><button class="button btn-success" id="endphase1" onclick="phase2initialise()">End Phase</button></td>
-                      <td class="border" id="phase2bar">Phase 2<br>Buy New Actions<br><button class="button btn-success" id="endphase2" onclick="phase3initialise()">End Phase</button></td>
+                      <td class="border" id="phase1bar">Phase 1<br>Play Actions<br><button class="button btn-success" id="endphase1" onclick="events.phasetwo()">End Phase</button></td>
+                      <td class="border" id="phase2bar">Phase 2<br>Buy New Actions<br><button class="button btn-success" id="endphase2" onclick="events.phasethree()">End Phase</button></td>
                       <td class="border" id="phase3bar">Phase 3<br>Terror</td>
                     </tr>
                   </thead>
@@ -230,8 +230,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <div>
-                  <button onclick="playthiscardend()" id="playcard">Accept Roll</button> <button onclick="fourtofivemodalpopup()" id="fourtofivebutton">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span> <button onclick=""
-                    id="reroll">Reroll</button>
+                  <button onclick="conversationcards[events.currentcard].acceptcard()" id="playcard">Accept Roll</button> <button onclick="modals.fourtofivepopup()" id="fourtofivebutton">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span>
                 </div>
               </td>
             </thead>
@@ -239,8 +238,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
               <tr>
                 <td id="cards">
                   <h3 id="actiontitle">Actions</h3>
-                  <div id="playphasebuttons"> <button id="playcardinhand" onclick="playthiscard()">Play Card</button> <button id="sacrificecardinhand" onclick="sacrifice()">Sacrifice for 1 CP</button> </div>
-                  <div id="buyphasebuttons"><button id="buycardtohand" onclick="buyacard()">Buy Card</button>
+                  <div id="playphasebuttons"> <button id="playcardinhand" onclick="conversationcards[events.currentcard].playcard()">Play Card</button> <button id="sacrificecardinhand" onclick="conversationcards[events.currentcard].sacrifice()">Sacrifice for 1 CP</button> </div>
+                  <div id="buyphasebuttons"><button id="buycardtohand" onclick="conversationcards[events.currentcard].buy()">Buy Card</button>
                   </div>
                   <table class="table table-bordered innertable">
                     <thead>
@@ -252,7 +251,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <tbody>
                       <tr>
                         <th>
-                          <p>Cost: <span id="costOfCard"></span> <button id="freecardbutton" class="button btn-primary btn-sm" onclick="freecard()">Get Card For Free</button></p>
+                          <p>Cost: <span id="costOfCard"></span> <button id="freecardbutton" class="button btn-primary btn-sm" onclick="">Get Card For Free</button></p>
                           <table id="actioninformation" class="table table-borderless">
                             <tr>
                               <td>
@@ -293,7 +292,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Not This Time</button>
-            <button type="button" class="btn btn-primary" onclick="discardfourtofive()" id="discardbutton" data-dismiss="modal">Discard</button>
+            <button type="button" class="btn btn-primary" onclick="modals.discardfourtofive()" id="discardbutton" data-dismiss="modal">Discard</button>
           </div>
         </div>
       </div>
@@ -310,7 +309,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p id="whathappened"></p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" onclick="terrorplay()" id="acceptterror" data-dismiss="modal">Continue</button>
+            <button type="button" class="btn btn-danger" onclick="events.currentterror.play()" id="acceptterror" data-dismiss="modal">Continue</button>
           </div>
         </div>
       </div>
@@ -331,7 +330,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p id="whathappened"></p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="acceptterror" data-dismiss="">Continue</button>
+            <button type="button" class="btn btn-primary" onclick="" id="alldone" data-dismiss="">Continue</button>
           </div>
         </div>
       </div>
@@ -471,13 +470,15 @@ if (!isset($_SESSION['UserData']['Username'])) {
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="./scripts/helper/Chart.js"></script>
+  <script src="./scripts/player.js"></script>
+  <script src="./scripts/demandcard.js"></script>
   <script src="./scripts/viewhandler.js"></script>
   <script src="./scripts/hostagetaker.js"></script>
   <script src="./scripts/dice.js"></script>
   <script src="./scripts/terrorcards.js"></script>
   <script src="./scripts/threat.js"></script>
-  <script src="./scripts/demandcard.js"></script>
   <script src="./scripts/helper/fireworks.js"></script>
+  <script src="./scripts/modals.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script type="text/javascript" src="scripts/conversationcards.js"></script>

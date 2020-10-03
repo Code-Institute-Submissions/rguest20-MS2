@@ -65,7 +65,7 @@ function Dice(){
       this.number += 1
       this.set()
     } else {
-      break
+      return
     }
   }
   this.removedice = function(){
