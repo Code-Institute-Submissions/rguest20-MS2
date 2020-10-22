@@ -135,52 +135,39 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
   this.play = function (){
     if (this.diceroll === false){
       switch(this.effect){
-        
+        case 'hostageescape: 1':
+          hostagetakeringame.hostageescape()
+          break;
+        case 'hostagekilled: 1':
+          hostagetakeringame.killhostage(1)
+          break;
+        case 'timeremaining: -1':
+          timeleft -= 1
+          events.updatetime()
+          break;
+        case 'threat: 1':
+          threatbar.change(1)
+          break;
+        case 'threat: 2':
+          threatbar.change(2)
+          break;
+        case 'threat: reset':
+          threatbar.value = 4
+          threatbar.set()
+          break;
+        default:
+          alert('This should never appear')
+          break
       }
     } else {
       if (events.terrorsuccess === true){
         events.terrorsuccess = false
         switch (this.threatsuccess){
-            case '1hostage':
-              hostagetakerindividual.addhostage(1)
+            case 'extrahostage':
+              hostagetakeringame.addhostage(1)
               break;
-            case '2hostage':
-              hostagetakerindividual.addhostage(2)
-              break;
-            case '1escape':
-              hostagetakerindividual.hostageescape()
-              break;
-            case '1dead':
-              hostagetakerindividual.hostagekilled(1)
-              break;
-            case '-1time':
-              timeleft -= 1
-              events.updatetime()
-              break;
-            case 'halftime':
-              timeleft = Math.ceil(timeleft/2)
-              events.updatetime()
-              break;
-            case '1threat':
-              // if(threatchangedouble === true){
-              //   updatethreat(2)
-              // } else{
-              //   updatethreat(1)
-              // }
-              break;
-            case '2threat':
-              // if(threatchangedouble === true){
-              //   updatethreat(4)
-              // } else{
-              //   updatethreat(2)
-              // }
-              // break;
-            case 'resetthreat':
-              // threat = 4
-              // updatethreat()
-              // break;
-            case '1free':
-              hostagetakerindividual.hostageescape()
+            case 'hostageescape':
+              hostagetakeringame.hostageescape()
               break;
             case 'noeffect':
               break
@@ -190,46 +177,11 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
         }
       } else {
           switch (this.threatfail){
-            case '1hostage':
-              hostagetakerindividual.addhostage(1)
+            case 'extrahostage':
+              hostagetakeringame.addhostage(2)
               break;
-            case '2hostage':
-              hostagetakerindividual.addhostage(2)
-              break;
-            case '1escape':
-              hostagetakerindividual.hostageescape()
-              break;
-            case '1dead':
-              hostagetakerindividual.hostagekilled(1)
-              break;
-            case '-1time':
-              // timeleft -= 1
-              // updatetimeleft()
-              // break;
-            case 'halftime':
-              // timeleft = Math.ceil(timeleft/2)
-              // updatetimeleft()
-              // break;
-            case '1threat':
-              // if(threatchangedouble === true){
-              //   updatethreat(2)
-              // } else{
-              //   updatethreat(1)
-              // }
-              break;
-            case '2threat':
-              // if(threatchangedouble === true){
-              //   updatethreat(4)
-              // } else{
-              //   updatethreat(2)
-              // }
-              // break;
-            case 'resetthreat':
-              // threat = 4
-              // updatethreat()
-              // break;
-            case '1free':
-              hostagetakerindividual.hostageescape()
+            case 'hostagekilled':
+              hostagetakeringame.killhostage(1)
               break;
             case 'noeffect':
               break

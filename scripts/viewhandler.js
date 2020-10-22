@@ -219,7 +219,7 @@ function EventHandler(){
       $('#buyphasebuttons').hide()
       $('#endphase2').hide()
       $('#endphase3').show()
-      timeleft -= 1
+      this.turnsleft -= 1
       this.updatetime()
       this.displayterror()
   }

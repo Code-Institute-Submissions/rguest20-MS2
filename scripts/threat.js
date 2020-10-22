@@ -6,7 +6,7 @@ function ThreatBar (){
   }
   this.threatdouble = false
   this.change = async function(change = 0){
-    if (this.threatdouble = true){
+    if (this.threatdouble === true){
       change += change
     }
     threatbar.value += change
