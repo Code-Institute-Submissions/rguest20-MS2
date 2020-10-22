@@ -561,198 +561,346 @@ let data = [
     },
 ]
 
-let hostagetaker = [
-  {
-    'name': 'Ann Greashopper', 'description': 'After being unable to return her defective toaster, Ann seems to have lost it completely and returned to hold the shop owner and his wife hostage.  <br><br>Time for you to do your thing, Cap!'
-  },
-  {
-    'name': 'Arkayne Massua', 'description': 'A member of a radical cell, Arkayne was none too pleased when we arrested the rest of his group.  He\'s now taken some of our diplomats hostage as leverage to get what he wants.<br><br> I don\'t envy you this one, Cap!'
+let conversationcards = []
+//initialize conversation cards object
+function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, endTurn) {
+  this.id = id
+  this.title = title
+  this.cost = cost
+  this.bigSuccess = bigSuccess
+  this.smallSuccess = smallSuccess
+  this.failure = failure
+  this.endTurnIf = endTurn
+  this.playcard = async function(){
+    for (var i = 0; i < player.hand.length; i++) {
+      //this can be severely streamlined by sorting cards into hand, available and discards
+      if (player.hand[i] === events.currentcard + 1) {
+        $('#nextCard').prop('disabled', true)
+        $('#prevCard').prop('disabled', true)
+        $('#playcardinhand').prop('disabled', true)
+        $('#sacrificecardinhand').prop('disabled', true)
+        $('#buycardtohand').prop('disabled', true)
+        $('#endphase1').prop('disabled', true)
+        diceresults = diceingame.roll()
+        player.discard.push(player.hand[i])
+        player.hand.splice(i, 1)
+        await delayanimation(buttondisable1, 2000)
+        this.setCard()
+        for (i=0; i<diceingame.number; i++){
+          if (diceresults[i] === 4){
+            await delayanimation(buttondisable2, 2000)
+            break
+          }
+        }
+      }
+    }
   }
-]
+  this.acceptcard = function(){
+    let successes = 0
+    $('#playcard').prop('disabled', true)
+    $('#fourtofivebutton').prop('disabled', true)
+    $('#reroll').prop('disabled', true)
+    $('#nextCard').prop('disabled', false)
+    $('#prevCard').prop('disabled', false)
+    $('#playcardinhand').prop('disabled', false)
+    $('#sacrificecardinhand').prop('disabled', false)
+    $('#buycardtohand').prop('disabled', false)
+    $('#endphase1').prop('disabled', false)
 
-let demands = [
-  {
-    'type': 'Ann',
-    'title': 'Give me $1000!',
-    'text': '"I want $1000 to replace my toaster...and pay for the insult.  I might consider letting these people go if you do that!! I also want to be let go."',
-    'concedecost': 0,
-    'concede': {'hostage': 1},
-    'penalty': {'timeleft': 0}
-  },
-  {
-    'type': 'Arkayne',
-    'title': 'Wire $10,000,000',
-    'text': '"10 million! That\'s what it\'ll cost ya to get your people.  Think it over."',
-    'concedecost': 4,
-    'concede': {'hostage': 2},
-    'penalty': {'dicepermanent': -1}
-  },
-  {
-    'type': 'Arkayne',
-    'title': 'Release Fugitives',
-    'text': '"My team! Ya better release them!  Then we can talk!"',
-    'concedecost': 4,
-    'concede': {'freecard': 2},
-    'penalty': {'threatmultiplier': 2}
-  },
-  {
-    'type': 'Arkayne',
-    'title': 'Supply of Weapons',
-    'text': '"If ya can provide me guns and ammo, I\'ll consider ya request."',
-    'concedecost': 4,
-    'concede': {'hostage': 1, 'threat': -2},
-    'penalty': {'threatincreaseperturn': 2}
-  },
-  {
-    'type': 'Escape',
-    'title': 'Helicopter',
-    'text': '"I wanna chopper to leave!"',
-    'concedecost': 4,
-    'concede': {'dice': 2},
-    'penalty': {'timeleft': 0}
-  },
-  {
-    'type': 'Escape',
-    'title': 'School bus',
-    'text': '"I wanna bus to get out of here!"',
-    'concedecost': 4,
-    'concede': {'hostage':1,'dice': 1},
-    'penalty': {'timeleft': 0}
-  },
-  {
-    'type': 'Escape',
-    'title': 'Armoured Truck',
-    'text': '"Get me an armoured truck.  I want out of this!"',
-    'concedecost': 4,
-    'concede': {'freecard':1, 'dice': 1},
-    'penalty': {'timeleft': 0}
-  }
-]
+    //count successes
+    for (i = 0; i < diceingame.number; i++) {
+      if (diceingame.randomnumber[i] > 4) {
+        successes += 1
+      }
+    }
 
-let terror = [{
-    'title':'I\'ve taken more hostages',
-    'dicerollneeded': true,
-    'threatsuccess': 'extrahostage',
-    'threatfail': 'extrahostage',
-    'effect': false
-  },
-  {
-    'title':'This is going nowhere',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'hostagekilled: 1'
-  },
-  {
-    'title':'This is going nowhere',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'hostagekilled: 1'
-  },
-  {
-    'title':'This is going nowhere',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'hostagekilled: 1'
-  },
-  {
-    'title':'The situation is worsening',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 1'
-  },
-  {
-    'title':'The situation is worsening',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 1'
-  },
-  {
-    'title':'The situation is worsening',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 1'
-  },
-  {
-    'title':'The situation is worsening',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 1'
-  },
-  {
-    'title':'I\'m getting angry',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 2'
-  },
-  {
-    'title':'I\'m getting angry',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: 2'
-  },
-  {
-    'title':'Don\'t test me',
-    'dicerollneeded': true,
-    'threatsuccess': 'noeffect',
-    'threatfail': 'hostagekilled',
-    'effect': false
-  },
-  {
-    'title':'Don\'t test me',
-    'dicerollneeded': true,
-    'threatsuccess': 'noeffect',
-    'threatfail': 'hostagekilled',
-    'effect': false
-  },
-  {
-    'title':'Hostage escape attempt',
-    'dicerollneeded': true,
-    'threatsuccess': 'hostageescape',
-    'threatfail': 'hostagekilled',
-    'effect': false
-  },
-  {
-    'title':'I\'m getting impatient',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'timeremaining: -1'
-  },
-  {
-    'title':'I\'m getting impatient',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'timeremaining: -1'
-  },
-  // {
-  //   'title':'Your time is running out',
-  //   'dicerollneeded': false,
-  //   'threatsuccess': false,
-  //   'threatfail': false,
-  //   'effect': 'timeremaining: half'
-  // },
-  {
-    'title':'A moment of weakness',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'hostageescape: 1'
-  },
-  {
-    'title':'Back to square 1',
-    'dicerollneeded': false,
-    'threatsuccess': false,
-    'threatfail': false,
-    'effect': 'threat: reset'
+    //check outcome
+    if (successes > 1) {
+      this.enactbigsuccess()
+    } else if (successes === 1) {
+      this.enactsmallsuccess()
+    } else {
+      this.enactfailure()
+    }
   }
-]
+  this.enactbigsuccess = function(){
+    if ("conversationpoints" in this.bigSuccess) {
+      events.conversationpoints += parseInt(this.bigSuccess['conversationpoints'])
+      $('#conversationPointsP').html(events.conversationpoints)
+    }
+    if ("threat" in this.bigSuccess) {
+      let threatchange = parseInt(this.bigSuccess['threat'])
+      if (events.threatchangedouble === true && threatchange > 0){
+        threatchange += threatchange
+      }
+      threatbar.change(threatchange)
+    }
+    if ("hostage" in this.bigSuccess) {
+      hostagetakeringame.hostageescape(parseInt(this.bigSuccess['hostage']))
+    }
+    if ("demand" in this.bigSuccess) {
+      if (events.demand1flipped === false){
+        $('#demand1').addClass("flip-card-toggled")
+        events.demand1flipped = true
+      } else {
+        $('#demand2').addClass("flip-card-toggled")
+      }
+    }
+    if ("dice" in this.bigSuccess) {
+      diceingame.add(2)
+      diceingame.extradice = true
+    } else {
+      diceingame.set()
+      diceingame.extradice = false
+    }
+    if ("fourtofive" in this.bigSuccess){
+      diceingame.fourtofivefree = true
+      $('#fourtofivetrueorfalse').html("no cost to change fours to fives")
+    } else {
+      diceingame.fourtofivefree = false
+      $('#fourtofivetrueorfalse').empty()
+    }
+    if (this.bigSuccess['abductorkilled']) {
+      events.abductoralive = false
+      events.gameover()
+      hostagetakeringame.killed()
+    }
+  }
+  this.enactsmallsuccess = function(){
+    if ("conversationpoints" in this.smallSuccess) {
+      events.conversationpoints += parseInt(this.smallSuccess.conversationpoints)
+      $('#conversationPointsP').html(events.conversationpoints)
+    }
+    if ("threat" in this.smallSuccess) {
+      let threatchange = parseInt(this.smallSuccess.threat)
+      if (events.threatchangedouble === true && threatchange > 0){
+        threatchange += threatchange
+      }
+      threatbar.change(threatchange)
+    }
+    if ("hostage" in this.smallSuccess) {
+      hostagetakeringame.hostageescape(parseInt(this.smallSuccess.hostage))
+    }
+    if ("demand" in this.smallSuccess) {
+      if (events.demand1flipped === false){
+        $('#demand1').addClass("flip-card-toggled")
+        events.demand1flipped = true
+      } else {
+        $('#demand2').addClass("flip-card-toggled")
+      }
+    }
+    if ("dice" in this.smallSuccess) {
+          diceingame.add(1)
+          diceingame.extradice = true
+        } else {
+          diceingame.set()
+          diceingame.extradice = false
+    }
+    if ("fourtofive" in this.smallSuccess){
+      diceingame.fourtofivefree = true
+      $('#fourtofivetrueorfalse').html("no cost to change fours to fives")
+    } else {
+      diceingame.fourtofivefree = false
+      $('#fourtofivetrueorfalse').empty()
+    }
+    if (this.smallSuccess.abductorkilled) {
+      events.abductoralive = false
+      events.gameover()
+      hostagetakeringame.killed()
+    }
+  }
+  this.enactfailure = function(){
+    if ("conversationpoints" in this.failure) {
+      events.conversationpoints += parseInt(this.failure.conversationpoints)
+      $('#conversationPointsP').html(events.conversationpoints)
+    }
+    if ("threat" in this.failure) {
+      let threatchange = parseInt(this.failure.threat)
+      if (events.threatchangedouble === true && threatchange > 0){
+        threatchange += threatchange
+      }
+      threatbar.change(threatchange)
+    }
+    if ("hostage" in this.failure) {
+      hostagetakeringame.hostagekilled(parseInt(this.failure.hostage))
+    }
+    if ("remove" in this.failure) {
+      prevCard()
+      events.conversationcards.splice(cardnumber + 1, 1)
+    }
+    if ("dice" in this.failure) {
+      diceingame.removedice(1)
+      diceingame.extradice = true
+    } else {
+      diceingame.set()
+      diceingame.extradice = false
+    }
+    if (this.failure.abductorescaped) {
+      events.turnsleft = -1
+    }
+    diceingame.fourtofivefree = false
+    $('#fourtofivetrueorfalse').empty()
+    diceingame.set()
+  }
+  this.buy = function (){
+    if (player.availabletobuy.includes(this.id) && events.conversationpoints >= this.cost){
+      player.hand.push(this.id)
+      events.conversationpoints -= this.cost
+      for (i=0; i < player.availabletobuy.length; i++){
+        if (player.availabletobuy[i] === this.id){
+          player.availabletobuy.splice(i,1)
+        }
+      }
+      $('#conversationPointsP').html(events.conversationpoints)
+      this.setCard()
+    }
+  }
+  this.setCard = function (){
+      $('#titleOfCard').empty()
+      $('#titleOfCard').append(this.title)
+      $('#costOfCard').empty()
+      $('#costOfCard').append(this.cost)
+      $('#bigSuccessOutcome').empty()
+      $('#bigSuccessOutcome').append('<ul>')
+      if (player.freecard > 0 && !player.hand.includes(this.id) && !player.discard.includes(this.id)){
+      $('#freecardbutton').show()
+      } else {
+      $('#freecardbutton').hide()
+      }
+      if ('conversationpoints' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append('<li> CP: ' + this.bigSuccess['conversationpoints'] + '</li>')
+      }
+      if ('dice' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append('<li> Dice: ' + this.bigSuccess['dice'] + '</li>')
+      }
+      if ('threat' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append('<li> THR: ' + this.bigSuccess['threat'] + '</li>')
+      }
+      if ('fourtofive' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append("<li> 4's become 5's </li>")
+      }
+      if ('demand' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append('<li> Demand Reveal</li>')
+      }
+      if ('hostage' in this.bigSuccess) {
+        $('#bigSuccessOutcome').append('<li> Hostages Rescued: ' + this.bigSuccess['hostage'] + '</li>')
+      }
+      if (this.bigSuccess['abductorkilled'] === true) {
+        $('#bigSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
+      }
+      $('#bigSuccessOutcome').append('</ul>')
+      $('#littleSuccessOutcome').empty()
+      $('#littleSuccessOutcome').append('<ul>')
+      if ('conversationpoints' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append('<li> CP: ' + this.smallSuccess['conversationpoints'] + '</li>')
+      }
+      if ('dice' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append('<li> Dice: ' + this.smallSuccess['dice'] + '</li>')
+      }
+      if ('threat' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append('<li> THR: ' + this.smallSuccess['threat'] + '</li>')
+      }
+      if ('fourtofive' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append("<li> 4's become 5's </li>")
+      }
+      if ('demand' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append('<li> Demand Reveal </li>')
+      }
+      if ('hostage' in this.smallSuccess) {
+        $('#littleSuccessOutcome').append('<li> Hostages Rescued: ' + this.smallSuccess['hostage'] + '</li>')
+      }
+      if (this.smallSuccess['abductorkilled'] === true) {
+        $('#littleSuccessOutcome').append('<li> Abductor Killed/Captured </li>')
+      }
+      $('#littleSuccessOutcome').append('</ul>')
+      $('#failureOutcome').empty()
+      $('#failureOutcome').append('<ul>')
+      if ('conversationpoints' in this.failure) {
+        $('#failureOutcome').append('<li> CP: ' + this.failure['conversationpoints'] + '</li>')
+      }
+      if ('dice' in this.failure) {
+        $('#failureOutcome').append('<li> Dice: ' + this.failure['dice'] + '</li>')
+      }
+      if ('threat' in this.failure) {
+        $('#failureOutcome').append('<li> THR: ' + this.failure['threat'] + '</li>')
+      }
+      if ('fourtofive' in this.failure) {
+        $('#failureOutcome').append("<li> 4's become 5's </li>")
+      }
+      if ('remove' in this.failure) {
+        $('#failureOutcome').append('<li> Card Lost Permanently </li>')
+      }
+      if ('hostage' in this.failure) {
+        $('#failureOutcome').append('<li> Hostages Killed: ' + this.failure['hostage'] + '</li>')
+      }
+      if (this.failure['abductorescaped'] === true) {
+        $('#failureOutcome').append('<li> GAME OVER </li>')
+        $('#failureOutcome').append('</ul>')
+      }
+      if (player.hand.includes(this.id)){
+        $('#isInHand').html('Yes')
+      } else if (player.availabletobuy.includes(this.id)){
+        $('#isInHand').html('Available to buy')
+      } else{
+        $('#isInHand').html('Discarded')
+      }
+    }
+    this.sacrifice = function(){
+      for (var i = 0; i < player.hand.length; i++) {
+        if (player.hand[i] === cardnumber + 1) {
+          player.discard.push(player.hand[i])
+          player.hand.splice(i, 1)
+          conversationcards[events.currentcard].setCard()
+          events.conversationpoints += 1
+          $('#conversationPointsP').html(events.conversationpoints)
+        }
+      }
+    }
+  }
+
+//create conversation cards
+for (card in data) {
+  let bigSuccessForCard = {}
+  data[card]['bigSuccessDice'] != "0" ? bigSuccessForCard.dice = data[card]['bigSuccessDice'] : true
+  data[card]['bigSuccessConversationPoints'] != "0" ? bigSuccessForCard.conversationpoints = data[card]['bigSuccessConversationPoints'] : true
+  data[card]['bigSuccessThreatChange'] != "0" ? bigSuccessForCard.threat = data[card]['bigSuccessThreatChange'] : true
+  data[card]['bigSuccessHostageRelease'] != "0" ? bigSuccessForCard.hostage = data[card]['bigSuccessHostageRelease'] : true
+  data[card]['bigSuccess4to5'] === "true" ? bigSuccessForCard.fourtofive = true : true
+  data[card]['bigSuccessRevealDemand'] === "true" ? bigSuccessForCard.demand = true : true
+  data[card]['bigSuccessAbductorKill'] === "true" ? bigSuccessForCard.abductorkilled = true : bigSuccessForCard.abductorkilled = false
+
+  let smallSuccessForCard = {}
+  data[card]['smallSuccessDice'] != "0" ? smallSuccessForCard.dice = data[card]['smallSuccessDice'] : true
+  data[card]['smallSuccessConversationPoints'] != "0" ? smallSuccessForCard.conversationpoints = data[card]['smallSuccessConversationPoints'] : true
+  data[card]['smallSuccessThreatChange'] != "0" ? smallSuccessForCard.threat = data[card]['smallSuccessThreatChange'] : true
+  data[card]['smallSuccess4to5'] === "true" ? smallSuccessForCard.fourtofive = true : true
+  data[card]['smallSuccessRevealDemand'] === "true" ? smallSuccessForCard.demand = true : true
+  data[card]['smallSuccessHostageRelease'] != "0" ? smallSuccessForCard.hostage = data[card]['smallSuccessHostageRelease'] : true
+  data[card]['smallSuccessAbductorKill'] === "true" ? smallSuccessForCard.abductorkilled = true : smallSuccessForCard.abductorkilled = false
+
+  let failureForCard = {}
+  data[card]['failureDice'] != "0" ? failureForCard.dice = data[card]['failureDice'] : true
+  data[card]['failureConversationPoints'] != "0" ? failureForCard.conversationpoints = data[card]['failureConversationPoints'] : true
+  data[card]['failureThreatChange'] != "0" ? failureForCard.threat = data[card]['failureThreatChange'] : true
+  data[card]['failureHostageKill'] != "0" ? failureForCard.hostage = data[card]['failureHostageKill'] : true
+  data[card]['failureCardRemove'] === "true" ? failureForCard.remove = true : true
+  data[card]['failureAbductorEscape'] === "true" ? failureForCard.abductorescaped = true : failureForCard.abductorescaped = false
+
+  let endTurnIf = ""
+  if (data[card]['bigSuccessConversationEnd'] === "false" && data[card]['smallSuccessConversationEnd'] === "false" && data[card]['failureConversationEnd'] === "false") {
+    endTurnIf = false
+  } else if (data[card]['bigSuccessConversationEnd'] === "true" && data[card]['smallSuccessConversationEnd'] === "true" && data[card]['failureConversationEnd'] === "true") {
+    endTurnIf = "all"
+  } else if (data[card]['bigSuccessConversationEnd'] === "true") {
+    endTurnIf = "big"
+  } else if (data[card]['smallSuccessConversationEnd'] === "true") {
+    endTurnIf = "small"
+  } else {
+    endTurnIf = "failure"
+  }
+
+  let convoCard = new ConversationCard(Number(data[card]['id']), data[card]['title'], data[card]['cost'], bigSuccessForCard, smallSuccessForCard, failureForCard, endTurnIf)
+  conversationcards.push(convoCard)
+}
+
+//set 1st card once created

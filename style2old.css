@@ -1,0 +1,685 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+html{
+  min-width: 1000px;
+  width: 100vw;
+  min-height: 600px;
+}
+
+#fireworks{
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#canvas {
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+ /*position: fixed; */
+  margin: 0;
+	cursor: crosshair;
+}
+
+.row{
+  margin-right: 0 !important;
+}
+
+#content{
+  margin-top: 40px;
+  align-content: center;
+}
+
+#title, #titlesub{
+  margin: 0 auto;
+  text-align: center;
+}
+
+#titlesub{
+  margin-top: 10px;
+}
+
+#splash{
+  background-color: rgba(137, 196, 244, 1);
+  position:fixed;
+  width:100%;
+  height: 100%;
+  z-index: -2;
+  align-content: center;
+  text-align: center;
+  padding-top: 45vh;
+}
+
+#titleofgame{
+  transform: rotate(-30deg);
+  letter-spacing: 5px;
+  font-weight: bolder;
+}
+
+#titleofgame h2{
+  font-size: 70px;
+}
+
+#textbox{
+  background-color: rgba(137, 196, 244, 1);
+  position:fixed;
+  width:40%;
+  height: 50%;
+  z-index: 3;
+  align-content: center;
+  text-align: center;
+  margin: 20vh 0 0 35vw;
+  padding: 0 0 0 0;
+}
+
+#skipintro{
+  border-radius: 5px;
+  padding-right:5px;
+  padding-left: 5px;
+  text-shadow: 1px 1px 5px;
+}
+
+#skipintro:hover{
+  font-weight: bold;
+  cursor: pointer;
+  background-color: lightBlue;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in;
+}
+
+#textinbox{
+  margin: 80px 20px 50px 20px;
+}
+
+#skipintro{
+  float: right;
+  margin-top: -15px auto;
+}
+
+#negotiationwindow{
+  padding-right: 0;
+  margin-left: 0 !important;
+}
+
+#leftside, #rightside{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#interface{
+  height: 800px;
+}
+
+#interface > table, #leftside > table, #rightside > table{
+  height: 800px;
+}
+
+#maininterface{
+  margin-top: 10px;
+  height: 400px;
+}
+
+.innertable{
+  height:90%;
+}
+
+#hostagetakerwindow{
+  height: 300px;
+}
+
+#demands{
+  height:500px;
+  overflow: auto;
+}
+
+/*flip cards for demands */
+.flip-card {
+  background-color: transparent;
+  width: 95%;
+  height: 38%;
+  perspective: 1000px;
+  margin-bottom: 20px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-toggled .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  padding-top: 20%;
+  background-color: lightBlue;
+  color: black;
+}
+
+.flip-card-back {
+  font-size: 13px;
+  background-color: lightblue;
+  color: black;
+  transform: rotateY(180deg);
+}
+
+.concedebutton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#interfaceinside{
+  height: 800px;
+  min-width: 480px;
+  text-align: center;
+}
+
+#interfaceinside h3{
+  margin: 0 auto;
+}
+
+#threatbar{
+  width: 40%;
+}
+
+.subtitle{
+  font-weight: lighter;
+  text-align: center;
+}
+
+
+#hostages_div{
+  padding-top: 2%;
+  float: left;
+  display: inline-block;
+  height: 25%;
+  width: 33%;
+  min-width: 150px;
+}
+
+#hostages_data_display{
+  height:auto;
+  width:auto;
+}
+
+#conversation_points_div{
+  padding-top: 5%;
+  display: inline-block;
+  min-width: 150px;
+  width: 33%;
+  height: 25%;
+}
+
+#threat_level_div{
+  float:right;
+  display: inline-block;
+  width: 33%;
+  min-width: 150px;
+  height: 25%;
+  padding: 0 10px 0 10px;
+  padding-top: 5%;
+}
+
+#phase1bar, #phase2bar, #phase3bar{
+  width: 33%
+}
+
+.activated{
+  background-color: rgba(0,200,0,0.8)
+}
+
+#diceroller{
+  min-height: 180px;
+  height: 180px;
+  overflow: auto;
+}
+
+#view1{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
+#view2{
+  display: inline-block;
+  clear: both;
+  height:5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  perspective:100rem;
+  perspective-origin: -300% -200%;
+}
+
+#view3{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
+#view4{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
+#view5{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
+#viewterror{
+  display: inline-block;
+  clear: both;
+   height:5rem;
+   margin-left: 1rem;
+   margin-top: 1rem;
+   perspective:100rem;
+   perspective-origin: -300% -200%;
+}
+
+.spintofront{
+  animation: spintofront 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintoleft{
+  animation: spintoleft 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintoback{
+  animation: spintoback 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintoright{
+  animation: spintoright 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintotop{
+  animation: spintotop 0.75s;
+  animation-fill-mode: forwards;
+}
+
+.spintobottom{
+  animation: spintobottom 0.75s;
+  animation-fill-mode: forwards;
+}
+
+#dice1{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice2{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice3{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice4{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#dice5{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+#diceterror{
+   width:3rem;
+   height:3rem;
+   position:relative;
+   transform-style:preserve-3d;
+}
+
+.diceFace{
+   position:absolute;
+   width:3rem;
+   height:3rem;
+   text-align:center;
+   line-height:0.75rem;
+   font-size:0.75rem;
+   border:2px solid #a00;
+   }
+
+.front{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(0deg) translateZ(1.5rem);
+   }
+.right{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(90deg) translateZ(1.5rem);
+   }
+.back{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(180deg) translateZ(1.5rem);
+   }
+.left{
+   background-color:rgba(255,0,0,1);
+   transform:rotateY(-90deg) translateZ(1.5rem);
+   }
+.top{
+   background-color:rgba(255,0,0,1);
+   transform:rotateX(90deg) translateZ(1.5rem);
+   }
+.bottom{
+   background-color:rgba(255,0,0,1);
+   transform:rotateX(-90deg) translateZ(1.5rem);
+   }
+
+.roll{
+  animation-name: rotate;
+  animation-iteration-count: 1;
+  animation-duration: 2s;
+  animation-timing-function:
+}
+
+.fourondice{
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.fiveorsix{
+  margin-top: 7px;
+  font-size: 40px;
+}
+
+.textappear{
+  animation-name: titleappear;
+  animation-iteration-count: 1;
+  animation-duration: 3s;
+  animation-timing-function:
+}
+
+.titlecarddisappear{
+  animation-name: titlefade;
+  animation-iteration-count: 1;
+  animation-duration: 10s;
+  animation-fill-mode: forwards;
+}
+
+#actiontitle{
+  float: left;
+}
+
+#actioninformation{
+  width:100%;
+  border-style: none;
+}
+
+#playphasebuttons{
+float: right;
+}
+
+#buyphasebuttons{
+  float:right;
+}
+
+#cards{
+  max-height: 60%;
+  height: 60%;
+  overflow: auto;
+}
+
+#cardtablehead{
+  text-align: center;
+  min-width: 350px;
+}
+
+#prevCard{
+  float:left;
+}
+
+#nextCard{
+  float: right;
+}
+
+#instructionsbutton{
+  float:left;
+}
+
+#logout{
+  display: inline;
+  text-align: center;
+  margin-left: 40%;
+  align-self: center;
+}
+
+#credits{
+  float:right;
+}
+
+@keyframes spintofront {
+  from{
+
+  }
+  to{
+    transform:rotatey(360deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoleft {
+  from{
+
+  }
+  to{
+    transform:rotatey(270deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoback {
+  from{
+
+  }
+  to{
+    transform:rotatey(180deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintoright {
+  from{
+
+  }
+  to{
+    transform:rotatey(-270deg) rotatex(360deg);
+  }
+}
+
+@keyframes spintotop {
+  from{
+
+  }
+  to{
+    transform:rotatex(-270deg) rotatey(360deg);
+  }
+}
+
+@keyframes spintobottom{
+  from{
+
+  }
+  to{
+    transform:rotatex(270deg) rotatey(360deg);
+  }
+}
+
+@keyframes rotate {
+   0% { transform: rotateX(90deg) rotateY(360deg) rotateZ(0deg) translateX(0); }
+   10% { transform: rotateX(-180deg) rotateY(-90deg) rotateZ(-270deg) translateX(0); }
+   25% { transform: rotateX(270deg) rotateY(90deg) rotateZ(180deg) translateX(0); }
+   45% { transform: rotateX(-90deg) rotateY(270deg) rotateZ(-270deg) translateX(0); }
+   65% { transform: rotateX(270deg) rotateY(180deg) rotateZ(360deg) translateX(0); }
+   100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0); }
+}
+
+@keyframes titlefade{
+  0%{color: white;background-color: rgba(137, 196, 244, 1);z-index: 20; opacity: 1; filter:blur(0px);}
+  50%{color: grey; background-color: rgba(137, 196, 244, 1);z-index: 20; opacity: 1; filter:blur(0px);}
+  80%{color: grey; background-color: rgba(90, 90, 90, 0.1);z-index: -2;opacity: 1; filter:blur(0px);}
+  100%{color: black; background-color: rgba(90, 90, 90, 0.1);z-index: -2; filter: blur(6px); opacity: 0.1}
+}
+
+@keyframes titleappear {
+  0%{filter:blur(8px); perspective: 100px; transform: rotateY(90deg) translateZ(-90px);}
+  50% {filter: blur(0px)}
+  100%{perspective: none; transform: rotateY(0deg) rotate(-30deg); }
+}
+
+@media only screen and (orientation:portrait){
+  html{
+    min-width: 150px;
+  }
+  #portrait {
+    height:100vh;
+    text-align: center;
+    display:block;
+    padding-top: 50%;
+  }
+  #landscape{
+    display: none;
+  }
+}
+
+@media only screen and (orientation:landscape){
+  #portrait {
+    display:none;
+  }
+  #landscape{
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  #hostages_div{
+    height: 80px;
+  }
+  #threat_level_div{
+    height: 80px;
+  }
+  #conversation_points_div{
+    height: 80px;
+  }
+  #textbox{
+    height: 100%;
+  }
+}
+
+@media only screen and (max-width: 900px){
+  #hostages_div{
+    height: 120px;
+  }
+  #threat_level_div{
+    height: 120px;
+  }
+  #conversation_points_div{
+    height: 120px;
+  }
+  #textbox{
+    height: 90%;
+  }
+  .flip-card{
+    height: 25%%
+  }
+  #twosuccesses{
+    float:left;
+    width:50%;
+  }
+  #onesuccess{
+    float:right;
+    width: 50%;
+    padding-left: 40px;
+  }
+  #failurewriteout{
+    float:left;
+    width:50%;
+  }
+  #inhand{
+    float:right;
+    width: 50%;
+      padding-left: 40px;
+  }
+  #titlediceroller{
+    visibility: hidden;
+    height: 0px;
+  }
+  #hostagetakerwindow{
+    font-size: 0px;
+    height:0px !important;
+  }
+  #demands > h3{
+    visibility: hidden;
+    font-size: 0px;
+  }
+  #demands{
+    height:100%;
+  }
+}
+
+@media only screen and (max-width: 1200px){
+  #hostages_div{
+    height: 150px;
+  }
+  #threat_level_div{
+    height: 150px;
+  }
+  #conversation_points_div{
+    height: 150px;
+  }
+  #textbox{
+    margin-top: 15%;
+    height:50%;
+  }
+}
