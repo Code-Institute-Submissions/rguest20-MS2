@@ -29,13 +29,31 @@ function HostageTaker(name, description, hostagenumber, extrarule){
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[2] += amount
     hostagedataset[1] -= amount
-    hostagechart.update()
+    if (hostagedataset[1] <= 0){
+      let overshoot = (0 - hostagedataset[1])
+      hostagedataset[2] -=overshoot
+      hostagedataset[1] = 0
+      events.turnsleft = -1
+      hostagechart.update()
+      events.gameover()
+    } else{
+      hostagechart.update()
+    }
   }
   this.hostageescape = function(amount = 1){
     let hostagedataset = hostagechart['data']["datasets"][0]["data"]
     hostagedataset[0] += amount
     hostagedataset[1] -= amount
-    hostagechart.update()
+    if (hostagedataset[1] <= 0){
+      let overshoot = (0 - hostagedataset[1])
+      hostagedataset[0] -=overshoot
+      hostagedataset[1] = 0
+      events.nomorehostages = true
+      hostagechart.update()
+      events.gameover()
+    } else{
+      hostagechart.update()
+    }
   }
   this.killed = function(){
     $('#hostagetakername').html("Second in Command")

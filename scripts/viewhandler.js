@@ -53,10 +53,10 @@ function EventHandler(){
     if (this.abductoralive === false && this.nomorehostages === true){
       let numbersaved = hostagechart['data']["datasets"][0]["data"][0]
       $('#winlosemodal').modal({backdrop: false, keyboard: false})
-      if ((parseFloat(numbersaved)/parseFloat(hostagetaker.numberofhostages)) < 0.5){
+      if ((parseFloat(numbersaved)/parseFloat(hostagetakeringame.numberofhostages)) < 0.5){
         $('#winorlose').html("Pyrrhic Victory")
         $('#winorloseflufftext').html("Well, captain. You captured the hostage taker, but at what cost?  I don't think top brass will be happy with this.")
-      } else if ((parseFloat(numbersaved)/parseFloat(hostagetaker.numberofhostages)) < 0.95){
+      } else if ((parseFloat(numbersaved)/parseFloat(hostagetakeringame.numberofhostages)) < 0.95){
         $('#winorlose').html("Victory")
         $('#winorloseflufftext').html("Well done, Cap! You captured the hostage taker, and even managed to save over half of the hostages! A fantastic job!.")
       } else {
@@ -64,11 +64,11 @@ function EventHandler(){
         $('#winorloseflufftext').html("Just wonderful, Cap! You captured the hostage taker, saved the day and all of the hostages to boot! I think you have a medal in your future!.")
       }
       $('#howmanyhostagessaved').html(numbersaved)
-      $('#howmanyhostageskilled').html(hostagetaker.numberofhostages - numbersaved)
+      $('#howmanyhostageskilled').html(hostagetakeringame.numberofhostages - numbersaved)
       $('#abductoralive').html('Yes')
       $('#fireworks').show()
     } else {
-      if (timeleft >= 0){
+      if (this.turnsleft >= 0){
         return
       } else {
         let numbersaved = hostagechart['data']["datasets"][0]["data"][0]

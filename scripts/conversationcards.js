@@ -743,7 +743,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
     diceingame.set()
   }
   this.buy = function (){
-    if (player.availabletobuy.contains(this.id) && events.conversationpoints >= this.cost){
+    if (player.availabletobuy.includes(this.id) && events.conversationpoints >= this.cost){
       player.hand.push(this.id)
       events.conversationpoints -= this.cost
       for (i=0; i < player.availabletobuy.length; i++){
@@ -751,7 +751,6 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
           player.availabletobuy.splice(i,1)
         }
       }
-      events.currentcard = 0
       $('#conversationPointsP').html(events.conversationpoints)
       this.setCard()
     }

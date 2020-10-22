@@ -142,7 +142,7 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
           hostagetakeringame.killhostage(1)
           break;
         case 'timeremaining: -1':
-          timeleft -= 1
+          events.turnsleft -= 1
           events.updatetime()
           break;
         case 'threat: 1':
