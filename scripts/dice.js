@@ -12,14 +12,14 @@ function Dice(){
     for(i=2; i<=5; i++){
       $('#dice' + i).hide()
     }
-    for (i = 1; i <= this.number; i++) {
+    for (i = 1; i <= (this.number + this.permanentchange); i++) {
       $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
       $('#dice' + (i)).show()
     }
   }
   this.roll = function(){
     this.randomnumber = [randomised6(), randomised6(), randomised6(), randomised6(), randomised6()]
-    for (i = 1; i <= this.number; i++) {
+    for (i = 1; i <= (this.number + this.permanentchange); i++) {
       $('#dice' + (i)).removeClass('spintofront spintotop spintoback spintoleft spintoright spintobottom')
       $('#dice' + (i)).addClass('roll')
     }
@@ -30,10 +30,10 @@ function Dice(){
     diceingame.displayroll()
   }
   this.displayroll = function(){
-    for (i = 1; i <= this.number; i++) {
+    for (i = 1; i <= (this.number + this.permanentchange); i++) {
       $('#dice' + (i)).removeClass('roll')
     }
-    for (i = 1; i <= this.number; i++) {
+    for (i = 1; i <= (this.number + this.permanentchange); i++) {
       if (this.randomnumber[i-1] === 1) {
         $("#dice" + (i)).addClass('spintofront')
       } else if (this.randomnumber[i-1] === 2) {
@@ -50,14 +50,14 @@ function Dice(){
     }
   }
   this.add = function(amount = 1){
-    if (this.number < 4) {
+    if ((this.number + this.permanentchange) < 4) {
       $('#dice2').hide()
       $('#dice3').hide()
       $('#dice4').hide()
       $('#dice5').hide()
       this.number += amount
       this.set()
-    } else if (this.number === 4){
+    } else if ((this.number + this.permanentchange) === 4){
       $('#dice2').hide()
       $('#dice3').hide()
       $('#dice4').hide()
@@ -69,7 +69,7 @@ function Dice(){
     }
   }
   this.removedice = function(){
-    if (numberofdice > 1) {
+    if ((this.number + this.permanentchange) > 1) {
       $('#dice2').hide()
       $('#dice3').hide()
       $('#dice4').hide()

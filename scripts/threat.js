@@ -4,7 +4,11 @@ function ThreatBar (){
     console.log(threatpercentage)
     $('#threatbar').css("width", threatpercentage + "%")
   }
+  this.threatdouble = false
   this.change = async function(change = 0){
+    if (this.threatdouble = true){
+      change += change
+    }
     threatbar.value += change
     let threatpercentage = (threatbar.value / 7) * 100
     $('#threatbar').css("width", threatpercentage + "%")

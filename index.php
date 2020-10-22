@@ -83,7 +83,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand1cost'></p>
                         <p><span id='demand1reward'></span></p>
                         <p id='demand1penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton1" onclick="demandcardsingame[0].concede()">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton1" onclick="events.pressconcede1()">Concede</button>
                       </div>
                     </div>
                   </div>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                         <p id='demand2cost'></p>
                         <p id='demand2reward'></p>
                         <p id='demand2penalty'></p>
-                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton2" onclick="demandcardsingame[1].concede()">Concede</button>
+                        <button class="btn btn-primary btn-sm concedebutton" id="concedebutton2" onclick="events.pressconcede2()">Concede</button>
                       </div>
                     </div>
                   </div>

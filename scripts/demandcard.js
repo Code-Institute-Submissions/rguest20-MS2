@@ -105,31 +105,31 @@ function DemandCard (id, type, title, text, cost, concedebonus, concedepenalty){
   }
   this.concede = function(cardnumber){
     if ('hostage' in this.concedebonus){
-      let hostagessaved = this.conceedebonus['hostage']
-      alterData(hostagessaved, -hostagessaved, 0)
+      let hostagessaved = this.concedebonus['hostage']
+      hostagetakeringame.hostageescape(hostagessaved)
     }
     if ('freecard' in this.concedebonus){
-      freecardnumber = this.concedebonus['freecard']
+      player.freecard = this.concedebonus['freecard']
     }
     if ('dice' in this.concedebonus){
       moredice(this.concedebonus['dice'])
     }
     if ('threat' in this.concedebonus){
-      updatethreat(this.concedebonus['threat'])
+      threatbar.change(-this.concedebonus['threat'])
     }
     if ('timeleft' in this.concedepenalty){
-      timeleft = 0
-      updatetimeleft()
+      events.turnsleft = 0
+      events.updatetime()
     }
     if ('dicepermanent' in this.concedepenalty){
-      dicechangepermanent -=1
-      updatethreat()
+      diceingame.permanentchange -=1
+      diceingame.set()
     }
     if ('threatmultiplier' in this.concedepenalty){
-      threatchangedouble = true
+      threatbar.threatdouble = true
     }
     if ('threatincreaseperturn' in this.concedepenalty){
-      threatperturn = 2
+      events.threatperturn = 2
     }
   }
 }

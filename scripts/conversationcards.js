@@ -763,7 +763,7 @@ function ConversationCard(id, title, cost, bigSuccess, smallSuccess, failure, en
       $('#costOfCard').append(this.cost)
       $('#bigSuccessOutcome').empty()
       $('#bigSuccessOutcome').append('<ul>')
-      if (player.freecard > 0 && !hand.includes(this.id) && !discards.includes(this.id)){
+      if (player.freecard > 0 && !player.hand.includes(this.id) && !player.discard.includes(this.id)){
       $('#freecardbutton').show()
       } else {
       $('#freecardbutton').hide()

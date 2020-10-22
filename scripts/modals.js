@@ -33,11 +33,12 @@ function ModalHandler(){
   this.discardfourtofive = function(){
     for (i = 0; i<2 ; i++){
       let titletodiscard = $(":checkbox:checked")[i]['name']
+      console.log(titletodiscard)
       for (j=0; j<conversationcards.length; j++){
         if (conversationcards[j]['title'] === titletodiscard){
           let idtodiscard =  conversationcards[j]['id']
           for(k=0; k<player.hand.length; k++){
-            if (hand[k] === idtodiscard){
+            if (player.hand[k] === idtodiscard){
               player.discard.push(idtodiscard)
               player.hand.splice(k,1)
             }

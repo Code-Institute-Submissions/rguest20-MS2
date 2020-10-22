@@ -22,26 +22,13 @@ $('#buttonchoice1').hide()
 $('#buttonchoice2').hide()
 threatbar.set()
 
-let dicechangepermanent = 0
-let threatperturn = 0
 let initialsetup = true
-let extradice = false
 let fourtofivefromcard = false
-let numberofdice
-let cardnumber = 0
-let cardsremoved = 0
-let demandsingame = []
-let nextdemandcard = 1
-let timeleft = 10
-let terroringame = []
 let currentterror
 let terroroutcome
 let terroroutcomepass
 let terroroutcomefail
 let threatoutcome = "not required"
-let threat = 4
-let threatchangedouble = false
-let conversationpoints = 0
 
 function unlockterrorbutton(){
   $('#acceptterror').prop('disabled', false)

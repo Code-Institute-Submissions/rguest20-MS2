@@ -11,7 +11,8 @@ function EventHandler(){
   this.currentcard = 0
   this.demand1flipped = false
   this.demand2flipped = false
-  this.hand = [1,2,3,4,5,6]
+  // this.hand = [1,2,3,4,5,6]
+  this.threatperturn = 0
   this.concedebutton = function(number){
     if (conversationpoints >= demandcardsingame[(number-1)].cost){
       conversationpoints -= demandcardsingame[(number-1)].cost
@@ -200,7 +201,9 @@ function EventHandler(){
     }
     this.conversationpoints = 0
     $('#conversationPointsP').html(this.conversationpoints)
-    // updatethreat(threatperturn)
+    if (this.threatperturn != 0){
+      threat.change(this.threatperturn)
+    }
   }
   this.phasetwo = function(){
     $('#phase1bar').removeClass('activated')
@@ -219,6 +222,14 @@ function EventHandler(){
       timeleft -= 1
       this.updatetime()
       this.displayterror()
+  }
+  this.pressconcede1 = function(){
+    $('#demand1').removeClass("flip-card-toggled")
+    demandcardsingame[0].concede()
+  }
+  this.pressconcede2 = function(){
+    $('#demand2').removeClass("flip-card-toggled")
+    demandcardsingame[1].concede()
   }
 }
 let events = new EventHandler()

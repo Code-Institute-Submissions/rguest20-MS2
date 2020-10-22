@@ -134,7 +134,9 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
   this.effect = effect
   this.play = function (){
     if (this.diceroll === false){
-      this.effect
+      switch(this.effect){
+        
+      }
     } else {
       if (events.terrorsuccess === true){
         events.terrorsuccess = false
@@ -244,7 +246,7 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect){
 
 let terrorcarddeck = []
 for (card in terror){
-  let terrorcard = new TerrorCard (terror[card]['title'], terror[card]['diceroll'], terror[card]['threatsuccess'], terror[card]['threatfail'], terror[card]['effect'])
+  let terrorcard = new TerrorCard (terror[card]['title'], terror[card]['dicerollneeded'], terror[card]['threatsuccess'], terror[card]['threatfail'], terror[card]['effect'])
   terrorcarddeck.push(terrorcard)
 }
 shuffle(terrorcarddeck)
