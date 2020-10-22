@@ -169,7 +169,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -182,7 +182,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -195,7 +195,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -208,7 +208,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -221,7 +221,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>

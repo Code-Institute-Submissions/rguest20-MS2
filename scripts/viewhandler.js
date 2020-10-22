@@ -64,7 +64,7 @@ function EventHandler(){
         $('#winorloseflufftext').html("Just wonderful, Cap! You captured the hostage taker, saved the day and all of the hostages to boot! I think you have a medal in your future!.")
       }
       $('#howmanyhostagessaved').html(numbersaved)
-      $('#howmanyhostageskilled').html(hostagetakeringame.numberofhostages - numbersaved)
+      $('#howmanyhostageskilled').html(hostagetakeringame.number - numbersaved)
       $('#abductoralive').html('Yes')
       $('#fireworks').show()
     } else {
