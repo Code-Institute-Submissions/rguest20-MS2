@@ -1,16 +1,15 @@
 $('#fireworks').hide()
-console.log("I am running")
-//hide splash screen - comment out to show
+// hide splash screen - comment out to show
 // $('#splash').hide()
 $('#textbox').hide()
 delayanimation(events.preparegame, 1000)
-//show splash screen
-window.onload = function() {
+// show splash screen
+window.onload = function () {
   $('#titleofgame').addClass('textappear')
   $('#splash').addClass('titlecarddisappear')
 }
 
-//initial preparation for game
+// initial preparation for game
 events.updatetime()
 diceingame.set()
 // updatethreat()
@@ -28,80 +27,80 @@ let currentterror
 let terroroutcome
 let terroroutcomepass
 let terroroutcomefail
-let threatoutcome = "not required"
+let threatoutcome = 'not required'
 
-function unlockterrorbutton(){
+function unlockterrorbutton () {
   $('#acceptterror').prop('disabled', false)
 }
-//set buttons to be disabled
+// set buttons to be disabled
 $('#playcard').prop('disabled', true)
 $('#fourtofivebutton').prop('disabled', true)
 $('#reroll').prop('disabled', true)
 
-//random number generator
-function getrandomint(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+// random number generator
+function getrandomint (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min
 }
 
-function showbutton() {
+function showbutton () {
   $('#buttoncontinue').show()
 }
 
-function showbutton2() {
+function showbutton2 () {
   $('#buttonchoice1').show()
 }
 
-function showbutton3() {
+function showbutton3 () {
   $('#buttonchoice2').show()
 }
 
-//typing function to write messages in a more interesting way
-function typeout(message, position) {
+// typing function to write messages in a more interesting way
+function typeout (message, position) {
   let messagetext = message
   let i = 0
   let result = messagetext[i]
-  let typing = setInterval(function() {
-      if (i == messagetext.length-1) {
-        clearInterval(typing)
-        return;
-      }
-      i++
-      result += messagetext[i]
-      position.html(result)
-    },
-    30)
+  let typing = setInterval(function () {
+    if (i === messagetext.length - 1) {
+      clearInterval(typing)
+      return
+    }
+    i++
+    result += messagetext[i]
+    position.html(result)
+  },
+  30)
 }
 
-//arrows to scroll through cards
-function nextCard() {
+// arrows to scroll through cards
+function nextCard () {
   if (events.currentcard === (conversationcards.length-1)) {
     return
   } else {
-    events.currentcard ++
+    events.currentcard++
     conversationcards[events.currentcard].setCard()
   }
 }
 
-function prevCard() {
+function prevCard () {
   if (events.currentcard === 0) {
     return
   } else {
-    events.currentcard --
+    events.currentcard--
     conversationcards[events.currentcard].setCard()
   }
 }
 
-//Playing cards - several functions
-function buttondisable1(){
+// Playing cards - several functions
+function buttondisable1 () {
   $('#playcard').prop('disabled', false)
 }
 
-function buttondisable2(){
+function buttondisable2 (){
   $('#fourtofivebutton').prop('disabled', false)
 }
 
 function countboxes(){
-  let boxchecknumber = $(":checkbox:checked").length
+  let boxchecknumber = $(':checkbox:checked').length
   if (boxchecknumber === 2){
     $('#discardbutton').prop('disabled', false)
   } else {
@@ -110,10 +109,10 @@ function countboxes(){
 }
 
 function delayanimation(funct, val) {
-  let waittime = new Promise(function(resolve) {
+  let waittime = new Promise(function (resolve) {
     resolve(setTimeout(funct, val))
   })
-  waittime.then(function() {
+  waittime.then(function () {
     clearTimeout()
   })
 }
