@@ -175,7 +175,7 @@ function TerrorCard (title, diceroll, threatsuccess, threatfail, effect) {
             break
         }
       } else {
-        switch (this.threatfail){
+        switch (this.threatfail) {
           case 'extrahostage':
             hostagetakeringame.addhostage(2)
             break
@@ -201,9 +201,12 @@ for (card in terror) {
   terrorcarddeck.push(terrorcard)
 }
 
-function shuffle (o) {
-  for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) {
-    return o
+function shuffle (array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1))
+    var temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
   }
 }
 
