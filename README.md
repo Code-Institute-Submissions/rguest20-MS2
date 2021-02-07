@@ -74,6 +74,9 @@
 
 **Entity relationship**
 
+A lot of the entities in the game will interlink with each other.  I will provide a diagram to show how these entities link through a flowchart:
+![Entity relationship diagram](assets/entity.png "Entity relationship")
+
 **Preliminary Designs**
 
 These can be found [here](negotiationwireframes.pdf "Negotiation wireframes pdf")
@@ -165,6 +168,7 @@ The errors shown here are not true errors as the empty headings are filled by Ja
 - Login.php
 ![Screenshot of login test](assets/htmlchecklogin.png "Login HTML Check")
 No errors detected
+
 **JS Linter**
 
 - conversationcards.js
