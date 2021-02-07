@@ -23,8 +23,8 @@ function ModalHandler () {
       }
       for (i = 0; i < diceingame.number; i++) {
         if (diceingame.randomnumber[i] === 4) {
-          $('#4to5modal').modal({ 'backdrop': false, 'keyboard': false })
-          $('#discardbutton').prop('disabled', true)
+          $('#4to5modal').modal({ backdrop: false, keyboard: false })
+          $('#discardbutton').prop(disabled, true)
           break
         }
       }
@@ -55,7 +55,7 @@ function ModalHandler () {
       }
     }
     $('#fourtofivebutton').prop('disabled', true)
-    for (i = 0; i < diceingame.number; i++){
+    for (i = 0; i < diceingame.number; i++) {
       if (diceresults[i] === 4) {
         buttondisable2()
         break
