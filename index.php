@@ -319,7 +319,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p></p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="alldone" data-dismiss="">Continue</button>
+            <button type="button" class="btn btn-primary" onclick="location.reload()" id="alldone" data-dismiss="">Try again</button>
           </div>
         </div>
       </div>
