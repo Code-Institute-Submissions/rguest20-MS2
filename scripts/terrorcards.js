@@ -201,10 +201,9 @@ for (card in terror) {
   terrorcarddeck.push(terrorcard)
 }
 
-function shuffle (array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1))
-      [array[i], array[j]] = [array[j], array[i]]
+function shuffle (o) {
+  for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) {
+    return o
   }
 }
 
