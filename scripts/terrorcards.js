@@ -200,11 +200,12 @@ for (card in terror) {
   let terrorcard = new TerrorCard(terror[card]['title'], terror[card]['dicerollneeded'], terror[card]['threatsuccess'], terror[card]['threatfail'], terror[card]['effect'])
   terrorcarddeck.push(terrorcard)
 }
-shuffle(terrorcarddeck)
 
 function shuffle (array) {
   for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
+    var j = Math.floor(Math.random() * (i + 1))
       [array[i], array[j]] = [array[j], array[i]]
   }
 }
+
+shuffle(terrorcarddeck)
