@@ -207,11 +207,11 @@ This is a warning rather than an error and works absolutely fine.
 
 ![First screenshot of terror card test](assets/shufflecheck1.png "Terrorcarddeck appears")
 
-1. Once here I can call the shuffle() function on them (this returns undefined as there is no &#39;return&#39; statement to the function.
+2. Once here I can call the shuffle() function on them (this returns undefined as there is no &#39;return&#39; statement to the function.
 
 ![Second screenshot of terror card test](assets/shufflecheck2.png "shuffle used")
 
-1. This then rearranges the cards meaning the shuffle was successful.
+3. This then rearranges the cards meaning the shuffle was successful.
 
 ![Third screenshot of terror card test](assets/shufflecheck3.png "Terrorcarddeck is shuffled")
 
