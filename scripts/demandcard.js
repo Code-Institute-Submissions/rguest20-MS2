@@ -122,7 +122,7 @@ function DemandCard (id, type, title, text, cost, concedebonus, concedepenalty) 
       events.updatetime()
     }
     if ('dicepermanent' in this.concedepenalty) {
-      diceingame.permanentchange -=1
+      diceingame.permanentchange -= 1
       diceingame.set()
     }
     if ('threatmultiplier' in this.concedepenalty) {

@@ -95,20 +95,20 @@ function buttondisable1 () {
   $('#playcard').prop('disabled', false)
 }
 
-function buttondisable2 (){
+function buttondisable2 () {
   $('#fourtofivebutton').prop('disabled', false)
 }
 
-function countboxes(){
+function countboxes () {
   let boxchecknumber = $(':checkbox:checked').length
-  if (boxchecknumber === 2){
+  if (boxchecknumber === 2) {
     $('#discardbutton').prop('disabled', false)
   } else {
     $('#discardbutton').prop('disabled', true)
   }
 }
 
-function delayanimation(funct, val) {
+function delayanimation (funct, val) {
   let waittime = new Promise(function (resolve) {
     resolve(setTimeout(funct, val))
   })

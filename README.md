@@ -78,7 +78,7 @@
 
 These can be found here.
 
-![](RackMultipart20210207-4-12qkw2v_html_892bc76665002c1a.gif)
+![Pdf of wireframes](Negotiation wireframes.pdf "Wireframes")
 
 **Features**
 
@@ -160,6 +160,7 @@ To make the design more user friendly I have done the following:
 **W3C Validator**
 
 - Index.php
+![Screenshot of game test](assets/pics/htmlcheckgame.png "Game HTML Check")
 - Login.php
 
 **JS Linter**
