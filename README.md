@@ -78,7 +78,7 @@
 
 These can be found here.
 
-![Pdf of wireframes](Negotiation wireframes.pdf "Wireframes")
+[Pdf of wireframes](Negotiation wireframes.pdf)
 
 **Features**
 
@@ -125,10 +125,11 @@ CSS for the pages is included in a separate stylesheet, but this is again hosted
 **How to use**
 
 **Authorisation Page**
-
+![Login page walkthrough](assets/screenshotlogin.png "Login page displayed")
 This page is very simplistic and minimalistic as it simply acts as a gatekeeper to the actual game. The password is currently made very obvious, but later will be hidden to keep the page secure.
 
 **Negotiation page**
+![Negotiation page walkthrough](assets/screenshotgame.png "Main game page displayed")
 
 Green: The user input area. Scrolling left and right using the arrows will skip through the different actions available to the user. Play card and sacrifice are made obvious ( as is buy when in the correct phase. There is another hidden button that allows the player to get extra cards for free, but the correct demand must be used to do so. The other information on here is the cost, if available and the outcomes for each card, based on the dice roll.
 
@@ -161,12 +162,39 @@ To make the design more user friendly I have done the following:
 
 - Index.php
 ![Screenshot of game test](assets/htmlcheckgame.png "Game HTML Check")
-- Login.php
+The errors shown here are not true errors as the empty headings are filled by JavaScript during the game
 
+- Login.php
+![Screenshot of login test](assets/htmlchecklogin.png "Login HTML Check")
+No errors detected
 **JS Linter**
 
-- Conversationcards.js
--
+- conversationcards.js
+![Screenshot of conversationcards test](assets/lintconvocards.png "conversationcards.js check")
+- demandcards.js
+![Screenshot of demandcards test](assets/lintdemandcards.png "demandcards.js check")
+- dice.js
+![Screenshot of dice test](assets/lintdice.png "dice.js check")
+- hostagetaker.js
+![Screenshot of hostagetaker test](assets/linthostage.png "hostagetaker.js check")
+- modals.js
+![Screenshot of modals test](assets/lintmodals.png "modals.js check")
+- player.js
+![Screenshot of player test](assets/lintplayer.png "player.js check")
+- script.js
+![Screenshot of script test](assets/lintscript.png "script.js check")
+- terrorcards.js
+![Screenshot of terrorcards test](assets/lintterror.png "terrorcards.js check")
+- threat.js
+![Screenshot of threat test](assets/lintthreat.png "threat.js check")
+- viewhandler.js
+![Screenshot of viewhandler test](assets/lintview.png "viewhandler.js check")
+
+The errors here are of one of two types:
+- Error shown as the object is either not defined or not used.
+This is not a true error as other js files will use the variables and objects created
+- Error shown as dot notation would be better
+This is a warning rather than an error and works absolutely fine.
 
 **Further Testing**
 
