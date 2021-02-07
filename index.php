@@ -49,14 +49,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
       <div id="negotiationwindow" class="col-12 row">
         <div id="leftside" class="col-3">
           <table class="table border">
-            <thead>
+            <tr>
               <td id="hostagetakerwindow">
                 <h3>Hostage Taker</h3>
                 <h5><span id="hostagetakername"></span></h5>
                 <p id="whatweknow"></p>
                 <h4 id="turnsleft"></h4>
               </td>
-            </thead>
+            </tr>
             <tbody>
               <tr>
                 <td id="demands">
@@ -101,7 +101,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
         <div id="interface" class="col-6">
           <table class="table border">
-            <thead>
+            <tr>
               <td id="interfaceinside">
                 <div id="hostages_div" class="border">
                   <div>
@@ -145,12 +145,12 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </thead>
                 </table>
               </td>
-            </thead>
+            </tr>
           </table>
         </div>
         <div id="rightside" class="col-3">
           <table class="table border">
-            <thead>
+            <tr>
               <td id="diceroller">
                 <h3 id="titlediceroller">Dice Roller</h3>
                 <div id="view1">
@@ -222,7 +222,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 </div>
                 <button onclick="conversationcards[events.currentcard].acceptcard()" id="playcard" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Accept Roll</button> <button onclick="modals.fourtofivepopup()" id="fourtofivebutton" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span>
               </td>
-            </thead>
+            </tr>
             <tbody>
               <tr>
                 <td id="cards">
@@ -234,7 +234,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <thead>
                       <tr>
                         <th class="border" id="cardtablehead"><button class="button btn-sm btn-secondary" id="prevCard" value="previous" onclick="prevCard()">
-                            << </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">>></button></th>
+                            &lt;&lt; </button> <span id="titleOfCard"></span> <button id="nextCard" class="button btn-sm btn-secondary" value="Next" onclick="nextCard()">&gt;&gt;</button></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -266,7 +266,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="4to5modal" tabindex="-1" role="dialog" aria-labelledby="modal for changing dice results" aria-hidden="true">
+    <div class="modal fade" id="4to5modal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -286,7 +286,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="terrormodal" tabindex="-1" role="dialog" aria-labelledby="modal for displaying terror cards" aria-hidden="true">
+    <div class="modal fade" id="terrormodal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -303,7 +303,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="winlosemodal" tabindex="-1" role="dialog" aria-labelledby="modal for displaying whether or not the game is won or lost" aria-hidden="true">
+    <div class="modal fade" id="winlosemodal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -324,7 +324,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -344,7 +344,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal2" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal2" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -368,7 +368,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal3" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal3" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -379,7 +379,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <h5>Playing Actions</h5>
             <p> On the right of the screen there are actions that you can select by using the &lt;&lt; and &gt;&gt; buttons. You will notice that there are different outcomes based on the number of successes you get. Once you play an action the dice
               will roll and on a &#x2729; you will obtain 1 success.</p>
-            <p> If you get <img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20" width="15">, then you can convert
+            <p> If you get <img src="assets/silhouette.png" alt="card" height="20" width="17"><img src="assets/silhouette.png" alt="card" height="20" width="15">, then you can convert
               this to a success by discarding 2 actions. Either way, once you have done this, click 'accept roll' to continue </p>
             <h5>Discarding Actions</h5>
             <p>You can also discard an action to gain 1 conversation point. This is a key ability and I highly recommend you use it!</p>
@@ -390,7 +390,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal4" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal4" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -410,7 +410,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal5" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal5" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -429,7 +429,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
         </div>
       </div>
     </div>
-    <div class="modal fade" id="instructionsmodal6" tabindex="-1" role="dialog" aria-labelledby="modal for giving instructions" aria-hidden="true">
+    <div class="modal fade" id="instructionsmodal6" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
