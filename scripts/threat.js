@@ -1,17 +1,17 @@
-function ThreatBar (){
-  this.set = function(){
+function ThreatBar () {
+  this.set = function () {
     let threatpercentage = (threatbar.value / 7) * 100
     console.log(threatpercentage)
-    $('#threatbar').css("width", threatpercentage + "%")
+    $('#threatbar').css('width', threatpercentage + '%')
   }
   this.threatdouble = false
-  this.change = async function(change = 0){
-    if (this.threatdouble === true){
+  this.change = async function (change = 0) {
+    if (this.threatdouble === true) {
       change += change
     }
     threatbar.value += change
     let threatpercentage = (threatbar.value / 7) * 100
-    $('#threatbar').css("width", threatpercentage + "%")
+    $('#threatbar').css('width', threatpercentage + '%')
     if (threatpercentage > 100) {
       hostagetakeringame.killhostage(Math.round(((threatpercentage / 100) * 7) - 7))
       threatbar.value = 7
@@ -22,7 +22,7 @@ function ThreatBar (){
       $('#threatbar').removeClass('bg-warning')
       $('#threatbar').addClass('bg-danger')
       diceingame.number = 1 + diceingame.permanentchange
-      if (diceingame.number <= 0){
+      if (diceingame.number <= 0) {
         diceingame.number = 1
       }
       diceingame.set()
@@ -50,4 +50,4 @@ function ThreatBar (){
   this.minimum = 0
 }
 
-threatbar = new ThreatBar ()
+threatbar = new ThreatBar()

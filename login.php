@@ -22,20 +22,9 @@
     }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173045056-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-173045056-1');
-  </script>
   <meta charset="utf-8">
   <title>Disclaimer/Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -48,7 +37,7 @@
       <h1 id="title">Milestone Project 2</h1>
       <p id="titlesub">This page is accessible by permission only. To obtain permission please email <a href="mailto:info@r-guest-developer.world">here</a></p>
       <br>
-      <form action="" method="post" name="login_form">
+      <form method="post" name="login_form">
         <?php if (isset($msg)) {
     echo $msg;
 }    ?>

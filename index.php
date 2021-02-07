@@ -6,20 +6,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173045056-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-173045056-1');
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Negotiation</title>
@@ -114,7 +103,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
           <table class="table border">
             <thead>
               <td id="interfaceinside">
-                <h3>Interface</h3>
                 <div id="hostages_div" class="border">
                   <div>
                     <canvas id="hostages_data_display" aria-label="hostages graph" role="img" style="position: relative; height: 8%; width:8%%;">
@@ -139,8 +127,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
                 <table class="table border">
                   <thead>
                     <tr>
-                      <td class="border" id="phase1bar">Phase 1<br>Play Actions<br><button class="button btn-success" id="endphase1" onclick="events.phasetwo()">End Phase</button></td>
-                      <td class="border" id="phase2bar">Phase 2<br>Buy New Actions<br><button class="button btn-success" id="endphase2" onclick="events.phasethree()">End Phase</button></td>
+                      <td class="border" id="phase1bar">Phase 1<br>Play Actions<br><button class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline" id="endphase1" onclick="events.phasetwo()">End Phase</button></td>
+                      <td class="border" id="phase2bar">Phase 2<br>Buy New Actions<br><button class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline" id="endphase2" onclick="events.phasethree()">End Phase</button></td>
                       <td class="border" id="phase3bar">Phase 3<br>Terror</td>
                     </tr>
                   </thead>
@@ -151,6 +139,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                       <td class='border' id="maininterface">
                         <p>TEXT TO GO HERE TO DESCRIBE HOW GAME IS PROGRESSING</p>
                         <p>This is not available yet, but will be once the game is out of beta</p>
+                        <p>NOT REQUIRED FOR FUNCTIONALITY</p>
                       </td>
                     </tr>
                   </thead>
@@ -169,7 +158,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -182,7 +171,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -195,7 +184,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5<p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -208,7 +197,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -221,7 +210,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
                     <div class="diceFace front">1</div>
                     <div class="diceFace right">2</div>
                     <div class="diceFace back">3</div>
-                    <div class="diceFace left">4 <p class="fourondice"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px"></p>
+                    <div class="diceFace left">4<p class="fourondice"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"><img src="assets/silhouette.png" alt="card" height = "20" width = "15"></p>
                     </div>
                     <div class="diceFace top">5 <p class="fiveorsix">&#x2729;</p>
                     </div>
@@ -230,16 +219,16 @@ if (!isset($_SESSION['UserData']['Username'])) {
                   </div>
                 </div>
                 <div>
-                  <button onclick="conversationcards[events.currentcard].acceptcard()" id="playcard">Accept Roll</button> <button onclick="modals.fourtofivepopup()" id="fourtofivebutton">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span>
                 </div>
+                <button onclick="conversationcards[events.currentcard].acceptcard()" id="playcard" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Accept Roll</button> <button onclick="modals.fourtofivepopup()" id="fourtofivebutton" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Convert 4 to 5</button> <span id="fourtofivetrueorfalse"></span>
               </td>
             </thead>
             <tbody>
               <tr>
                 <td id="cards">
                   <h3 id="actiontitle">Actions</h3>
-                  <div id="playphasebuttons"> <button id="playcardinhand" onclick="conversationcards[events.currentcard].playcard()">Play Card</button> <button id="sacrificecardinhand" onclick="conversationcards[events.currentcard].sacrifice()">Sacrifice for 1 CP</button> </div>
-                  <div id="buyphasebuttons"><button id="buycardtohand" onclick="conversationcards[events.currentcard].buy()">Buy Card</button>
+                  <div id="playphasebuttons"> <button id="playcardinhand" onclick="conversationcards[events.currentcard].playcard()" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Play Card</button> <button id="sacrificecardinhand" onclick="conversationcards[events.currentcard].sacrifice()" class="border border-orange-500 bg-orange-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">Sacrifice for 1 CP</button> </div>
+                  <div id="buyphasebuttons"><button id="buycardtohand" onclick="conversationcards[events.currentcard].buy()" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Buy Card</button>
                   </div>
                   <table class="table table-bordered innertable">
                     <thead>
@@ -322,12 +311,12 @@ if (!isset($_SESSION['UserData']['Username'])) {
           </div>
           <div class="modal-body">
             <p id="winorloseflufftext"></p>
-            <p id="terroreffect">
+            <p>
               Number of hostages saved = <span id="howmanyhostagessaved"></span><br>
               Number of hostages killed = <span id="howmanyhostageskilled"></span><br>
               Abductor in custody/killed = <span id="abductoralive"></span>
             </p>
-            <p id="whathappened"></p>
+            <p></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" onclick="" id="alldone" data-dismiss="">Continue</button>
@@ -349,7 +338,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p>If, at any time, the abductor escapes or time runs out, you have lost.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal2">Your Interface</button> <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal2">Your Interface</button> <button type="button" class="btn btn-primary"
               data-dismiss="modal">Quit</button>
           </div>
         </div>
@@ -373,7 +362,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
               dice will decrease, whereas at low threat you will have more dice and thus more leverage to get your actions to work.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal3">Actions and Dice</button> <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal3">Actions and Dice</button> <button type="button" class="btn btn-primary"
               data-dismiss="modal">Quit</button>
           </div>
         </div>
@@ -390,13 +379,13 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <h5>Playing Actions</h5>
             <p> On the right of the screen there are actions that you can select by using the &lt;&lt; and &gt;&gt; buttons. You will notice that there are different outcomes based on the number of successes you get. Once you play an action the dice
               will roll and on a &#x2729; you will obtain 1 success.</p>
-            <p> If you get <img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20px" width="17px">, then you can convert
+            <p> If you get <img src="assets/silhouette.png" alt="card" height="20px" width="17px"><img src="assets/silhouette.png" alt="card" height="20" width="15">, then you can convert
               this to a success by discarding 2 actions. Either way, once you have done this, click 'accept roll' to continue </p>
             <h5>Discarding Actions</h5>
             <p>You can also discard an action to gain 1 conversation point. This is a key ability and I highly recommend you use it!</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal4">Demands</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal4">Demands</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
           </div>
         </div>
       </div>
@@ -415,7 +404,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p>You can concede the demand by clicking 'concede' if you have enough conversation points. This will give you a powerful one off benefit, but will come with a long term drawback. I suggest you use this sparingly.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal5">Buying Actions</button> <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal5">Buying Actions</button> <button type="button" class="btn btn-primary"
               data-dismiss="modal">Quit</button>
           </div>
         </div>
@@ -435,7 +424,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             <p>To buy an action, navigate to it and click 'buy'. This will work if you have enough conversation points and if the action was not used this round.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="" id="" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal6">Terror</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#instructionsmodal6">Terror</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Quit</button>
           </div>
         </div>
       </div>
@@ -467,7 +456,6 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <p id="logout"><a href="logout.php">Click here</a> to Logout.</p>
   <div id="credits">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   <button id="instructionsbutton" class="button btn-secondary btn-sm" data-toggle="modal" data-target="#instructionsmodal">Instructions</button>
-  </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="./scripts/helper/Chart.js"></script>
   <script src="./scripts/player.js"></script>
@@ -481,8 +469,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
   <script src="./scripts/modals.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="scripts/conversationcards.js"></script>
-  <script type="text/javascript" src="scripts/script.js"></script>
+  <script src="scripts/conversationcards.js"></script>
+  <script src="scripts/script.js"></script>
 </body>
 
 </html>
