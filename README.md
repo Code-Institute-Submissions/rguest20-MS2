@@ -76,7 +76,7 @@
 
 **Preliminary Designs**
 
-These can be found [Pdf of wireframes](negotiationwireframes.pdf "here")
+These can be found [here](negotiationwireframes.pdf "Negotiation wireframes pdf")
 
 **Features**
 
