@@ -205,15 +205,15 @@ This is a warning rather than an error and works absolutely fine.
 
 1. Terror cards should have been shuffled, but unless I play through multiple times, it is hard to tell this had happened. So I call the console and inspect the &#39;terrorcarddeck&#39; element
 
-1
+![First screenshot of terror card test](assets/shufflecheck1.png "Terrorcarddeck appears")
 
 1. Once here I can call the shuffle() function on them (this returns undefined as there is no &#39;return&#39; statement to the function.
 
-2
+![Second screenshot of terror card test](assets/shufflecheck2.png "shuffle used")
 
 1. This then rearranges the cards meaning the shuffle was successful.
 
-3
+![Third screenshot of terror card test](assets/shufflecheck3.png "Terrorcarddeck is shuffled")
 
 **Deployment**
 
