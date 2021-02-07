@@ -160,7 +160,7 @@ To make the design more user friendly I have done the following:
 **W3C Validator**
 
 - Index.php
-![Screenshot of game test](assets/pics/htmlcheckgame.png "Game HTML Check")
+![Screenshot of game test](assets/htmlcheckgame.png "Game HTML Check")
 - Login.php
 
 **JS Linter**
